@@ -9,17 +9,29 @@
         android:id="@+id/navigation_search"
         android:name="com.example.stablediffuser.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_mosaic"
+            app:destination="@id/navigation_mosaic" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_mosaic"
         android:name="com.example.stablediffuser.ui.mosaic.MosaicFragment"
         android:label="@string/title_mosaic"
-        tools:layout="@layout/fragment_mosaic" />
+        tools:layout="@layout/fragment_mosaic" >
+        <action
+            android:id="@+id/action_navigation_mosaic_to_navigation_art"
+            app:destination="@id/navigation_art" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_art"
         android:name="com.example.stablediffuser.ui.art.ArtFragment"
         android:label="@string/title_art"
-        tools:layout="@layout/fragment_art" />
+        tools:layout="@layout/fragment_art" >
+        <action
+            android:id="@+id/action_navigation_art_to_navigation_mosaic"
+            app:destination="@id/navigation_mosaic" />
+    </fragment>
 </navigation>

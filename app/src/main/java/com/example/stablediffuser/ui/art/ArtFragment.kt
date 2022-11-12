@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentArtBinding
 
 class ArtFragment : Fragment() {
@@ -27,10 +29,15 @@ class ArtFragment : Fragment() {
         viewBinding = FragmentArtBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textArt
         artViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        binding.mosaicButton.setOnClickListener {
+            findNavController().navigate(R.id.navigation_mosaic, null)
+        }
+
         return root
     }
 
