@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.PopUpToBuilder
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.utils.NavigationHelper
@@ -37,6 +39,15 @@ class MosaicFragment : Fragment() {
 
         binding.artButton.setOnClickListener {
             findNavController().navigate(R.id.art_dest, null, NavigationHelper.options)
+        }
+
+        binding.searchButton.setOnClickListener {
+            //findNavController().popBackStack(R.id.search_dest, true)
+            findNavController().navigate(R.id.search_dest, null, navOptions {
+                popUpTo(R.id.search_dest) {
+                    inclusive = true
+                }
+            })
         }
 
         return root
