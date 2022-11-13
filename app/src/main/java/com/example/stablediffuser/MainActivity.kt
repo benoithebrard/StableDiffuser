@@ -7,6 +7,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.stablediffuser.databinding.ActivityMainBinding
+import com.example.stablediffuser.utils.NavOptionsHelper.popSearchNavOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -32,5 +33,17 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
+
+        navView.setOnItemReselectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.search_dest -> {
+                    findNavController(R.id.nav_host_fragment_activity_main).navigate(
+                        R.id.search_dest,
+                        null,
+                        popSearchNavOptions
+                    )
+                }
+            }
+        }
     }
 }
