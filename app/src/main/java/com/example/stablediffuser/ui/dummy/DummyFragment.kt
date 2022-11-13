@@ -1,4 +1,4 @@
-package com.example.stablediffuser.ui.art
+package com.example.stablediffuser.ui.dummy
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.R
-import com.example.stablediffuser.databinding.FragmentArtBinding
-import com.example.stablediffuser.utils.NavOptionsHelper.popSearchNavOptions
-import com.example.stablediffuser.utils.NavOptionsHelper.showScreenNavOptions
+import com.example.stablediffuser.databinding.FragmentDummyBinding
+import com.example.stablediffuser.databinding.FragmentSearchBinding
 
-class ArtFragment : Fragment() {
+class DummyFragment : Fragment() {
 
-    private var viewBinding: FragmentArtBinding? = null
+    private var viewBinding: FragmentDummyBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,22 +25,18 @@ class ArtFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val artViewModel = ViewModelProvider(this)[ArtViewModel::class.java]
+        val dummyViewModel = ViewModelProvider(this)[DummyViewModel::class.java]
 
-        viewBinding = FragmentArtBinding.inflate(inflater, container, false)
+        viewBinding = FragmentDummyBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textArt
-        artViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textDummy
+        dummyViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
 
-        binding.mosaicButton.setOnClickListener {
-            findNavController().navigate(R.id.mosaic_dest, null, showScreenNavOptions)
-        }
-
         binding.searchButton.setOnClickListener {
-            findNavController().navigate(R.id.search_dest, null, popSearchNavOptions)
+            findNavController().navigate(R.id.search_dest, null)
         }
 
         return root

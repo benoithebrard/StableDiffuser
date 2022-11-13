@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.databinding.FragmentSearchBinding
+import com.example.stablediffuser.utils.NavOptionsHelper.showScreenNavOptions
 
 class SearchFragment : Fragment() {
 
@@ -27,10 +29,18 @@ class SearchFragment : Fragment() {
         viewBinding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        val textView: TextView = binding.textSearch
         searchViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        binding.mosaicButton.setOnClickListener {
+            val action = SearchFragmentDirections.actionNavigationSearchToNavigationMosaic()
+                .setMosaicUrl("http://some.cool.mosaic.url")
+
+            findNavController().navigate(action, showScreenNavOptions)
+        }
+
         return root
     }
 
