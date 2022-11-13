@@ -35,7 +35,7 @@ class MosaicFragment : Fragment() {
         }
 
         binding.artButton.setOnClickListener {
-            findNavController().navigate(R.id.navigation_art, null)
+            findNavController().navigate(R.id.art_dest, null)
         }
 
         return root

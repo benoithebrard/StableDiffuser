@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">StableDiffuser</string>
     <string name="title_search">Search</string>
-    <string name="title_mosaic">Mosaic</string>
+    <string name="title_mosaic">Dummy</string>
     <string name="title_art">Art</string>
 </resources>
