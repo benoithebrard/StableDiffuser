@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentArtBinding
+import com.example.stablediffuser.utils.NavOptionsHelper.popSearchNavOptions
 import com.example.stablediffuser.utils.NavOptionsHelper.showScreenNavOptions
 
 class ArtFragment : Fragment() {
@@ -37,6 +38,10 @@ class ArtFragment : Fragment() {
 
         binding.mosaicButton.setOnClickListener {
             findNavController().navigate(R.id.mosaic_dest, null, showScreenNavOptions)
+        }
+
+        binding.searchButton.setOnClickListener {
+            findNavController().navigate(R.id.search_dest, null, popSearchNavOptions)
         }
 
         return root
