@@ -20,6 +20,12 @@
         android:name="com.example.stablediffuser.ui.mosaic.MosaicFragment"
         android:label="@string/title_mosaic"
         tools:layout="@layout/fragment_mosaic">
+
+        <argument
+            android:name="mosaicUrl"
+            app:argType="string"
+            android:defaultValue="invalid"/>
+
         <action
             android:id="@+id/action_navigation_mosaic_to_navigation_art"
             app:destination="@id/art_dest" />

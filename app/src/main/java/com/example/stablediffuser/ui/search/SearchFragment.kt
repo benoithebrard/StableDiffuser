@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentSearchBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.showScreenNavOptions
 
@@ -36,7 +35,10 @@ class SearchFragment : Fragment() {
         }
 
         binding.mosaicButton.setOnClickListener {
-            findNavController().navigate(R.id.mosaic_dest, null, showScreenNavOptions)
+            val action = SearchFragmentDirections.actionNavigationSearchToNavigationMosaic()
+                .setMosaicUrl("http://some.cool.mosaic.url")
+
+            findNavController().navigate(action, showScreenNavOptions)
         }
 
         return root
