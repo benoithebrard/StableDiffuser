@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.R
+import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
+import kotlinx.coroutines.launch
 
 class MosaicFragment : Fragment() {
 
@@ -50,7 +55,24 @@ class MosaicFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tot = mosaicUrl
+        with(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    Configuration.lexicaRepository.searchForImages("apples").fold(
+                        onSuccess = { images ->
+                            images.map {
+                                it.srcSmall
+                            }.let { imageUrls ->
+                                mosaicViewModel.setImageUrls(imageUrls)
+                            }
+                        },
+                        onFailure = { exception ->
+                            val tot = exception
+                        }
+                    )
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
