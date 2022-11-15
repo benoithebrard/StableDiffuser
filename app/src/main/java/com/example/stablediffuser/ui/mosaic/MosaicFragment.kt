@@ -60,7 +60,11 @@ class MosaicFragment : Fragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     Configuration.lexicaRepository.searchForImages("apples").fold(
                         onSuccess = { images ->
-                            val tot = images
+                            images.map {
+                                it.srcSmall
+                            }.let { imageUrls ->
+                                mosaicViewModel.setImageUrls(imageUrls)
+                            }
                         },
                         onFailure = { exception ->
                             val tot = exception
