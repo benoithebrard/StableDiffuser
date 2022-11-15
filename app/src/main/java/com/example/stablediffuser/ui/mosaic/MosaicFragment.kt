@@ -11,14 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
-import com.example.stablediffuser.utils.NavOptionsHelper
-import com.example.stablediffuser.utils.NavOptionsHelper.popSearchNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
 
 class MosaicFragment : Fragment() {
 
-    private val safeArgs: MosaicFragmentArgs by navArgs()
+    private val mosaicArgs: MosaicFragmentArgs by navArgs()
 
-    private val mosaicUrl: String by lazy { safeArgs.mosaicUrl }
+    private val mosaicUrl: String by lazy { mosaicArgs.mosaicUrl }
 
     private var viewBinding: FragmentMosaicBinding? = null
 
@@ -42,11 +42,16 @@ class MosaicFragment : Fragment() {
         }
 
         binding.artButton.setOnClickListener {
-            findNavController().navigate(R.id.art_dest, null, NavOptionsHelper.showScreenNavOptions)
+            MosaicFragmentDirections
+                .actionNavigationMosaicToNavigationArt()
+                .setArtUrl("http://some.cool.art.url")
+                .also { action ->
+                    findNavController().navigate(action, defaultScreenNavOptions)
+                }
         }
 
         binding.searchButton.setOnClickListener {
-            findNavController().navigate(R.id.search_dest, null, popSearchNavOptions)
+            findNavController().navigate(R.id.search_dest, null, popToSearchNavOptions)
         }
 
         return root

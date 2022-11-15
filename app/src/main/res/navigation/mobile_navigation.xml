@@ -10,6 +10,7 @@
         android:name="com.example.stablediffuser.ui.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search">
+
         <action
             android:id="@+id/action_navigation_search_to_navigation_mosaic"
             app:destination="@id/mosaic_dest" />
@@ -23,8 +24,8 @@
 
         <argument
             android:name="mosaicUrl"
-            app:argType="string"
-            android:defaultValue="invalid"/>
+            android:defaultValue="invalid"
+            app:argType="string" />
 
         <action
             android:id="@+id/action_navigation_mosaic_to_navigation_art"
@@ -36,6 +37,12 @@
         android:name="com.example.stablediffuser.ui.art.ArtFragment"
         android:label="@string/title_art"
         tools:layout="@layout/fragment_art">
+
+        <argument
+            android:name="artUrl"
+            android:defaultValue="invalid"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_navigation_art_to_navigation_mosaic"
             app:destination="@id/mosaic_dest" />
