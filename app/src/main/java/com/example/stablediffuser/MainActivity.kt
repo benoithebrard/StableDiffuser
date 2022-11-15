@@ -15,8 +15,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val navController: NavController
-        get() = findNavController(R.id.nav_host_fragment_activity_main)
+    private val navController: NavController by lazy {
+        findNavController(R.id.nav_host_fragment_activity_main)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
