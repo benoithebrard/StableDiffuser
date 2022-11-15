@@ -16,7 +16,7 @@ class SearchFragment : Fragment() {
     private val searchViewModel: SearchViewModel by lazy {
         SearchViewModel(
             title = "This is a search Fragment",
-            onMosaicClicked = {
+            onShowMosaic = {
                 SearchFragmentDirections
                     .actionNavigationSearchToNavigationMosaic()
                     .setMosaicUrl("http://some.cool.mosaic.url")

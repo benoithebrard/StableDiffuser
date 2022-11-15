@@ -4,5 +4,5 @@ import android.view.View
 
 data class SearchViewModel(
     val title: String,
-    val onMosaicClicked: View.OnClickListener
+    val onShowMosaic: View.OnClickListener
 )
