@@ -1,13 +1,9 @@
 package com.example.stablediffuser.ui.mosaic
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.view.View
 
-class MosaicViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is a mosaic Fragment"
-    }
-    val text: LiveData<String> = _text
-}
+data class MosaicViewModel(
+    val title: String,
+    val onShowArt: View.OnClickListener,
+    val onShowSearch: View.OnClickListener
+)

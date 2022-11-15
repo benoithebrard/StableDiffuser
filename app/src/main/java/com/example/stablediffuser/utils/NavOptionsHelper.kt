@@ -5,7 +5,7 @@ import com.example.stablediffuser.R
 
 object NavOptionsHelper {
 
-    val showScreenNavOptions = navOptions {
+    val defaultScreenNavOptions = navOptions {
         anim {
             enter = R.anim.slide_in_right
             exit = R.anim.slide_out_left
@@ -14,7 +14,7 @@ object NavOptionsHelper {
         }
     }
 
-    val popSearchNavOptions = navOptions {
+    val popToSearchNavOptions = navOptions {
         anim {
             enter = R.anim.fade_in
             exit = R.anim.fade_out

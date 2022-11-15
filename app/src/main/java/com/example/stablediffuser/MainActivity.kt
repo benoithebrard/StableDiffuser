@@ -8,7 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.stablediffuser.databinding.ActivityMainBinding
-import com.example.stablediffuser.utils.NavOptionsHelper.popSearchNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -39,11 +39,7 @@ class MainActivity : AppCompatActivity() {
         navView.setOnItemReselectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.search_dest -> {
-                    findNavController(R.id.nav_host_fragment_activity_main).navigate(
-                        R.id.search_dest,
-                        null,
-                        popSearchNavOptions
-                    )
+                    navController.navigate(R.id.search_dest, null, popToSearchNavOptions)
                 }
             }
         }

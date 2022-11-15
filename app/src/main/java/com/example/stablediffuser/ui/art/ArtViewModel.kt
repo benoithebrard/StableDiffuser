@@ -1,13 +1,9 @@
 package com.example.stablediffuser.ui.art
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.view.View
 
-class ArtViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is an art Fragment"
-    }
-    val text: LiveData<String> = _text
-}
+data class ArtViewModel(
+    val title: String,
+    val onShowMosaic: View.OnClickListener,
+    val onShowSearch: View.OnClickListener
+)
