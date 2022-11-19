@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,16 +19,21 @@ class ArtFragment : Fragment() {
 
     private val artUrl: String by lazy { artArgs.artUrl }
 
+    private val artTitle: String by lazy { artArgs.artTitle }
+
     private var viewBinding: FragmentArtBinding? = null
 
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
             title = "This is an art Fragment",
+            imageUrl = artUrl,
             onShowMosaic = {
                 ArtFragmentDirections
-                    .actionNavigationArtToNavigationMosaic()
-                    .setMosaicUrl("http://some.cool.mosaic.url.from.art")
-                    .also { action ->
+                    .actionNavigationArtToNavigationMosaic().apply {
+                        mosaicQuery =
+                            "https://lexica-serve-encoded-images.sharif.workers.dev/md/0abb5412-577f-4cdc-a1e0-0f9109a3f9c7"
+                        mosaicTitle = "refined search"
+                    }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
             },
@@ -50,7 +56,7 @@ class ArtFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tot = artUrl
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = artTitle
     }
 
     override fun onDestroyView() {

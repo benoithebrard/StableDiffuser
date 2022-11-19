@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 @BindingAdapter("spanCount")
-fun RecyclerView.setSpanCount(spanCount: Int) {
-    layoutManager = GridLayoutManager(context, spanCount)
+fun RecyclerView.setSpanCount(spanCount: Int?) {
+    if (spanCount != null && layoutManager !is GridLayoutManager) {
+        layoutManager = GridLayoutManager(context, spanCount)
+    }
 }
