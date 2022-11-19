@@ -12,12 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.stablediffuser.R
 import com.example.stablediffuser.config.Configuration.lexicaRepository
 import com.example.stablediffuser.data.image.LexicaImage
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
-import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
 import kotlinx.coroutines.launch
 
 class MosaicFragment : Fragment() {
@@ -31,20 +29,7 @@ class MosaicFragment : Fragment() {
     private var viewBinding: FragmentMosaicBinding? = null
 
     private val mosaicViewModel: MosaicViewModel by lazy {
-        MosaicViewModel(
-            title = "This is a mosaic Fragment",
-            onShowArt = {
-                MosaicFragmentDirections
-                    .actionNavigationMosaicToNavigationArt()
-                    .setArtUrl("http://some.cool.art.url")
-                    .also { action ->
-                        findNavController().navigate(action, defaultScreenNavOptions)
-                    }
-            },
-            onShowSearch = {
-                findNavController().navigate(R.id.search_dest, null, popToSearchNavOptions)
-            }
-        )
+        MosaicViewModel()
     }
 
     override fun onCreateView(
@@ -83,16 +68,30 @@ class MosaicFragment : Fragment() {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     val result = lexicaRepository.searchForImages(mosaicQuery)
                     result.getOrNull()?.let { images ->
-                        images.map {
-                            it.srcSmall
-                        }.let { imageUrls ->
-                            mosaicViewModel.setImageUrls(imageUrls)
-                        }
+                        val cellViewModels = images.toMosaicCellViewModels(
+                            onShowArt = { imageUrl ->
+                                showArt(imageUrl)
+                            }
+                        )
+                        mosaicViewModel.showContent(cellViewModels)
                     }
                     viewBinding?.showState(result)
                 }
             }
         }
+    }
+
+    private fun showArt(imageUrl: String) {
+        MosaicFragmentDirections
+            .actionNavigationMosaicToNavigationArt().apply {
+                artUrl = imageUrl
+                artTitle = mosaicTitle
+            }.also { action ->
+                findNavController().navigate(
+                    action,
+                    defaultScreenNavOptions
+                )
+            }
     }
 
     private fun FragmentMosaicBinding.showState(result: Result<List<LexicaImage>>? = null) {
