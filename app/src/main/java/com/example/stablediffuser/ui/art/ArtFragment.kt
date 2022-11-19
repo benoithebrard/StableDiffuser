@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentArtBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
-import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.example.stablediffuser.utils.extensions.toTitle
 
@@ -26,7 +24,6 @@ class ArtFragment : Fragment() {
 
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
-            title = "This is an art Fragment",
             imageUrl = artUrl,
             onShowMosaic = {
                 ArtFragmentDirections
@@ -36,9 +33,6 @@ class ArtFragment : Fragment() {
                     }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
-            },
-            onShowSearch = {
-                findNavController().navigate(R.id.search_dest, null, popToSearchNavOptions)
             }
         )
     }
