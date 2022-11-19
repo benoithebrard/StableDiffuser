@@ -23,6 +23,7 @@ internal fun List<LexicaImage>.toMosaicCellViewModels(
     with(image) {
         MosaicCellViewModel(
             imageUrl = srcSmall,
+            hasWarning = nsfw,
             onShowArt = {
                 onShowArt(src, prompt)
             }
