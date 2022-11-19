@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +22,9 @@ class MosaicFragment : Fragment() {
 
     private val mosaicArgs: MosaicFragmentArgs by navArgs()
 
-    private val mosaicUrl: String by lazy { mosaicArgs.mosaicUrl }
+    private val mosaicQuery: String by lazy { mosaicArgs.mosaicQuery }
+
+    private val mosaicTitle: String by lazy { mosaicArgs.mosaicTitle }
 
     private var viewBinding: FragmentMosaicBinding? = null
 
@@ -55,10 +58,13 @@ class MosaicFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = mosaicTitle
+        //bernie%20sanders%20as%20greek%20god
+
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    Configuration.lexicaRepository.searchForImages("apples").fold(
+                    Configuration.lexicaRepository.searchForImages(mosaicQuery).fold(
                         onSuccess = { images ->
                             images.map {
                                 it.srcSmall

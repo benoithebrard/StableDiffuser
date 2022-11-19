@@ -25,9 +25,11 @@ class ArtFragment : Fragment() {
             title = "This is an art Fragment",
             onShowMosaic = {
                 ArtFragmentDirections
-                    .actionNavigationArtToNavigationMosaic()
-                    .setMosaicUrl("http://some.cool.mosaic.url.from.art")
-                    .also { action ->
+                    .actionNavigationArtToNavigationMosaic().apply {
+                        mosaicQuery =
+                            "https://lexica-serve-encoded-images.sharif.workers.dev/md/0abb5412-577f-4cdc-a1e0-0f9109a3f9c7"
+                        mosaicTitle = "refined search"
+                    }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
             },

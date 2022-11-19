@@ -23,7 +23,12 @@
         tools:layout="@layout/fragment_mosaic">
 
         <argument
-            android:name="mosaicUrl"
+            android:name="mosaicQuery"
+            android:defaultValue="invalid"
+            app:argType="string" />
+
+        <argument
+            android:name="mosaicTitle"
             android:defaultValue="invalid"
             app:argType="string" />
 
@@ -40,6 +45,11 @@
 
         <argument
             android:name="artUrl"
+            android:defaultValue="invalid"
+            app:argType="string" />
+
+        <argument
+            android:name="artTitle"
             android:defaultValue="invalid"
             app:argType="string" />
 

@@ -18,9 +18,10 @@ class SearchFragment : Fragment() {
             title = "This is a search Fragment",
             onShowMosaic = {
                 SearchFragmentDirections
-                    .actionNavigationSearchToNavigationMosaic()
-                    .setMosaicUrl("http://some.cool.mosaic.url")
-                    .also { action ->
+                    .actionNavigationSearchToNavigationMosaic().apply {
+                        mosaicQuery = "Bernie Sanders as a greek god"
+                        mosaicTitle = mosaicQuery
+                    }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
             }
