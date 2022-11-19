@@ -9,6 +9,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import java.io.IOException
 
 class LexicaRepository(
     baseUrl: String,
@@ -35,8 +36,14 @@ class LexicaRepository(
 
     suspend fun searchForImages(
         query: String
-    ): Result<List<LexicaImage>> =
-        lexicaService.searchForImages(query).toResult().map { lexicaResponse ->
-            lexicaResponse.images
+    ): Result<List<LexicaImage>> {
+        return try {
+            lexicaService.searchForImages(query).toResult().map { searchResponse ->
+                searchResponse.images
+            }
+        } catch (e: IOException) {
+            Result.failure(e)
         }
+    }
+
 }
