@@ -78,11 +78,15 @@ class MosaicFragment : Fragment() {
         }
     }
 
-    private fun showArt(imageUrl: String, prompt: String) {
+    private fun showArt(image: LexicaImage) {
         MosaicFragmentDirections
             .actionNavigationMosaicToNavigationArt().apply {
-                artUrl = imageUrl
-                artTitle = prompt
+                with(image) {
+                    artUrl = src
+                    artTitle = prompt
+                    artSize = "$width x $height"
+                    artNsfw = nsfw
+                }
             }.also { action ->
                 findNavController().navigate(
                     action,

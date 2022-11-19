@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.stablediffuser.ui.art.ArtViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#99000000"
+        android:padding="10dp"
+        tools:context=".ui.art.ArtFragment">
+
+        <TextView
+            android:id="@+id/prompt_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClickListener="@{viewModel.onSharePrompt}"
+            android:text="@{viewModel.prompt}"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:visible="@{viewModel.showPrompt}"
+            tools:text="dsjfiodsjfoi ldfmn fiodsjf  ofjdskfmfn sldfmn fiodsjfo mfnd ksldfmn " />
+
+        <ImageView
+            android:id="@+id/dimensions_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/dimensions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/prompt_text" />
+
+        <TextView
+            android:id="@+id/dimensions_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{viewModel.dimensions}"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/dimensions_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/dimensions_icon"
+            app:layout_constraintTop_toTopOf="@id/dimensions_icon"
+            tools:text="1024 x 450" />
+
+        <ImageView
+            android:id="@+id/nsfw_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/warning"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dimensions_icon"
+            app:visible="@{viewModel.nsfw}" />
+
+        <TextView
+            android:id="@+id/nsfw_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/nsfw_text"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/nsfw_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/nsfw_icon"
+            app:layout_constraintTop_toTopOf="@id/nsfw_icon"
+            app:visible="@{viewModel.nsfw}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

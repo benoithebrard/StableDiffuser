@@ -14,6 +14,7 @@ import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.example.stablediffuser.utils.extensions.toTitle
 
+
 class ArtFragment : Fragment() {
 
     private val artArgs: ArtFragmentArgs by navArgs()
@@ -21,6 +22,10 @@ class ArtFragment : Fragment() {
     private val artUrl: String by lazy { artArgs.artUrl }
 
     private val artTitle: String by lazy { artArgs.artTitle }
+
+    private val artSize: String by lazy { artArgs.artSize }
+
+    private val artNsfw: Boolean by lazy { artArgs.artNsfw }
 
     private var viewBinding: FragmentArtBinding? = null
 
@@ -32,6 +37,8 @@ class ArtFragment : Fragment() {
         ArtViewModel(
             imageUrl = artUrl,
             prompt = artTitle.toTitle(),
+            dimensions = artSize,
+            nsfw = artNsfw,
             clipboard = clipboard,
             onShowMosaic = {
                 ArtFragmentDirections

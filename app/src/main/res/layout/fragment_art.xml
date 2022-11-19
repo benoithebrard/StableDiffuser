@@ -40,12 +40,13 @@
 
         <ImageView
             android:id="@+id/info_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
             android:elevation="6dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClickListener="@{viewModel.onTogglePrompt}"
+            android:padding="10dp"
             android:src="@drawable/info"
             app:layout_constraintBottom_toBottomOf="@id/mosaic_button"
             app:layout_constraintEnd_toStartOf="@id/mosaic_button"
@@ -53,32 +54,32 @@
 
         <ImageView
             android:id="@+id/share_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
             android:elevation="6dp"
             android:foreground="?android:attr/selectableItemBackground"
+            android:onClickListener="@{viewModel.onShareUrl}"
+            android:padding="10dp"
             android:src="@drawable/sharing"
             app:layout_constraintBottom_toBottomOf="@id/mosaic_button"
             app:layout_constraintStart_toEndOf="@id/mosaic_button"
             app:layout_constraintTop_toTopOf="@id/mosaic_button" />
 
-        <TextView
+        <include
             android:id="@+id/info_description"
+            layout="@layout/item_art_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#99000000"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:elevation="6dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:onClickListener="@{viewModel.onSharePrompt}"
-            android:padding="10dp"
-            android:text="@{viewModel.prompt}"
-            android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@id/info_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:viewModel="@{viewModel}"
             app:visible="@{viewModel.showPrompt}"
             tools:text="dsjfiodsjfoi ldfmn fiodsjf  ofjdskfmfn sldfmn fiodsjfo mfnd ksldfmn " />
 
