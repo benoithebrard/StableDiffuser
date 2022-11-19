@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,11 +9,22 @@
             type="com.example.stablediffuser.ui.mosaic.MosaicCellViewModel" />
     </data>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:onClickListener="@{viewModel.onShowArt}"
-        android:src="@{viewModel.imageUrl}" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_200"
+        android:elevation="6dp"
+        android:padding="2dp">
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@android:color/white"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClickListener="@{viewModel.onShowArt}"
+            android:scaleType="fitCenter"
+            android:src="@{viewModel.imageUrl}"
+            tools:src="@drawable/palette" />
+
+    </FrameLayout>
 </layout>

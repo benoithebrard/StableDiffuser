@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.R
-import com.example.stablediffuser.config.Configuration
+import com.example.stablediffuser.config.Configuration.lexicaRepository
+import com.example.stablediffuser.data.image.LexicaImage
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
@@ -59,30 +61,44 @@ class MosaicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = mosaicTitle
-        //bernie%20sanders%20as%20greek%20god
 
-        with(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    Configuration.lexicaRepository.searchForImages(mosaicQuery).fold(
-                        onSuccess = { images ->
-                            images.map {
-                                it.srcSmall
-                            }.let { imageUrls ->
-                                mosaicViewModel.setImageUrls(imageUrls)
-                            }
-                        },
-                        onFailure = { exception ->
-                            val tot = exception
-                        }
-                    )
-                }
+        viewBinding?.apply {
+            errorIndicator.setOnClickListener {
+                searchForImages()
             }
+            showState()
         }
+
+        searchForImages()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         viewBinding = null
+    }
+
+    private fun searchForImages() {
+        with(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    val result = lexicaRepository.searchForImages(mosaicQuery)
+                    result.getOrNull()?.let { images ->
+                        images.map {
+                            it.srcSmall
+                        }.let { imageUrls ->
+                            mosaicViewModel.setImageUrls(imageUrls)
+                        }
+                    }
+                    viewBinding?.showState(result)
+                }
+            }
+        }
+    }
+
+    private fun FragmentMosaicBinding.showState(result: Result<List<LexicaImage>>? = null) {
+        loadingIndicator.isVisible = result == null
+        errorIndicator.isVisible = result?.isFailure ?: false
+        emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false
+        mosaicContent.isVisible = result?.getOrNull()?.isNotEmpty() ?: false
     }
 }

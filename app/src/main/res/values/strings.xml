@@ -3,4 +3,6 @@
     <string name="title_search">Search</string>
     <string name="title_mosaic">Mosaic</string>
     <string name="title_art">Art</string>
+    <string name="empty_title">Nothing to show</string>
+    <string name="retry_title">Retry</string>
 </resources>
