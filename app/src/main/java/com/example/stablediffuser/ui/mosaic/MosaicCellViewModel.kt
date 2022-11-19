@@ -4,5 +4,6 @@ import android.view.View
 
 data class MosaicCellViewModel(
     val imageUrl: String,
+    val hasWarning: Boolean,
     val onShowArt: View.OnClickListener
 )

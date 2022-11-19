@@ -12,6 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         tools:context=".ui.art.ArtFragment">
 
         <ImageView
@@ -22,44 +25,64 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="fitCenter"
             android:src="@{viewModel.imageUrl}"
+            tools:background="@color/teal_200"
             tools:src="@drawable/palette" />
-
-        <TextView
-            android:id="@+id/text_art"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{viewModel.title}"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/mosaic_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="27dp"
             android:onClickListener="@{viewModel.onShowMosaic}"
-            android:text="Mosaic"
+            android:text="@string/show_more"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_art" />
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/info_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="6dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClickListener="@{viewModel.onTogglePrompt}"
+            android:padding="10dp"
+            android:src="@drawable/info"
+            app:layout_constraintBottom_toBottomOf="@id/mosaic_button"
+            app:layout_constraintEnd_toStartOf="@id/mosaic_button"
+            app:layout_constraintTop_toTopOf="@id/mosaic_button" />
+
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:elevation="6dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClickListener="@{viewModel.onShareUrl}"
+            android:padding="10dp"
+            android:src="@drawable/sharing"
+            app:layout_constraintBottom_toBottomOf="@id/mosaic_button"
+            app:layout_constraintStart_toEndOf="@id/mosaic_button"
+            app:layout_constraintTop_toTopOf="@id/mosaic_button" />
+
+        <include
+            android:id="@+id/info_description"
+            layout="@layout/item_art_description"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClickListener="@{viewModel.onShowSearch}"
-            android:text="Search"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="6dp"
+            app:layout_constraintBottom_toTopOf="@id/info_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mosaic_button" />
+            app:viewModel="@{viewModel}"
+            app:visible="@{viewModel.showPrompt}"
+            tools:text="dsjfiodsjfoi ldfmn fiodsjf  ofjdskfmfn sldfmn fiodsjfo mfnd ksldfmn " />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

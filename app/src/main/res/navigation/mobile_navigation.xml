@@ -53,6 +53,16 @@
             android:defaultValue="invalid"
             app:argType="string" />
 
+        <argument
+            android:name="artSize"
+            android:defaultValue="invalid"
+            app:argType="string" />
+
+        <argument
+            android:name="artNsfw"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
         <action
             android:id="@+id/action_navigation_art_to_navigation_mosaic"
             app:destination="@id/mosaic_dest" />

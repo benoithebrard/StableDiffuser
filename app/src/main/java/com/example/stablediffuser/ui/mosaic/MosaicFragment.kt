@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -16,6 +15,7 @@ import com.example.stablediffuser.config.Configuration.lexicaRepository
 import com.example.stablediffuser.data.image.LexicaImage
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import kotlinx.coroutines.launch
 
 class MosaicFragment : Fragment() {
@@ -44,8 +44,7 @@ class MosaicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = mosaicTitle
+        setToolbarTitle(mosaicTitle)
 
         viewBinding?.apply {
             errorIndicator.setOnClickListener {
@@ -69,9 +68,7 @@ class MosaicFragment : Fragment() {
                     val result = lexicaRepository.searchForImages(mosaicQuery)
                     result.getOrNull()?.let { images ->
                         val cellViewModels = images.toMosaicCellViewModels(
-                            onShowArt = { imageUrl ->
-                                showArt(imageUrl)
-                            }
+                            onShowArt = ::showArt
                         )
                         mosaicViewModel.showContent(cellViewModels)
                     }
@@ -81,11 +78,15 @@ class MosaicFragment : Fragment() {
         }
     }
 
-    private fun showArt(imageUrl: String) {
+    private fun showArt(image: LexicaImage) {
         MosaicFragmentDirections
             .actionNavigationMosaicToNavigationArt().apply {
-                artUrl = imageUrl
-                artTitle = mosaicTitle
+                with(image) {
+                    artUrl = src
+                    artTitle = prompt
+                    artSize = "$width x $height"
+                    artNsfw = nsfw
+                }
             }.also { action ->
                 findNavController().navigate(
                     action,

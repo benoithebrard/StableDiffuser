@@ -5,4 +5,6 @@
     <string name="title_art">Art</string>
     <string name="empty_title">Nothing to show</string>
     <string name="retry_title">Retry</string>
+    <string name="show_more">More of the same</string>
+    <string name="nsfw_text">Not safe for work</string>
 </resources>

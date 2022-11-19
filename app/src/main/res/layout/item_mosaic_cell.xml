@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,7 +10,7 @@
             type="com.example.stablediffuser.ui.mosaic.MosaicCellViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/teal_200"
@@ -17,15 +18,31 @@
         android:padding="1dp">
 
         <ImageView
+            android:id="@+id/cell_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:background="@color/teal_700"
+            android:background="@color/black"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClickListener="@{viewModel.onShowArt}"
             android:scaleType="fitCenter"
             android:src="@{viewModel.imageUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/palette" />
 
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/warning_indicator"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:elevation="10dp"
+            android:src="@drawable/warning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visible="@{viewModel.hasWarning}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

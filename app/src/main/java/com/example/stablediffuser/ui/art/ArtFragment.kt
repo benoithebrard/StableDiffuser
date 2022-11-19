@@ -1,17 +1,19 @@
 package com.example.stablediffuser.ui.art
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentArtBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
-import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
+import com.example.stablediffuser.utils.extensions.setToolbarTitle
+import com.example.stablediffuser.utils.extensions.toTitle
+
 
 class ArtFragment : Fragment() {
 
@@ -21,24 +23,31 @@ class ArtFragment : Fragment() {
 
     private val artTitle: String by lazy { artArgs.artTitle }
 
+    private val artSize: String by lazy { artArgs.artSize }
+
+    private val artNsfw: Boolean by lazy { artArgs.artNsfw }
+
     private var viewBinding: FragmentArtBinding? = null
+
+    private val clipboard: ClipboardManager by lazy {
+        requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    }
 
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
-            title = "This is an art Fragment",
             imageUrl = artUrl,
+            prompt = artTitle.toTitle(),
+            dimensions = artSize,
+            nsfw = artNsfw,
+            clipboard = clipboard,
             onShowMosaic = {
                 ArtFragmentDirections
                     .actionNavigationArtToNavigationMosaic().apply {
-                        mosaicQuery =
-                            "https://lexica-serve-encoded-images.sharif.workers.dev/md/0abb5412-577f-4cdc-a1e0-0f9109a3f9c7"
-                        mosaicTitle = "refined search"
+                        mosaicQuery = artUrl
+                        mosaicTitle = "More of: ${artTitle.toTitle()}"
                     }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
-            },
-            onShowSearch = {
-                findNavController().navigate(R.id.search_dest, null, popToSearchNavOptions)
             }
         )
     }
@@ -55,8 +64,7 @@ class ArtFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = artTitle
+        setToolbarTitle(artTitle)
     }
 
     override fun onDestroyView() {
