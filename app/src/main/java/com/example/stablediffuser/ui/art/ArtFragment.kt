@@ -25,6 +25,7 @@ class ArtFragment : Fragment() {
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
             imageUrl = artUrl,
+            prompt = artTitle.toTitle(),
             onShowMosaic = {
                 ArtFragmentDirections
                     .actionNavigationArtToNavigationMosaic().apply {
