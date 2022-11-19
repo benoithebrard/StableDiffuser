@@ -1,5 +1,7 @@
 package com.example.stablediffuser.ui.art
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,10 +24,15 @@ class ArtFragment : Fragment() {
 
     private var viewBinding: FragmentArtBinding? = null
 
+    private val clipboard: ClipboardManager by lazy {
+        requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    }
+
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
             imageUrl = artUrl,
             prompt = artTitle.toTitle(),
+            clipboard = clipboard,
             onShowMosaic = {
                 ArtFragmentDirections
                     .actionNavigationArtToNavigationMosaic().apply {
