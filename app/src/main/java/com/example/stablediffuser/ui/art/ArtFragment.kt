@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -12,6 +11,8 @@ import com.example.stablediffuser.R
 import com.example.stablediffuser.databinding.FragmentArtBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
+import com.example.stablediffuser.utils.extensions.setToolbarTitle
+import com.example.stablediffuser.utils.extensions.toTitle
 
 class ArtFragment : Fragment() {
 
@@ -30,9 +31,8 @@ class ArtFragment : Fragment() {
             onShowMosaic = {
                 ArtFragmentDirections
                     .actionNavigationArtToNavigationMosaic().apply {
-                        mosaicQuery =
-                            "https://lexica-serve-encoded-images.sharif.workers.dev/md/0abb5412-577f-4cdc-a1e0-0f9109a3f9c7"
-                        mosaicTitle = "refined search"
+                        mosaicQuery = artUrl
+                        mosaicTitle = "More of: ${artTitle.toTitle()}"
                     }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
@@ -55,8 +55,7 @@ class ArtFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = artTitle
+        setToolbarTitle(artTitle)
     }
 
     override fun onDestroyView() {

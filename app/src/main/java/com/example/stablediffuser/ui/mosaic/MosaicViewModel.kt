@@ -18,13 +18,13 @@ class MosaicViewModel {
 }
 
 internal fun List<LexicaImage>.toMosaicCellViewModels(
-    onShowArt: (imageUrl: String) -> Unit
+    onShowArt: (imageUrl: String, prompt: String) -> Unit
 ): List<MosaicCellViewModel> = map { image ->
     with(image) {
         MosaicCellViewModel(
             imageUrl = srcSmall,
             onShowArt = {
-                onShowArt(src)
+                onShowArt(src, prompt)
             }
         )
     }
