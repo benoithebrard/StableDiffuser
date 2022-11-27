@@ -4,6 +4,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.view.View
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.LifecycleCoroutineScope
+import kotlinx.coroutines.delay
+
+private const val DELAY_MS_SHOW_PROMPT = 1000L
 
 data class ArtViewModel(
     val imageUrl: String,
@@ -11,9 +15,10 @@ data class ArtViewModel(
     val dimensions: String,
     val nsfw: Boolean,
     val clipboard: ClipboardManager,
+    val scope: LifecycleCoroutineScope,
     val onShowMosaic: View.OnClickListener,
 ) {
-    val showPrompt = ObservableBoolean(true)
+    val showPrompt = ObservableBoolean()
 
     val onTogglePrompt = View.OnClickListener {
         showPrompt.set(!showPrompt.get())
@@ -28,6 +33,13 @@ data class ArtViewModel(
     val onShareUrl = View.OnClickListener {
         ClipData.newPlainText("Stable Diffusion url", imageUrl).also { clipData ->
             clipboard.setPrimaryClip(clipData)
+        }
+    }
+
+    init {
+        scope.launchWhenCreated {
+            delay(DELAY_MS_SHOW_PROMPT)
+            showPrompt.set(true)
         }
     }
 }
