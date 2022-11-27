@@ -22,6 +22,9 @@ class SearchFragment : Fragment() {
         SearchViewModel(
             onShowMosaic = {
                 viewBinding?.handleSearch()
+            },
+            onClearSearch = {
+                viewBinding?.clearSearch()
             }
         )
     }
@@ -40,7 +43,9 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewBinding?.apply {
             searchBox.doAfterTextChanged {
-                searchViewModel.isSearchEnabled.set(searchBox.text.toString().length > MIN_COUNT_CHARACTERS_SEARCH)
+                val searchQuery = searchBox.text.toString()
+                searchViewModel.isSearchEnabled.set(searchQuery.length > MIN_COUNT_CHARACTERS_SEARCH)
+                searchViewModel.isClearVisible.set(searchQuery.isNotEmpty())
             }
 
             searchBox.setOnKeyListener { view, keyCode, keyEvent ->
@@ -73,5 +78,9 @@ class SearchFragment : Fragment() {
             }.also { action ->
                 findNavController().navigate(action, defaultScreenNavOptions)
             }
+    }
+
+    private fun FragmentSearchBinding.clearSearch() {
+        searchBox.text?.clear()
     }
 }
