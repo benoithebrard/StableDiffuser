@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.databinding.FragmentSearchBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+
+private const val MIN_COUNT_CHARACTERS_SEARCH = 3
 
 class SearchFragment : Fragment() {
 
@@ -17,13 +21,19 @@ class SearchFragment : Fragment() {
         SearchViewModel(
             title = "This is a search Fragment",
             onShowMosaic = {
-                SearchFragmentDirections
-                    .actionNavigationSearchToNavigationMosaic().apply {
-                        mosaicQuery = "Bernie Sanders as a greek god"
-                        mosaicTitle = mosaicQuery
-                    }.also { action ->
-                        findNavController().navigate(action, defaultScreenNavOptions)
+                viewBinding?.apply {
+                    searchBox.doAfterTextChanged {
+
                     }
+                    searchBox.doOnTextChanged { text, start, before, count -> }
+                    SearchFragmentDirections
+                        .actionNavigationSearchToNavigationMosaic().apply {
+                            mosaicQuery = searchBox.text.toString()
+                            mosaicTitle = mosaicQuery
+                        }.also { action ->
+                            findNavController().navigate(action, defaultScreenNavOptions)
+                        }
+                }
             }
         )
     }
@@ -37,6 +47,16 @@ class SearchFragment : Fragment() {
     }.also { binding ->
         viewBinding = binding
     }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding?.apply {
+            searchBox.doAfterTextChanged {
+                val searchQuery = searchBox.text.toString()
+                searchViewModel.isSearchEnabled.set(searchQuery.length > MIN_COUNT_CHARACTERS_SEARCH)
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

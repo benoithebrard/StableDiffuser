@@ -13,7 +13,7 @@ data class ArtViewModel(
     val clipboard: ClipboardManager,
     val onShowMosaic: View.OnClickListener,
 ) {
-    val showPrompt = ObservableBoolean()
+    val showPrompt = ObservableBoolean(true)
 
     val onTogglePrompt = View.OnClickListener {
         showPrompt.set(!showPrompt.get())
