@@ -4,7 +4,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import com.example.stablediffuser.BR
 import com.example.stablediffuser.R
-import com.example.stablediffuser.data.image.LexicaImage
+import com.example.stablediffuser.data.lexica.LexicaImage
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class MosaicViewModel {

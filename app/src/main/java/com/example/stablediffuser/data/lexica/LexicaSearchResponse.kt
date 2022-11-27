@@ -1,4 +1,4 @@
-package com.example.stablediffuser.data.image
+package com.example.stablediffuser.data.lexica
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

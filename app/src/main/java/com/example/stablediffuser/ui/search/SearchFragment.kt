@@ -1,5 +1,6 @@
 package com.example.stablediffuser.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent.ACTION_DOWN
 import android.view.KeyEvent.KEYCODE_ENTER
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.stablediffuser.data.repositories.QueryRepository
 import com.example.stablediffuser.databinding.FragmentSearchBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 
@@ -18,15 +20,29 @@ class SearchFragment : Fragment() {
 
     private var viewBinding: FragmentSearchBinding? = null
 
+    private val queryRepository: QueryRepository by lazy {
+        QueryRepository(
+            sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        )
+    }
+
     private val searchViewModel: SearchViewModel by lazy {
         SearchViewModel(
             onShowMosaic = {
                 viewBinding?.handleSearch()
             },
             onClearSearch = {
-                viewBinding?.clearSearch()
+                viewBinding?.searchBox?.text?.clear()
+            },
+            onLoadQuery = { query ->
+                viewBinding?.searchBox?.setText(query)
             }
         )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        queryRepository.restore()
     }
 
     override fun onCreateView(
@@ -41,46 +57,49 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding?.apply {
-            searchBox.doAfterTextChanged {
-                val searchQuery = searchBox.text.toString()
-                searchViewModel.isSearchEnabled.set(searchQuery.length > MIN_COUNT_CHARACTERS_SEARCH)
-                searchViewModel.isClearVisible.set(searchQuery.isNotEmpty())
-            }
-
-            searchBox.setOnKeyListener { view, keyCode, keyEvent ->
-                when {
-                    keyEvent.action == ACTION_DOWN && keyCode == KEYCODE_ENTER -> {
-                        if (searchViewModel.isSearchEnabled.get()) {
-                            viewBinding?.handleSearch()
-                        }
-                        true
-                    }
-                    else -> false
-                }
-            }
+        viewBinding?.setupUI()
+        queryRepository.getAll().also { queries ->
+            searchViewModel.setQueries(queries)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewBinding?.apply {
-            searchBox.setOnKeyListener(null)
-        }
+        queryRepository.save()
+        viewBinding?.searchBox?.setOnKeyListener(null)
         viewBinding = null
+    }
+
+    private fun FragmentSearchBinding.setupUI() {
+        searchBox.doAfterTextChanged {
+            searchViewModel.isSearchEnabled.set(searchQuery.length > MIN_COUNT_CHARACTERS_SEARCH)
+            searchViewModel.isClearVisible.set(searchQuery.isNotEmpty())
+        }
+
+        searchBox.setOnKeyListener { view, keyCode, keyEvent ->
+            when {
+                keyEvent.action == ACTION_DOWN && keyCode == KEYCODE_ENTER -> {
+                    if (searchViewModel.isSearchEnabled.get()) {
+                        viewBinding?.handleSearch()
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun FragmentSearchBinding.handleSearch() {
         SearchFragmentDirections
             .actionNavigationSearchToNavigationMosaic().apply {
-                mosaicQuery = searchBox.text.toString()
+                mosaicQuery = searchQuery
                 mosaicTitle = mosaicQuery
             }.also { action ->
                 findNavController().navigate(action, defaultScreenNavOptions)
             }
+        queryRepository.add(searchQuery)
     }
 
-    private fun FragmentSearchBinding.clearSearch() {
-        searchBox.text?.clear()
-    }
+    private val FragmentSearchBinding.searchQuery: String
+        get() = searchBox.text.toString()
 }
