@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/light_grey"
         tools:context=".ui.search.SearchFragment">
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -25,7 +26,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".25" />
 
         <ImageView
             android:id="@+id/clear_button"
@@ -47,10 +49,38 @@
             android:layout_marginTop="20dp"
             android:enabled="@{viewModel.isSearchEnabled}"
             android:onClickListener="@{viewModel.onShowMosaic}"
-            android:text="Search"
+            android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_box" />
+            app:layout_constraintTop_toBottomOf="@id/search_box"
+            tools:enabled="false" />
+
+        <TextView
+            android:id="@+id/recent_queries_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="@string/recent_searches"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mosaic_button" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/previous_queries"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:items="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recent_queries_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

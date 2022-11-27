@@ -1,4 +1,4 @@
-package com.example.stablediffuser.data.repository
+package com.example.stablediffuser.utils
 
 import java.io.IOException
 

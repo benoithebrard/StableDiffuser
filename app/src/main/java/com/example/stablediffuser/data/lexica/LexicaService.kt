@@ -1,6 +1,5 @@
-package com.example.stablediffuser.data.service
+package com.example.stablediffuser.data.lexica
 
-import com.example.stablediffuser.data.image.LexicaSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

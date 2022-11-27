@@ -7,5 +7,7 @@
     <string name="retry_title">Retry</string>
     <string name="show_more">More of the same</string>
     <string name="nsfw_text">Not safe for work</string>
-    <string name="search_box_hint">What image you are looking for ? E.g. monkey in a pink spacesuit</string>
+    <string name="search_box_hint">What image you are looking for?</string>
+    <string name="search">Search</string>
+    <string name="recent_searches">Recent searches</string>
 </resources>

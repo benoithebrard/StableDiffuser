@@ -1,7 +1,7 @@
-package com.example.stablediffuser.data.repository
+package com.example.stablediffuser.data.repositories
 
-import com.example.stablediffuser.data.image.LexicaImage
-import com.example.stablediffuser.data.service.LexicaService
+import com.example.stablediffuser.data.lexica.LexicaImage
+import com.example.stablediffuser.data.lexica.LexicaService
 import com.example.stablediffuser.utils.extensions.toResult
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
