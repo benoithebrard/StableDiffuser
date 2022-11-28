@@ -26,6 +26,8 @@ class QueryRepository(
 
     fun getAll(): List<String> = orderedQueries.reversed()
 
+    fun clearAll() = orderedQueries.clear()
+
     fun save() {
         with(sharedPref.edit()) {
             repeat((0 until orderedQueries.size).count()) { index ->

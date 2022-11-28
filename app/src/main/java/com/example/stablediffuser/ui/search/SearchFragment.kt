@@ -34,6 +34,13 @@ class SearchFragment : Fragment() {
             onClearSearch = {
                 viewBinding?.searchBox?.text?.clear()
             },
+            onClearQueries = {
+                queryRepository.apply {
+                    clearAll()
+                    save()
+                }
+                searchViewModel.setQueries()
+            },
             onLoadQuery = { query ->
                 viewBinding?.searchBox?.setText(query)
             }
