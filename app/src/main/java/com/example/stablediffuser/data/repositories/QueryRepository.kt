@@ -26,7 +26,10 @@ class QueryRepository(
 
     fun getAll(): List<String> = orderedQueries.reversed()
 
-    fun clearAll() = orderedQueries.clear()
+    fun clearAll() {
+        orderedQueries.clear()
+        orderedQueries.add(DEFAULT_QUERY_EXAMPLE)
+    }
 
     fun save() {
         with(sharedPref.edit()) {

@@ -22,7 +22,7 @@ data class SearchViewModel(
 
     val itemBinding = ItemBinding.of<SearchQueryViewModel>(BR.viewModel, R.layout.item_search_query)
 
-    fun setQueries(queries: List<String> = emptyList()) {
+    fun setQueries(queries: List<String>) {
         items.clear()
         queries.toQueryViewModels(onLoadQuery).also { viewModels ->
             items.addAll(viewModels)

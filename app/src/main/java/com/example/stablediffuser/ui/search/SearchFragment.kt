@@ -39,7 +39,7 @@ class SearchFragment : Fragment() {
                     clearAll()
                     save()
                 }
-                searchViewModel.setQueries()
+                searchViewModel.setQueries(queryRepository.getAll())
             },
             onLoadQuery = { query ->
                 viewBinding?.searchBox?.setText(query)
