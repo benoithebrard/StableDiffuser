@@ -46,7 +46,7 @@
             android:id="@+id/mosaic_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:enabled="@{viewModel.isSearchEnabled}"
             android:onClickListener="@{viewModel.onShowMosaic}"
             android:text="@string/search"
@@ -64,16 +64,32 @@
             android:fontFamily="sans-serif-condensed-medium"
             android:text="@string/recent_searches"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mosaic_button" />
+
+        <Button
+            android:id="@+id/queries_clear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/white"
+            android:onClickListener="@{viewModel.onClearQueries}"
+            android:text="@string/clear"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/recent_queries_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/recent_queries_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/previous_queries"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             android:clipChildren="false"
             android:clipToPadding="false"
+            android:requiresFadingEdge="vertical"
             app:itemBinding="@{viewModel.itemBinding}"
             app:items="@{viewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -34,6 +34,13 @@ class SearchFragment : Fragment() {
             onClearSearch = {
                 viewBinding?.searchBox?.text?.clear()
             },
+            onClearQueries = {
+                queryRepository.apply {
+                    clearAll()
+                    save()
+                }
+                searchViewModel.setQueries(queryRepository.getAll())
+            },
             onLoadQuery = { query ->
                 viewBinding?.searchBox?.setText(query)
             }
@@ -66,9 +73,13 @@ class SearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        queryRepository.save()
         viewBinding?.searchBox?.setOnKeyListener(null)
         viewBinding = null
+    }
+
+    override fun onDestroy() {
+        queryRepository.save()
+        super.onDestroy()
     }
 
     private fun FragmentSearchBinding.setupUI() {

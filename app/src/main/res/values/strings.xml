@@ -10,4 +10,6 @@
     <string name="search_box_hint">What image you are looking for?</string>
     <string name="search">Search</string>
     <string name="recent_searches">Recent searches</string>
+    <string name="clear">clear</string>
+    <string name="no_search_query">No search query</string>
 </resources>

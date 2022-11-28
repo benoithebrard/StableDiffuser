@@ -11,7 +11,8 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 data class SearchViewModel(
     val onShowMosaic: View.OnClickListener,
     val onClearSearch: View.OnClickListener,
-    val onLoadQuery: (String) -> Unit
+    val onClearQueries: View.OnClickListener,
+    val onLoadQuery: (String) -> Unit,
 ) {
     val isSearchEnabled = ObservableBoolean()
 
@@ -22,16 +23,9 @@ data class SearchViewModel(
     val itemBinding = ItemBinding.of<SearchQueryViewModel>(BR.viewModel, R.layout.item_search_query)
 
     fun setQueries(queries: List<String>) {
-        queries.map { query ->
-            SearchQueryViewModel(
-                query = query,
-                onLoadQuery = {
-                    onLoadQuery(query)
-                }
-            )
-        }.also { queryViewModels ->
-            items.clear()
-            items.addAll(queryViewModels)
+        items.clear()
+        queries.toQueryViewModels(onLoadQuery).also { viewModels ->
+            items.addAll(viewModels)
         }
     }
 }
