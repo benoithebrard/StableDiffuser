@@ -8,7 +8,7 @@ private const val KEY_SHARED_PREF_QUERY_COUNT = "stable_diffuser_query_count"
 
 private const val MAX_COUNT_QUERY = 5
 
-private const val DEFAULT_QUERY_EXAMPLE = "Monkey in a pink spacesuit, in the style of Banksy"
+private const val DEFAULT_QUERY_EXAMPLE = "a monkey in a pink spacesuit, in the style of Banksy"
 
 class QueryRepository(
     private val sharedPref: SharedPreferences
