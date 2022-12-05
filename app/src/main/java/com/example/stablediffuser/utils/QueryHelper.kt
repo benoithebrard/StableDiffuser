@@ -2,7 +2,7 @@ package com.example.stablediffuser.utils
 
 object QueryHelper {
 
-    private val predefinedQueries: List<String> = listOf(
+    private val predefinedQueries: Set<String> = setOf(
         "A beautiful portrait of a cute cyberpunk dog by greg rutkowski and wlop, purple blue color scheme, digital art, highly detailed, fine detail, intricate, ornate, complex",
         "A young female shaman, blue hair and antlers on her head. blindfolded, heilung, in the style of Heather Theurer, made by karol bak",
         "Portrait of a 19th century woman with antlers on her head, 1900s photography",
@@ -42,5 +42,15 @@ object QueryHelper {
         "Art by bill mayers, beeple, concept art, surrealist"
     )
 
-    fun randomQuery(): String = predefinedQueries.random()
+    private val remainingQueries: MutableSet<String> = predefinedQueries.toMutableSet()
+
+    fun randomQuery(): String {
+        val query = remainingQueries.random().also { element ->
+            remainingQueries.remove(element)
+        }
+        if (remainingQueries.isEmpty()) {
+            remainingQueries.addAll(predefinedQueries)
+        }
+        return query
+    }
 }
