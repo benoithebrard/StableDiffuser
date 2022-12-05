@@ -120,7 +120,7 @@ class MosaicFragment : Fragment() {
             val retryMinutes = retryIn?.let { it.toInt() / 60 }
             Toast.makeText(
                 requireContext(),
-                "Time to rest your thumbs! Try again in $retryMinutes",
+                "Time to rest your thumbs! Try again in $retryMinutes mn",
                 Toast.LENGTH_SHORT
             ).show()
         }
