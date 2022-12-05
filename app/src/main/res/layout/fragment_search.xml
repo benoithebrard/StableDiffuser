@@ -44,17 +44,15 @@
             app:layout_constraintTop_toTopOf="@id/search_box"
             app:visible="@{viewModel.isClearVisible}" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/mosaic_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/search_button_background"
             android:elevation="6dp"
             android:enabled="@{viewModel.isSearchEnabled}"
             android:onClickListener="@{viewModel.onShowMosaic}"
             android:text="@string/search"
-            android:textColor="@color/search_button_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_box"
@@ -73,16 +71,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mosaic_button" />
 
-        <Button
+        <ImageButton
             android:id="@+id/queries_clear_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@color/white"
             android:onClickListener="@{viewModel.onClearQueries}"
-            android:text="@string/clear"
-            android:textColor="@color/black"
-            android:textSize="12sp"
+            android:src="@drawable/dice"
             app:layout_constraintBottom_toBottomOf="@id/recent_queries_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/recent_queries_title" />

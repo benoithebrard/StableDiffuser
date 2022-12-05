@@ -8,5 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 fun RecyclerView.setSpanCount(spanCount: Int?) {
     if (spanCount != null && layoutManager !is GridLayoutManager) {
         layoutManager = GridLayoutManager(context, spanCount)
+        adapter?.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 }
