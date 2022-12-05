@@ -7,9 +7,11 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.stablediffuser.R
 import com.example.stablediffuser.data.repositories.QueryRepository
 import com.example.stablediffuser.databinding.FragmentSearchBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
@@ -34,7 +36,8 @@ class SearchFragment : Fragment() {
             onClearSearch = {
                 viewBinding?.searchBox?.text?.clear()
             },
-            onClearQueries = {
+            onClearQueries = { view ->
+                view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.shake))
                 queryRepository.apply {
                     clearAll()
                     save()

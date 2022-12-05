@@ -1,14 +1,13 @@
 package com.example.stablediffuser.data.repositories
 
 import android.content.SharedPreferences
+import com.example.stablediffuser.utils.QueryHelper
 
 private const val KEY_SHARED_PREF_QUERY = "stable_diffuser_query"
 
 private const val KEY_SHARED_PREF_QUERY_COUNT = "stable_diffuser_query_count"
 
 private const val MAX_COUNT_QUERY = 5
-
-private const val DEFAULT_QUERY_EXAMPLE = "A beautiful portrait of a cute cyberpunk dog by greg rutkowski and wlop, purple blue color scheme, digital art, highly detailed, fine detail, intricate, ornate, complex"
 
 class QueryRepository(
     private val sharedPref: SharedPreferences
@@ -28,7 +27,7 @@ class QueryRepository(
 
     fun clearAll() {
         orderedQueries.clear()
-        orderedQueries.add(DEFAULT_QUERY_EXAMPLE)
+        orderedQueries.add(QueryHelper.randomQuery())
     }
 
     fun save() {
@@ -54,7 +53,7 @@ class QueryRepository(
         }
 
         if (orderedQueries.isEmpty()) {
-            orderedQueries.add(DEFAULT_QUERY_EXAMPLE)
+            orderedQueries.add(QueryHelper.randomQuery())
         }
     }
 }
