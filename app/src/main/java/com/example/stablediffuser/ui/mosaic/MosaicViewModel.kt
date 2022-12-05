@@ -1,19 +1,38 @@
 package com.example.stablediffuser.ui.mosaic
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
+import androidx.recyclerview.widget.DiffUtil
 import com.example.stablediffuser.BR
 import com.example.stablediffuser.R
 import com.example.stablediffuser.data.lexica.LexicaImage
 import me.tatarka.bindingcollectionadapter2.ItemBinding
+import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 
 class MosaicViewModel {
-    val items: ObservableList<MosaicCellViewModel> = ObservableArrayList()
+
+    private val cellDiffCallback: DiffUtil.ItemCallback<MosaicCellViewModel> =
+        object : DiffUtil.ItemCallback<MosaicCellViewModel>() {
+            override fun areItemsTheSame(
+                oldItem: MosaicCellViewModel,
+                newItem: MosaicCellViewModel
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: MosaicCellViewModel,
+                newItem: MosaicCellViewModel
+            ): Boolean {
+                return oldItem.imageUrl == newItem.imageUrl &&
+                        oldItem.hasWarning == newItem.hasWarning
+            }
+        }
+
+    val items: DiffObservableList<MosaicCellViewModel> = DiffObservableList(cellDiffCallback)
 
     val itemBinding = ItemBinding.of<MosaicCellViewModel>(BR.viewModel, R.layout.item_mosaic_cell)
 
     fun showContent(viewModels: List<MosaicCellViewModel>) {
-        items.addAll(viewModels)
+        items.update(viewModels)
     }
 }
 
@@ -22,6 +41,7 @@ internal fun List<LexicaImage>.toMosaicCellViewModels(
 ): List<MosaicCellViewModel> = map { image ->
     with(image) {
         MosaicCellViewModel(
+            id = id,
             imageUrl = srcSmall,
             hasWarning = nsfw,
             onShowArt = {
