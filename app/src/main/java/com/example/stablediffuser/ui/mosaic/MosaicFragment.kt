@@ -62,6 +62,8 @@ class MosaicFragment : Fragment() {
     }
 
     private fun searchForImages() {
+        viewBinding?.showState(null)
+
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
