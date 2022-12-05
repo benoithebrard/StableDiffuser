@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -88,7 +89,11 @@ class MosaicFragment : Fragment() {
                                 if (code == HTTP_ERROR_TOO_MANY_REQUESTS) {
                                     val retryIn = headers.get(HTTP_HEADER_RETRY_AFTER)
                                     val retryMinutes = retryIn?.let { it.toInt() / 60 }
-                                    val restYourThumbsInMn = retryMinutes
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Time to rest your thumbs! Try again in $retryMinutes",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                         }
