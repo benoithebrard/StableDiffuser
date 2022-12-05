@@ -4,9 +4,18 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
-@BindingAdapter("android:src")
-fun ImageView.setImageUrl(imageUrl: String?) {
+@BindingAdapter(value = ["android:src", "thumbSrc"], requireAll = false)
+fun ImageView.setImageUrl(imageUrl: String?, thumbSrc: String?) {
     if (imageUrl != null) {
-        Glide.with(this).load(imageUrl).into(this)
+        val requestBuilder = Glide.with(this).load(imageUrl)
+        if (thumbSrc != null) {
+            requestBuilder.thumbnail(
+                Glide.with(this)
+                    .load(thumbSrc)
+                    .fitCenter()
+            ).into(this)
+        } else {
+            requestBuilder.into(this)
+        }
     }
 }

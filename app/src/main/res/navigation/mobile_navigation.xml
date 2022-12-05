@@ -49,6 +49,11 @@
             app:argType="string" />
 
         <argument
+            android:name="thumbUrl"
+            android:defaultValue="invalid"
+            app:argType="string" />
+
+        <argument
             android:name="artTitle"
             android:defaultValue="invalid"
             app:argType="string" />

@@ -99,6 +99,7 @@ class MosaicFragment : Fragment() {
             .actionNavigationMosaicToNavigationArt().apply {
                 with(image) {
                     artUrl = src
+                    thumbUrl = srcSmall
                     artTitle = prompt
                     artSize = "$width x $height"
                     artNsfw = nsfw
@@ -116,11 +117,11 @@ class MosaicFragment : Fragment() {
         val headers = headers
 
         if (code == HTTP_ERROR_TOO_MANY_REQUESTS) {
-            val retryIn = headers.get(HTTP_HEADER_RETRY_AFTER)
-            val retryMinutes = retryIn?.let { it.toInt() / 60 }
+            val retrySeconds = headers.get(HTTP_HEADER_RETRY_AFTER)
+            val retryMinutes = retrySeconds?.let { it.toInt() / 60 }
             Toast.makeText(
                 requireContext(),
-                "Time to rest your thumbs! Try again in $retryMinutes mn",
+                "You need to rest your thumbs! Please try again in $retryMinutes mn",
                 Toast.LENGTH_SHORT
             ).show()
         }

@@ -22,6 +22,8 @@ class ArtFragment : Fragment() {
 
     private val artUrl: String by lazy { artArgs.artUrl }
 
+    private val thumbUrl: String by lazy { artArgs.thumbUrl }
+
     private val artTitle: String by lazy { artArgs.artTitle }
 
     private val artSize: String by lazy { artArgs.artSize }
@@ -37,6 +39,7 @@ class ArtFragment : Fragment() {
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
             imageUrl = artUrl,
+            thumbUrl = thumbUrl,
             prompt = artTitle.toTitle(),
             dimensions = artSize,
             nsfw = artNsfw,

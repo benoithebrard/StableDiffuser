@@ -25,6 +25,7 @@
             android:onClickListener="@{viewModel.onTogglePrompt}"
             android:scaleType="fitCenter"
             android:src="@{viewModel.imageUrl}"
+            app:thumbSrc="@{viewModel.thumbUrl}"
             tools:background="@color/teal_200"
             tools:src="@drawable/palette" />
 

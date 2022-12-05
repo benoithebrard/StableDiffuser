@@ -11,6 +11,7 @@ private const val DELAY_MS_SHOW_PROMPT = 1500L
 
 data class ArtViewModel(
     val imageUrl: String,
+    val thumbUrl: String,
     val prompt: String,
     val dimensions: String,
     val nsfw: Boolean,
