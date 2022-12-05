@@ -1,5 +1,6 @@
 package com.example.stablediffuser.utils
 
+import okhttp3.Headers
 import java.io.IOException
 
 sealed class LexicaError(
@@ -13,7 +14,8 @@ sealed class LexicaError(
     ) : LexicaError(message, cause)
 
     class Response(
-        val errorCode: Int
+        val statusCode: Int,
+        val headers: Headers
     ) : LexicaError()
 
     object MissingBody : LexicaError()

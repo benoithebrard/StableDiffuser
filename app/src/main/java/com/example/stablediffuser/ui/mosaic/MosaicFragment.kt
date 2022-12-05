@@ -14,9 +14,14 @@ import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.config.Configuration.lexicaRepository
 import com.example.stablediffuser.data.lexica.LexicaImage
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
+import com.example.stablediffuser.utils.LexicaError
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import kotlinx.coroutines.launch
+
+private const val HTTP_ERROR_TOO_MANY_REQUESTS = 429
+
+private const val HTTP_HEADER_RETRY_AFTER = "retry-after"
 
 class MosaicFragment : Fragment() {
 
@@ -62,18 +67,32 @@ class MosaicFragment : Fragment() {
     }
 
     private fun searchForImages() {
-        viewBinding?.showState(null)
+        viewBinding?.showLoading()
 
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     val result = lexicaRepository.searchForImages(mosaicQuery)
-                    result.getOrNull()?.let { images ->
-                        val cellViewModels = images.toMosaicCellViewModels(
-                            onShowArt = ::showArt
-                        )
-                        mosaicViewModel.showContent(cellViewModels)
-                    }
+                    result.fold(
+                        onSuccess = { images ->
+                            images.toMosaicCellViewModels(
+                                onShowArt = ::showArt
+                            ).also { viewModels ->
+                                mosaicViewModel.showContent(viewModels)
+                            }
+                        },
+                        onFailure = { exception ->
+                            if (exception is LexicaError.Response) {
+                                val code = exception.statusCode
+                                val headers = exception.headers
+                                if (code == HTTP_ERROR_TOO_MANY_REQUESTS) {
+                                    val retryIn = headers.get(HTTP_HEADER_RETRY_AFTER)
+                                    val retryMinutes = retryIn?.let { it.toInt() / 60 }
+                                    val restYourThumbsInMn = retryMinutes
+                                }
+                            }
+                        }
+                    )
                     viewBinding?.showState(result)
                 }
             }
@@ -96,6 +115,8 @@ class MosaicFragment : Fragment() {
                 )
             }
     }
+
+    private fun FragmentMosaicBinding.showLoading() = showState(null)
 
     private fun FragmentMosaicBinding.showState(result: Result<List<LexicaImage>>? = null) {
         loadingIndicator.isVisible = result == null

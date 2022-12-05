@@ -11,8 +11,6 @@ object QueryHelper {
         "Renaissance portrait of a black and white cat wearing a crown, in the style of eugene de blaas",
         "A rabbit dressed as a queen wearing a crown, 18th century oil painting",
         "Portrait of bernie sanders as gandalf in lord of the rings, beautiful, very detailed, hyperrealistic, medium shot, very detailed painting by Glenn Fabry, by Joao Ruas",
-        "President Donald J Trump as a Greek god, detailed face, gorgeous, amazing, muscular, fit, very muscular male body, Caesar victorious, proud Emperor , intricate, highly detailed, digital painting, artstation, concept art, sharp focus, illustration, art by greg rutkowski and alphonse mucha",
-        "Boris Johnson as Rambo, Boris Johnson hairstyle, masculine figure, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, cinematic lighting, art by artgerm and greg rutkowski and alphonse mucha",
         "Hyper-realistic upper-body Portrait of the King of the Desert, Warrior, Gold Armour and Crown, Sword, handsome attractive face, attractive young man, beautiful face, photo realistic, dramatic lighting, majestic, trending on artstation, elegant, intricate, highly detailed, digital painting, concept art, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha",
         "Joe Biden as Captain America, western, D&D, fantasy, intricate, elegant, highly detailed, digital painting, artstation, concept art, matte, sharp focus, illustration, art by Artgerm and Greg Rutkowski and Alphonse Mucha",
         "Digital painting of masked incan dog warrior, by filipe pagliuso and justin gerard, symmetric, fantasy, realistic, highly detailed, realistic, intricate, sharp focus, tarot card, portrait, peruvian",
@@ -21,7 +19,6 @@ object QueryHelper {
         "a circle portal structure built out of plants,mushrooms, trees, curves, arches, bright cyberpunk glow, epic surrealism, forest green, orange, lime green, dull red, pale blue, Detailed digital matte painting in the style of simon stalenhag, Greg Rutkowski and Greg Hildebrandt artstation",
         "Portrait art of 8k ultra realistic retro , lens flare, atmosphere, glow, detailed,intricate,blade runner, cybernetic, full of colour, cinematic lighting, trending on artstation, 4k, hyperrealistic, focused, extreme details,unreal engine 5, cinematic, masterpiece, art by ayami kojima",
         "A fluorescent giant mushrooms forest, beautiful crystal deposits glowing on the floor, in style of laurel d austin, 2 d art, concept art, fantasy, high detail, trending on artstation",
-        "Boris Johnson as Punisher, armor plate, realistic portrait, symmetrical, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, cinematic lighting, art by artgerm and greg rutkowski and alphonse mucha",
         "Elon Musk as a Greek god, gorgeous, amazing, muscular, fit, intricate, highly detailed, digital painting, artstation, concept art, sharp focus, illustration, art by greg rutkowski and alphonse mucha",
         "Portrait of teenage medusa, snake hair, naughty smile, wearing an embroidered orange tunic, intricate, elegant, copper and emerald jewelry, glowing lights, seductive. highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by wlop, mucha, artgerm, and greg rutkowski",
         "High quality 3 d render very cute fluffy! cyborg cow plays guitar, cyberpunk highly detailed, unreal engine cinematic smooth, in the style of blade runner & detective pikachu, hannah yata charlie immer, moody light, low angle, uhd 8 k, sharp focus",
@@ -34,10 +31,7 @@ object QueryHelper {
         "Portrait of shoebill - stork - mecha - carrion crawler, intricate abstract. intricate artwork, by tooth wu, wlop, beeple, dan mumford. concept art, octane render, trending on artstation, greg rutkowski very coherent symmetrical artwork. cinematic, key art, hyper realism, high detail, octane render, 8 k, iridescent accents",
         "Fennec fox,neon pink, palm trees, furry, cute, smug facial expression, disney zootopia, zootopia, concept art, aviator sunglasses, smug expression, synthwave style, artstation, detailed, award winning, dramatic lighting, miami vice, oil on canvas, vibes, GTA criminal",
         "A cyberpunk portrait of a obama by jean - michel basquiat, by hayao miyazaki by artgerm, highly detailed, sacred geometry, mathematics, snake, geometry, cyberpunk, vibrant, water",
-        "Communist clown painting, sovier propaganda style, hyper realistic portrait, very detailed line, vivid colors",
         "Highly detailed vfx portrait of audrey hepburn mixed with emilia clarke, geometric polygons, global illumination, detailed and intricate environment by james jean, liam brazier, victo ngai and tristan eaton",
-        "Vladimir putin as a ronald mcdonald, 2 d portrait, symmetrical, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, cinematic lighting, art by artgerm and greg rutkowski and alphonse mucha",
-        "A painting of boris johnson as a common peasant in 1 2 th century england, british museum, oil on canvas",
         "Zaha hadid 3 d construction printed house on the mountain, soft light, streetscapes stunning volumetric lighting sunset",
         "Art by bill mayers, beeple, concept art, surrealist"
     )
