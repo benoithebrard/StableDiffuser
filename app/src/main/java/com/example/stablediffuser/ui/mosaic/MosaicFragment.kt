@@ -84,17 +84,7 @@ class MosaicFragment : Fragment() {
                         },
                         onFailure = { exception ->
                             if (exception is LexicaError.Response) {
-                                val code = exception.statusCode
-                                val headers = exception.headers
-                                if (code == HTTP_ERROR_TOO_MANY_REQUESTS) {
-                                    val retryIn = headers.get(HTTP_HEADER_RETRY_AFTER)
-                                    val retryMinutes = retryIn?.let { it.toInt() / 60 }
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Time to rest your thumbs! Try again in $retryMinutes",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                                exception.handleError()
                             }
                         }
                     )
@@ -119,6 +109,21 @@ class MosaicFragment : Fragment() {
                     defaultScreenNavOptions
                 )
             }
+    }
+
+    private fun LexicaError.Response.handleError() {
+        val code = statusCode
+        val headers = headers
+
+        if (code == HTTP_ERROR_TOO_MANY_REQUESTS) {
+            val retryIn = headers.get(HTTP_HEADER_RETRY_AFTER)
+            val retryMinutes = retryIn?.let { it.toInt() / 60 }
+            Toast.makeText(
+                requireContext(),
+                "Time to rest your thumbs! Try again in $retryMinutes",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun FragmentMosaicBinding.showLoading() = showState(null)
