@@ -1,4 +1,4 @@
-package com.example.stablediffuser.utils
+package com.example.stablediffuser.data.lexica
 
 import okhttp3.Headers
 import java.io.IOException

@@ -15,7 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.config.Configuration.lexicaRepository
 import com.example.stablediffuser.data.lexica.LexicaImage
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
-import com.example.stablediffuser.utils.LexicaError
+import com.example.stablediffuser.data.lexica.LexicaError
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import kotlinx.coroutines.launch
