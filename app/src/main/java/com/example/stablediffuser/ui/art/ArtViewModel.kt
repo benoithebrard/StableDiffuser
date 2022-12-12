@@ -7,7 +7,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LifecycleCoroutineScope
 import kotlinx.coroutines.delay
 
-private const val DELAY_MS_SHOW_PROMPT = 1500L
+private const val DELAY_MS_SHOW_PROMPT = 1000L
 
 data class ArtViewModel(
     val imageUrl: String,

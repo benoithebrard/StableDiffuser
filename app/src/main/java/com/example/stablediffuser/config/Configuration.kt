@@ -14,7 +14,7 @@ private const val SEARCH_REQUEST_2 =
     "tattoo%20design%2C%20stencil%2C%20beautiful%20portrait%20of%20a%20girl%20with%20flowers%20in%20her%20hair%2C%20upper%20body%2C%20by%20artgerm%2C%20artgerm%2C%20digital%20art%2C%20cat%20girl"
 
 private const val SEARCH_REQUEST_3 =
-    "futuristic%20building%2C%20illustration%20by%20nicolas%20delort%2C%20detailed%2C%20sharp%2C%208%20k"
+    "https://lexica.art/api/v1/search?q=Cyberpunk%20depiction%20of%20the%20city%20of%20gdansk%20during%20arctic%20conditions%20by%20simon%20stalenhag"
 
 // TODO: use Hilt instead
 object Configuration {
