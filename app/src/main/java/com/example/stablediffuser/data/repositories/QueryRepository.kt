@@ -1,6 +1,7 @@
 package com.example.stablediffuser.data.repositories
 
 import android.content.SharedPreferences
+import com.example.stablediffuser.utils.QueryGenerator
 
 private const val KEY_SHARED_PREF_QUERY = "stable_diffuser_query"
 

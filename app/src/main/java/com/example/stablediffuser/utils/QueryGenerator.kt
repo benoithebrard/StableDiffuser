@@ -1,4 +1,4 @@
-package com.example.stablediffuser.data.repositories
+package com.example.stablediffuser.utils
 
 object QueryGenerator {
 

@@ -9,7 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.ActivityMainBinding
-import com.example.stablediffuser.utils.navigation.NavOptionsHelper.popToSearchNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

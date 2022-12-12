@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.R
 import com.example.stablediffuser.data.repositories.QueryRepository
 import com.example.stablediffuser.databinding.FragmentSearchBinding
-import com.example.stablediffuser.utils.navigation.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 
 private const val MIN_COUNT_CHARACTERS_SEARCH = 3
 
