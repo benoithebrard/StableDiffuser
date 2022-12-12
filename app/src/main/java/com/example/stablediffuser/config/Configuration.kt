@@ -20,6 +20,18 @@ object Configuration {
                         url.contains("mocking1")
                     },
                     jsonFileName = "search_response1.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains("mocking2")
+                    },
+                    jsonFileName = "search_response2.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains("mocking3")
+                    },
+                    jsonFileName = "search_response3.json"
                 )
             )
         )
