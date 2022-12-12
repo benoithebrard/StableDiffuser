@@ -1,6 +1,6 @@
 package com.example.stablediffuser.config
 
-import com.example.stablediffuser.config.Configuration.provideApplicationContext
+import com.example.stablediffuser.config.Configuration.provideAppContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -76,7 +76,7 @@ class MockingInterceptor(
     private fun readFile(
         fileName: String
     ): String? = try {
-        provideApplicationContext().assets.open(fileName).let { inputStream ->
+        provideAppContext().assets.open(fileName).let { inputStream ->
             val size = inputStream.available()
             val bytes = ByteArray(size)
             inputStream.read(bytes)

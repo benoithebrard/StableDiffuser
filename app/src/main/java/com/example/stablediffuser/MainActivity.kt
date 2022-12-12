@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Configuration.provideApplicationContext = { applicationContext }
+        Configuration.provideAppContext = { applicationContext }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
