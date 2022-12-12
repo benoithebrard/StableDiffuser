@@ -1,7 +1,7 @@
 package com.example.stablediffuser.config
 
 import android.content.Context
-import com.example.stablediffuser.data.repositories.LexicaRepository
+import com.example.stablediffuser.data.repositories.SearchRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 
@@ -52,8 +52,8 @@ object Configuration {
         // add more network interceptors here
     }
 
-    val lexicaRepository: LexicaRepository by lazy {
-        LexicaRepository(
+    val searchRepository: SearchRepository by lazy {
+        SearchRepository(
             baseUrl = LEXICA_BASE_URL,
             httpClientBuilder = httpClientBuilder
         )
