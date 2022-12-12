@@ -1,4 +1,4 @@
-package com.example.stablediffuser.utils
+package com.example.stablediffuser.utils.navigation
 
 import androidx.navigation.navOptions
 import com.example.stablediffuser.R

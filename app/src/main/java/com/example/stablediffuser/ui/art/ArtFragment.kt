@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.databinding.FragmentArtBinding
-import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.utils.navigation.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.example.stablediffuser.utils.extensions.toTitle
 
