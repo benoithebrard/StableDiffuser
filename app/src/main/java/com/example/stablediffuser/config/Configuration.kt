@@ -1,20 +1,18 @@
 package com.example.stablediffuser.config
 
 import android.content.Context
-import com.example.stablediffuser.data.repositories.SearchRepository
+import com.example.stablediffuser.network.interceptors.MockingInterceptor
+import com.example.stablediffuser.network.repositories.SearchRepository
+import com.example.stablediffuser.utils.QueryGenerator.PROMPT_EXAMPLE_1
+import com.example.stablediffuser.utils.QueryGenerator.PROMPT_EXAMPLE_2
+import com.example.stablediffuser.utils.QueryGenerator.PROMPT_EXAMPLE_3
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import java.net.URLEncoder
 
 private const val LEXICA_BASE_URL = "https://lexica.art/api/"
 
-private const val SEARCH_REQUEST_1 =
-    "a%20koala%20in%20a%20astronaut%20suit%2C%203d%2C%20sci-fi%20fantasy%2C%20intricate%2C%20elegant%2C%20highly%20detailed%2C%20lifelike%2C%20photorealistic%2C%20digital%20painting%2C%20artstation%2C%20illustration%2C%20concept%20art%2C%20sharp%20focus%2C%20art%20in%20the%20style%20of%20Shigenori%20Soejima"
-
-private const val SEARCH_REQUEST_2 =
-    "tattoo%20design%2C%20stencil%2C%20beautiful%20portrait%20of%20a%20girl%20with%20flowers%20in%20her%20hair%2C%20upper%20body%2C%20by%20artgerm%2C%20artgerm%2C%20digital%20art%2C%20cat%20girl"
-
-private const val SEARCH_REQUEST_3 =
-    "https://lexica.art/api/v1/search?q=Cyberpunk%20depiction%20of%20the%20city%20of%20gdansk%20during%20arctic%20conditions%20by%20simon%20stalenhag"
+private const val MAX_CHAR_COUNT_URL_MATCHER = 15
 
 // TODO: use Hilt instead
 object Configuration {
@@ -26,19 +24,19 @@ object Configuration {
             listOf(
                 MockingInterceptor.Mocking(
                     urlMatcher = { url ->
-                        url.contains(SEARCH_REQUEST_1)
+                        url.contains(PROMPT_EXAMPLE_1.urlMatcher)
                     },
                     jsonFileName = "search_response1.json"
                 ),
                 MockingInterceptor.Mocking(
                     urlMatcher = { url ->
-                        url.contains(SEARCH_REQUEST_2)
+                        url.contains(PROMPT_EXAMPLE_2.urlMatcher)
                     },
                     jsonFileName = "search_response2.json"
                 ),
                 MockingInterceptor.Mocking(
                     urlMatcher = { url ->
-                        url.contains(SEARCH_REQUEST_3)
+                        url.contains(PROMPT_EXAMPLE_3.urlMatcher)
                     },
                     jsonFileName = "search_response3.json"
                 )
@@ -58,4 +56,9 @@ object Configuration {
             httpClientBuilder = httpClientBuilder
         )
     }
+
+    private val String.urlMatcher: String
+        // replace spaces by +, then by %20
+        get() = URLEncoder.encode(this, "UTF-8").replace("+", "%20")
+
 }

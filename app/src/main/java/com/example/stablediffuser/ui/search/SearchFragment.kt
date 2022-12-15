@@ -12,7 +12,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.R
-import com.example.stablediffuser.data.repositories.QueryRepository
+import com.example.stablediffuser.network.repositories.QueryRepository
 import com.example.stablediffuser.databinding.FragmentSearchBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 

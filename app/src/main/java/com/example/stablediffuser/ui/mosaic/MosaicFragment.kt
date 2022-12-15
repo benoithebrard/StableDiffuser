@@ -13,8 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.config.Configuration.searchRepository
-import com.example.stablediffuser.data.lexica.LexicaError
-import com.example.stablediffuser.data.lexica.LexicaImage
+import com.example.stablediffuser.network.lexica.LexicaError
+import com.example.stablediffuser.network.lexica.LexicaImage
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle

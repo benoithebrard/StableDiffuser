@@ -1,4 +1,4 @@
-package com.example.stablediffuser.config
+package com.example.stablediffuser.network.interceptors
 
 import com.example.stablediffuser.config.Configuration.provideAppContext
 import okhttp3.*
