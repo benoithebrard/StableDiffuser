@@ -12,8 +12,16 @@ import android.view.View
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.AppCompatImageView
 
-class ImageZoomingClass : AppCompatImageView, View.OnTouchListener,
-    GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+/**
+ * Imported code from:
+ * https://stackoverflow.com/questions/7821489/double-tap-to-zoom-and-pinch-to-zoom-on-imageview-in-android
+ *
+ */
+class ZoomImageView : AppCompatImageView,
+    View.OnTouchListener,
+    GestureDetector.OnGestureListener,
+    GestureDetector.OnDoubleTapListener {
+
     //shared constructing
     private var mContext: Context? = null
     private var mScaleDetector: ScaleGestureDetector? = null
@@ -32,7 +40,7 @@ class ImageZoomingClass : AppCompatImageView, View.OnTouchListener,
     // Scales
     var mSaveScale = 1f
     var mMinScale = 1f
-    var mMaxScale = 4f
+    var mMaxScale = 2f
 
     // view dimensions
     var origWidth = 0f
@@ -208,6 +216,7 @@ class ImageZoomingClass : AppCompatImageView, View.OnTouchListener,
     }
 
     override fun onShowPress(motionEvent: MotionEvent) {}
+
     override fun onSingleTapUp(motionEvent: MotionEvent): Boolean {
         return false
     }
@@ -231,8 +240,11 @@ class ImageZoomingClass : AppCompatImageView, View.OnTouchListener,
         return false
     }
 
+    var onSingleTap: () -> Unit = {}
+
     //onDoubleTap
     override fun onSingleTapConfirmed(motionEvent: MotionEvent): Boolean {
+        onSingleTap()
         return false
     }
 

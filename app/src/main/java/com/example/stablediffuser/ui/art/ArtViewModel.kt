@@ -21,7 +21,7 @@ data class ArtViewModel(
 ) {
     val showPrompt = ObservableBoolean()
 
-    val onTogglePrompt = View.OnClickListener {
+    val onTogglePrompt: () -> Unit = {
         showPrompt.set(!showPrompt.get())
     }
 

@@ -9,7 +9,7 @@ import java.nio.charset.Charset
 
 private const val HTTP_OK = 200
 
-private const val MOCKED_HTTP_DELAY_MS = 300L
+private const val MOCKED_HTTP_DELAY_MS = 500L
 
 private const val APPLICATION_JSON = "application/json"
 
