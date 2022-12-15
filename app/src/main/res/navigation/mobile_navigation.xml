@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/mosaic_dest"
         android:name="com.example.stablediffuser.ui.mosaic.MosaicFragment"
-        android:label="@string/title_mosaic"
+        android:label="@string/title_favorites"
         tools:layout="@layout/fragment_mosaic">
 
         <argument
@@ -74,9 +74,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/dummy_dest"
-        android:name="com.example.stablediffuser.ui.dummy.DummyFragment"
-        android:label="@string/title_mosaic"
-        tools:layout="@layout/fragment_dummy" />
+        android:id="@+id/favorites_dest"
+        android:name="com.example.stablediffuser.ui.favorites.FavoritesFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites" />
 
 </navigation>
