@@ -119,7 +119,7 @@ class MosaicFragment : Fragment() {
         retryMinutes: Int
     ) {
         val sheetView = SheetRetryLaterBinding.inflate(layoutInflater).also { binding ->
-            "Time to rest your thumbs! You may try again in $retryMinutes mn".also { retryText ->
+            "You should rest your thumbs! Please try again in $retryMinutes mn".also { retryText ->
                 binding.sheetTitle.text = retryText
             }
         }.root
