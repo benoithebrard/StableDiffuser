@@ -67,7 +67,8 @@ class MockingInterceptor(
             APPLICATION_JSON
         )
         .body(responseBody)
-        .code(HTTP_OK)
+        .code(429)
+        .header("retry-after", "10")
         .message("Mocked Lexica response")
         .protocol(Protocol.HTTP_1_0)
         .request(chain.request())
