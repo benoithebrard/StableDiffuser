@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -22,11 +21,10 @@ class ZoomImageView : AppCompatImageView,
     GestureDetector.OnGestureListener,
     GestureDetector.OnDoubleTapListener {
 
-    //shared constructing
-    private var mContext: Context? = null
-    private var mScaleDetector: ScaleGestureDetector? = null
-    private var mGestureDetector: GestureDetector? = null
-    var mMatrix: Matrix? = null
+    private lateinit var mScaleDetector: ScaleGestureDetector
+    private lateinit var mGestureDetector: GestureDetector
+    private lateinit var mMatrix: Matrix
+
     private var mMatrixValues: FloatArray? = null
     var mode = NONE
 
@@ -58,15 +56,14 @@ class ZoomImageView : AppCompatImageView,
         sharedConstructing(context)
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context!!,
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
         attrs,
         defStyleAttr
     )
 
     private fun sharedConstructing(context: Context) {
         super.setClickable(true)
-        mContext = context
         mScaleDetector = ScaleGestureDetector(context, ScaleListener())
         mMatrix = Matrix()
         mMatrixValues = FloatArray(9)
@@ -96,12 +93,12 @@ class ZoomImageView : AppCompatImageView,
             if (origWidth * mSaveScale <= viewWidth
                 || origHeight * mSaveScale <= viewHeight
             ) {
-                mMatrix!!.postScale(
+                mMatrix.postScale(
                     mScaleFactor, mScaleFactor, viewWidth / 2.toFloat(),
                     viewHeight / 2.toFloat()
                 )
             } else {
-                mMatrix!!.postScale(
+                mMatrix.postScale(
                     mScaleFactor, mScaleFactor,
                     detector.focusX, detector.focusY
                 )
@@ -121,7 +118,7 @@ class ZoomImageView : AppCompatImageView,
         val scaleX = viewWidth.toFloat() / imageWidth.toFloat()
         val scaleY = viewHeight.toFloat() / imageHeight.toFloat()
         scale = scaleX.coerceAtMost(scaleY)
-        mMatrix!!.setScale(scale, scale)
+        mMatrix.setScale(scale, scale)
 
         // Center the image
         var redundantYSpace = (viewHeight.toFloat()
@@ -130,21 +127,21 @@ class ZoomImageView : AppCompatImageView,
                 - scale * imageWidth.toFloat())
         redundantYSpace /= 2.toFloat()
         redundantXSpace /= 2.toFloat()
-        mMatrix!!.postTranslate(redundantXSpace, redundantYSpace)
+        mMatrix.postTranslate(redundantXSpace, redundantYSpace)
         origWidth = viewWidth - 2 * redundantXSpace
         origHeight = viewHeight - 2 * redundantYSpace
         imageMatrix = mMatrix
     }
 
     fun fixTranslation() {
-        mMatrix!!.getValues(mMatrixValues) //put matrix values into a float array so we can analyze
+        mMatrix.getValues(mMatrixValues) //put matrix values into a float array so we can analyze
         val transX =
             mMatrixValues!![Matrix.MTRANS_X] //get the most recent translation in x direction
         val transY =
             mMatrixValues!![Matrix.MTRANS_Y] //get the most recent translation in y direction
         val fixTransX = getFixTranslation(transX, viewWidth.toFloat(), origWidth * mSaveScale)
         val fixTransY = getFixTranslation(transY, viewHeight.toFloat(), origHeight * mSaveScale)
-        if (fixTransX != 0f || fixTransY != 0f) mMatrix!!.postTranslate(fixTransX, fixTransY)
+        if (fixTransX != 0f || fixTransY != 0f) mMatrix.postTranslate(fixTransX, fixTransY)
     }
 
     private fun getFixTranslation(trans: Float, viewSize: Float, contentSize: Float): Float {
@@ -185,9 +182,11 @@ class ZoomImageView : AppCompatImageView,
 
     //OnTouch
     override fun onTouch(view: View?, event: MotionEvent): Boolean {
-        mScaleDetector!!.onTouchEvent(event)
-        mGestureDetector!!.onTouchEvent(event)
+        mScaleDetector.onTouchEvent(event)
+        mGestureDetector.onTouchEvent(event)
+
         val currentPoint = PointF(event.x, event.y)
+
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 mLast.set(currentPoint)
@@ -199,7 +198,7 @@ class ZoomImageView : AppCompatImageView,
                 val dy = currentPoint.y - mLast.y
                 val fixTransX = getFixDragTrans(dx, viewWidth.toFloat(), origWidth * mSaveScale)
                 val fixTransY = getFixDragTrans(dy, viewHeight.toFloat(), origHeight * mSaveScale)
-                mMatrix!!.postTranslate(fixTransX, fixTransY)
+                mMatrix.postTranslate(fixTransX, fixTransY)
                 fixTranslation()
                 mLast[currentPoint.x] = currentPoint.y
             }
@@ -252,7 +251,6 @@ class ZoomImageView : AppCompatImageView,
 // double tap again to return to normal
     override fun onDoubleTap(e: MotionEvent): Boolean {
         // Double tap is detected
-        Log.i("MAIN_TAG", "Double tap detected")
         val origScale = mSaveScale
         val mScaleFactor: Float
         if (mSaveScale == mMaxScale) {
@@ -262,7 +260,7 @@ class ZoomImageView : AppCompatImageView,
             mSaveScale = mMaxScale
             mScaleFactor = mMaxScale / origScale
         }
-        mMatrix?.postScale(
+        mMatrix.postScale(
             mScaleFactor, mScaleFactor, (viewWidth / 2).toFloat(), (
                     viewHeight / 2).toFloat()
         )
