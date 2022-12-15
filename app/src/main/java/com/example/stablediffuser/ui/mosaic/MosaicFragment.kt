@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -12,17 +11,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
+import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
 import com.example.stablediffuser.config.Configuration.searchRepository
-import com.example.stablediffuser.data.lexica.LexicaError
-import com.example.stablediffuser.data.lexica.LexicaImage
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
+import com.example.stablediffuser.databinding.SheetRetryLaterBinding
+import com.example.stablediffuser.network.lexica.LexicaError
+import com.example.stablediffuser.network.lexica.LexicaImage
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
-
-private const val HTTP_ERROR_TOO_MANY_REQUESTS = 429
-
-private const val HTTP_HEADER_RETRY_AFTER = "retry-after"
 
 class MosaicFragment : Fragment() {
 
@@ -113,18 +113,33 @@ class MosaicFragment : Fragment() {
             }
     }
 
+    private fun showRetryLaterSheet(
+        retryMinutes: Int
+    ) {
+        val sheetView = SheetRetryLaterBinding.inflate(layoutInflater).also { binding ->
+            "You should rest your thumbs! Please try again in $retryMinutes mn".also { retryText ->
+                binding.sheetTitle.text = retryText
+            }
+        }.root
+
+        BottomSheetDialog(requireContext()).also { dialog ->
+            dialog.setOnShowListener {
+                dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+            dialog.setContentView(sheetView)
+        }.show()
+    }
+
     private fun LexicaError.Response.handleError() {
         val code = statusCode
         val headers = headers
 
         if (code == HTTP_ERROR_TOO_MANY_REQUESTS) {
-            val retrySeconds = headers.get(HTTP_HEADER_RETRY_AFTER)
-            val retryMinutes = retrySeconds?.let { it.toInt() / 60 }
-            Toast.makeText(
-                requireContext(),
-                "You need to rest your thumbs! Please try again in $retryMinutes mn",
-                Toast.LENGTH_SHORT
-            ).show()
+            headers[HTTP_HEADER_RETRY_AFTER]?.let { retrySeconds ->
+                retrySeconds.toInt() / 60 + 1
+            }?.also { retryMinutes ->
+                showRetryLaterSheet(retryMinutes)
+            }
         }
     }
 

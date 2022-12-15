@@ -1,6 +1,6 @@
 package com.example.stablediffuser.utils.extensions
 
-import com.example.stablediffuser.data.lexica.LexicaError
+import com.example.stablediffuser.network.lexica.LexicaError
 import retrofit2.Response
 
 internal fun <T> Response<T>.toResult(): Result<T> = if (isSuccessful) {

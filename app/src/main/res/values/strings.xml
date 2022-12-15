@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">StableDiffuser</string>
     <string name="title_search">Search</string>
-    <string name="title_mosaic">Mosaic</string>
+    <string name="title_favorites">Favorites</string>
     <string name="title_art">Art</string>
     <string name="empty_title">Nothing to show</string>
-    <string name="retry_title">Retry</string>
+    <string name="retry_title">Try again</string>
     <string name="show_more">More of the same</string>
     <string name="nsfw_text">Not safe for work</string>
     <string name="search_box_hint">What image you are looking for?</string>

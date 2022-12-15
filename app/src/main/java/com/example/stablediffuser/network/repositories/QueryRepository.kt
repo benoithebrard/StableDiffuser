@@ -1,4 +1,4 @@
-package com.example.stablediffuser.data.repositories
+package com.example.stablediffuser.network.repositories
 
 import android.content.SharedPreferences
 import com.example.stablediffuser.utils.QueryGenerator
