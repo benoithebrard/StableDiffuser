@@ -12,7 +12,7 @@ import androidx.annotation.Nullable
 import androidx.appcompat.widget.AppCompatImageView
 
 /**
- * Imported code from:
+ * This code was copied and adapted from:
  * https://stackoverflow.com/questions/7821489/double-tap-to-zoom-and-pinch-to-zoom-on-imageview-in-android
  *
  */
