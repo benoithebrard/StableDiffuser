@@ -21,7 +21,7 @@ object QueryGenerator {
         "Fennec fox, pink, palm trees, furry, cute, aviator sunglasses, synthwave style, artstation, detailed, award winning, dramatic lighting, miami vice, oil on canvas"
 
     const val PROMPT_EXAMPLE_7 =
-        "Cute 3 d low - polygon render of a forest animal, smooth white background, soft focus, centered"
+        "Portrait of teenage medusa, bald, naughty smile, wearing an embroidered orange tunic, wearing headdress made of black snakes, intricate, elegant, copper and emerald jewelry, glowing lights, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by wlop, mucha, artgerm, and greg rutkowski"
 
     const val PROMPT_EXAMPLE_8 =
         "Large openings frame views of the villa's positioning amidst a fir - tree woodland"

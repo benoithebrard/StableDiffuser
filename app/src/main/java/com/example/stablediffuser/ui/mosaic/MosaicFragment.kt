@@ -13,9 +13,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.config.Configuration.searchRepository
+import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.network.lexica.LexicaError
 import com.example.stablediffuser.network.lexica.LexicaImage
-import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import kotlinx.coroutines.launch
@@ -118,11 +118,13 @@ class MosaicFragment : Fragment() {
         val headers = headers
 
         if (code == HTTP_ERROR_TOO_MANY_REQUESTS) {
-            val retrySeconds = headers.get(HTTP_HEADER_RETRY_AFTER)
-            val retryMinutes = retrySeconds?.let { it.toInt() / 60 }
+            val retrySeconds = headers[HTTP_HEADER_RETRY_AFTER]
+            val retryMinutes = retrySeconds?.let { seconds ->
+                seconds.toInt() / 60 + 1
+            }
             Toast.makeText(
                 requireContext(),
-                "You need to rest your thumbs! Please try again in $retryMinutes mn",
+                "Time to rest your thumbs! You may try again in $retryMinutes mn",
                 Toast.LENGTH_SHORT
             ).show()
         }
