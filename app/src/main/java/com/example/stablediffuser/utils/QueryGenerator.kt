@@ -11,10 +11,18 @@ object QueryGenerator {
     const val PROMPT_EXAMPLE_3 =
         "Cyberpunk depiction of the city of gdansk during arctic conditions by simon stalenhag"
 
+    const val PROMPT_EXAMPLE_4 =
+        "Dog as a god, very detailed face, detailed features, fantasy, circuitry, explosion, dramatic, intricate, elegant, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by gustave dore, octane render"
+
+    const val PROMPT_EXAMPLE_5 =
+        "A fat fluffy tabby cat with green eyes wearing aristocratic robes and a golden necklace and a crown sitting in a garden in the style of Rembrandt"
+
     private val predefinedQueries: Set<String> = setOf(
         PROMPT_EXAMPLE_1,
         PROMPT_EXAMPLE_2,
-        PROMPT_EXAMPLE_3
+        PROMPT_EXAMPLE_3,
+        PROMPT_EXAMPLE_4,
+        PROMPT_EXAMPLE_5
     )
 
     private val remainingQueries: MutableSet<String> = predefinedQueries.toMutableSet()
