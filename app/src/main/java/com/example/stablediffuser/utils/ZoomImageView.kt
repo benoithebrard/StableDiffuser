@@ -24,8 +24,8 @@ class ZoomImageView : AppCompatImageView,
     private lateinit var mScaleDetector: ScaleGestureDetector
     private lateinit var mGestureDetector: GestureDetector
     private lateinit var mMatrix: Matrix
+    private lateinit var mMatrixValues: FloatArray
 
-    private var mMatrixValues: FloatArray? = null
     var mode = NONE
 
     // all possible state
@@ -136,9 +136,9 @@ class ZoomImageView : AppCompatImageView,
     fun fixTranslation() {
         mMatrix.getValues(mMatrixValues) //put matrix values into a float array so we can analyze
         val transX =
-            mMatrixValues!![Matrix.MTRANS_X] //get the most recent translation in x direction
+            mMatrixValues[Matrix.MTRANS_X] //get the most recent translation in x direction
         val transY =
-            mMatrixValues!![Matrix.MTRANS_Y] //get the most recent translation in y direction
+            mMatrixValues[Matrix.MTRANS_Y] //get the most recent translation in y direction
         val fixTransX = getFixTranslation(transX, viewWidth.toFloat(), origWidth * mSaveScale)
         val fixTransY = getFixTranslation(transY, viewHeight.toFloat(), origHeight * mSaveScale)
         if (fixTransX != 0f || fixTransY != 0f) mMatrix.postTranslate(fixTransX, fixTransY)
@@ -174,7 +174,6 @@ class ZoomImageView : AppCompatImageView,
         viewWidth = MeasureSpec.getSize(widthMeasureSpec)
         viewHeight = MeasureSpec.getSize(heightMeasureSpec)
         if (mSaveScale == 1f) {
-
             // Fit to screen.
             fitToScreen()
         }
@@ -265,6 +264,11 @@ class ZoomImageView : AppCompatImageView,
                     viewHeight / 2).toFloat()
         )
         fixTranslation()
+
+        if (mSaveScale == 1f) {
+            // Fit to screen.
+            fitToScreen()
+        }
         return false
     }
 
