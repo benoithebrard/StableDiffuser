@@ -1,5 +1,7 @@
 package com.example.stablediffuser.network.interceptors
 
+import com.example.stablediffuser.config.Configuration.CHARSET_UTF_8
+import com.example.stablediffuser.config.Configuration.HTTP_CODE_OK
 import com.example.stablediffuser.config.Configuration.provideAppContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -7,13 +9,8 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.IOException
 import java.nio.charset.Charset
 
-private const val HTTP_OK = 200
-
 private const val MOCKED_HTTP_DELAY_MS = 500L
-
 private const val APPLICATION_JSON = "application/json"
-
-private const val CHARSET_UTF8 = "UTF-8"
 
 class MockingInterceptor(
     private val mockings: List<Mocking>
@@ -21,7 +18,9 @@ class MockingInterceptor(
 
     data class Mocking(
         val urlMatcher: (String) -> Boolean,
-        val jsonFileName: String
+        val jsonFileName: String,
+        val errorCode: Int? = null,
+        val header: Pair<String, String>? = null
     )
 
     private val jsonType: MediaType? by lazy {
@@ -34,41 +33,48 @@ class MockingInterceptor(
         val request = chain.request()
         val requestUrl = request.url.toUrl().toString()
 
-        val responseBody = getMockingFileNameForUrl(
+        return getMockingForUrl(
             url = requestUrl
-        )?.let { fileName ->
-            readFile(fileName)
-        }?.toResponseBody(jsonType)
-
-        return if (responseBody != null) {
-            try {
-                Thread.sleep(MOCKED_HTTP_DELAY_MS)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
+        )?.let { mocking ->
+            readFile(mocking.jsonFileName)?.toResponseBody(jsonType)?.let { responseBody ->
+                try {
+                    Thread.sleep(MOCKED_HTTP_DELAY_MS)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+                createResponse(
+                    chain = chain,
+                    responseBody = responseBody,
+                    errorCode = mocking.errorCode,
+                    header = mocking.header
+                )
             }
-            createResponse(chain, responseBody)
-        } else {
-            chain.proceed(request)
-        }
+        } ?: chain.proceed(request)
     }
 
-    private fun getMockingFileNameForUrl(
+    private fun getMockingForUrl(
         url: String
-    ): String? = mockings.find { mocking ->
+    ): Mocking? = mockings.find { mocking ->
         mocking.urlMatcher(url)
-    }?.jsonFileName
+    }
 
     private fun createResponse(
         chain: Interceptor.Chain,
-        responseBody: ResponseBody
+        responseBody: ResponseBody,
+        errorCode: Int?,
+        header: Pair<String, String>?
     ): Response = Response.Builder()
         .addHeader(
             "content-type",
             APPLICATION_JSON
         )
         .body(responseBody)
-        .code(429)
-        .header("retry-after", "10")
+        .code(errorCode ?: HTTP_CODE_OK)
+        .apply {
+            if (header != null) {
+                this.header(header.first, header.second)
+            }
+        }
         .message("Mocked Lexica response")
         .protocol(Protocol.HTTP_1_0)
         .request(chain.request())
@@ -86,7 +92,7 @@ class MockingInterceptor(
         }.let { bytes ->
             String(
                 bytes = bytes,
-                charset = Charset.forName(CHARSET_UTF8)
+                charset = Charset.forName(CHARSET_UTF_8)
             )
         }
     } catch (ex: IOException) {

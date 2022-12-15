@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
+import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
 import com.example.stablediffuser.config.Configuration.searchRepository
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.databinding.SheetRetryLaterBinding
@@ -21,10 +23,6 @@ import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
-
-private const val HTTP_ERROR_TOO_MANY_REQUESTS = 429
-
-private const val HTTP_HEADER_RETRY_AFTER = "retry-after"
 
 class MosaicFragment : Fragment() {
 

@@ -17,10 +17,15 @@ import java.net.URLEncoder
 
 private const val LEXICA_BASE_URL = "https://lexica.art/api/"
 
-private const val MAX_CHAR_COUNT_URL_MATCHER = 15
+private const val PROMPT_RETRY_LATER = "retry later"
 
 // TODO: use Hilt instead
 object Configuration {
+
+    const val CHARSET_UTF_8 = "UTF-8"
+    const val HTTP_CODE_OK = 200
+    const val HTTP_ERROR_TOO_MANY_REQUESTS = 429
+    const val HTTP_HEADER_RETRY_AFTER = "retry-after"
 
     lateinit var provideAppContext: () -> Context
 
@@ -74,6 +79,15 @@ object Configuration {
                         url.contains(PROMPT_EXAMPLE_8.urlMatcher)
                     },
                     jsonFileName = "search_response8.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        val result = url.contains(PROMPT_RETRY_LATER.urlMatcher)
+                        result
+                    },
+                    jsonFileName = "search_response8.json",
+                    errorCode = HTTP_ERROR_TOO_MANY_REQUESTS,
+                    header = HTTP_HEADER_RETRY_AFTER to "2000"
                 )
             )
         )
