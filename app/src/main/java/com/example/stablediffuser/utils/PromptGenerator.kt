@@ -1,6 +1,6 @@
 package com.example.stablediffuser.utils
 
-object QueryGenerator {
+object PromptGenerator {
 
     const val PROMPT_EXAMPLE_1 =
         "A koala in a astronaut suit, 3d, sci-fi fantasy, intricate, elegant, highly detailed, lifelike, photorealistic, digital painting, artstation, illustration, concept art, sharp focus, art in the style of Shigenori Soejima"
@@ -21,7 +21,7 @@ object QueryGenerator {
         "Fennec fox, pink, palm trees, furry, cute, aviator sunglasses, synthwave style, artstation, detailed, award winning, dramatic lighting, miami vice, oil on canvas"
 
     const val PROMPT_EXAMPLE_7 =
-        "Portrait of teenage medusa, bald, naughty smile, wearing an embroidered orange tunic, wearing headdress made of black snakes, intricate, elegant, copper and emerald jewelry, glowing lights, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by wlop, mucha, artgerm, and greg rutkowski"
+        "Oil painting on wood. limited color palette. 1 8 9 6. portrait of a young lana del rey with a doomed expression in blue and gold. by herbert james draper, sir lawrence alma - tadema, john william godward. epitome of victorian era.. cinematic criterion composition by kurosawa, kubrick. trippy breathing photograph. tricks of illusion to create depth. ambient occlusion. dark shadows, bright lights. composition of renaissance. dynamic background."
 
     const val PROMPT_EXAMPLE_8 =
         "Large openings frame views of the villa's positioning amidst a fir - tree woodland"

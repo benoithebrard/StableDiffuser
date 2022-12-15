@@ -1,7 +1,7 @@
 package com.example.stablediffuser.network.repositories
 
 import android.content.SharedPreferences
-import com.example.stablediffuser.utils.QueryGenerator
+import com.example.stablediffuser.utils.PromptGenerator
 
 private const val KEY_SHARED_PREF_QUERY = "stable_diffuser_query"
 
@@ -27,7 +27,7 @@ class QueryRepository(
 
     fun clearAll() {
         orderedQueries.clear()
-        orderedQueries.add(QueryGenerator.randomQuery())
+        orderedQueries.add(PromptGenerator.randomQuery())
     }
 
     fun save() {
@@ -53,7 +53,7 @@ class QueryRepository(
         }
 
         if (orderedQueries.isEmpty()) {
-            orderedQueries.add(QueryGenerator.randomQuery())
+            orderedQueries.add(PromptGenerator.randomQuery())
         }
     }
 }
