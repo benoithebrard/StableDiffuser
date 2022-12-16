@@ -18,7 +18,7 @@ object PromptGenerator {
         "A fat fluffy tabby cat with green eyes wearing aristocratic robes and a golden necklace and a crown sitting in a garden in the style of Rembrandt"
 
     const val PROMPT_EXAMPLE_6 =
-        "Fennec fox, pink, palm trees, furry, cute, aviator sunglasses, synthwave style, artstation, detailed, award winning, dramatic lighting, miami vice, oil on canvas"
+        "Extremely detailed awe stunning beautiful futuristic smooth curvilinear city apartment interior at night, translucent orbs, hyper real, greenery, 8k, colorful, 3D cinematic volumetric light, atmospheric light, studio ghibli inspired, high contrast, epic composition, sci-fi, dreamlike, surreal, angelic"
 
     const val PROMPT_EXAMPLE_7 =
         "Oil painting on wood. limited color palette. 1 8 9 6. portrait of a young lana del rey with a doomed expression in blue and gold. by herbert james draper, sir lawrence alma - tadema, john william godward. epitome of victorian era.. cinematic criterion composition by kurosawa, kubrick. trippy breathing photograph. tricks of illusion to create depth. ambient occlusion. dark shadows, bright lights. composition of renaissance. dynamic background."
