@@ -1,7 +1,7 @@
 package com.example.stablediffuser.network.repositories
 
-import com.example.stablediffuser.network.lexica.LexicaImage
-import com.example.stablediffuser.network.lexica.LexicaService
+import com.example.stablediffuser.network.entities.LexicaImage
+import com.example.stablediffuser.network.LexicaService
 import com.example.stablediffuser.utils.extensions.toResult
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 import java.io.IOException
 import java.util.*
 
-class SearchRepository(
+class LexicaRepository(
     baseUrl: String,
     httpClientBuilder: OkHttpClient.Builder
 ) {

@@ -1,4 +1,4 @@
-package com.example.stablediffuser.network.lexica
+package com.example.stablediffuser.network.entities
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,5 +1,6 @@
-package com.example.stablediffuser.network.lexica
+package com.example.stablediffuser.network
 
+import com.example.stablediffuser.network.entities.LexicaSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

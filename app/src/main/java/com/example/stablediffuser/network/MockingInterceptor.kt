@@ -1,4 +1,4 @@
-package com.example.stablediffuser.network.interceptors
+package com.example.stablediffuser.network
 
 import com.example.stablediffuser.config.Configuration.CHARSET_UTF_8
 import com.example.stablediffuser.config.Configuration.HTTP_CODE_OK

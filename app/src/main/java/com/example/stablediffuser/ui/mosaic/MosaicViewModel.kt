@@ -3,7 +3,7 @@ package com.example.stablediffuser.ui.mosaic
 import androidx.recyclerview.widget.DiffUtil
 import com.example.stablediffuser.BR
 import com.example.stablediffuser.R
-import com.example.stablediffuser.network.lexica.LexicaImage
+import com.example.stablediffuser.network.entities.LexicaImage
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 
