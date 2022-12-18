@@ -1,5 +1,6 @@
 package com.example.stablediffuser
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -9,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.ActivityMainBinding
+import com.example.stablediffuser.utils.HorizontalDrawerListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,6 +61,11 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.sideNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
+        }
+
+        viewBinding.root.apply {
+            addDrawerListener(HorizontalDrawerListener(viewBinding.contentContainer))
+            setScrimColor(Color.TRANSPARENT)
         }
     }
 
