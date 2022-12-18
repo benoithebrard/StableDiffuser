@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.ActivityMainBinding
 import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
@@ -35,8 +35,13 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        with(viewBinding.navView) {
-            setupWithNavController(navController)
+        with(viewBinding.bottomNavView) {
+            NavigationUI.setupWithNavController(this, navController)
+
+            setOnItemSelectedListener { item ->
+                NavigationUI.onNavDestinationSelected(item, navController)
+                true
+            }
 
             setOnItemReselectedListener { menuItem ->
                 when (menuItem.itemId) {
