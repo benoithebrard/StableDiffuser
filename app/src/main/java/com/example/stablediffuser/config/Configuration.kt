@@ -2,6 +2,7 @@ package com.example.stablediffuser.config
 
 import android.content.Context
 import com.example.stablediffuser.network.MockingInterceptor
+import com.example.stablediffuser.network.repositories.FavoritesRepository
 import com.example.stablediffuser.network.repositories.SearchRepository
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_1
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_2
@@ -104,6 +105,10 @@ object Configuration {
             baseUrl = LEXICA_BASE_URL,
             httpClientBuilder = httpClientBuilder
         )
+    }
+
+    val favoritesRepository: FavoritesRepository by lazy {
+        FavoritesRepository()
     }
 
     private val String.urlMatcher: String

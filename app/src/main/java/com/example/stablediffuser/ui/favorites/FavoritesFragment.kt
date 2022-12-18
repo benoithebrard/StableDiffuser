@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
@@ -21,9 +22,10 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding?.apply {
-            emptyText.text = "Coming soon.."
-        }
+        FavoritesFragmentDirections
+            .actionNavigationFavoritesToNavigationMosaic().also { action ->
+                findNavController().navigate(action)
+            }
     }
 
     override fun onDestroyView() {

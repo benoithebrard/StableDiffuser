@@ -13,10 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
 import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
+import com.example.stablediffuser.config.Configuration.favoritesRepository
 import com.example.stablediffuser.config.Configuration.searchRepository
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.databinding.SheetRetryLaterBinding
 import com.example.stablediffuser.network.entities.LexicaImage
+import com.example.stablediffuser.network.repositories.LexicaDataSource
 import com.example.stablediffuser.utils.LexicaError
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
@@ -28,15 +30,20 @@ class MosaicFragment : Fragment() {
 
     private val mosaicArgs: MosaicFragmentArgs by navArgs()
 
-    private val mosaicQuery: String by lazy { mosaicArgs.mosaicQuery }
+    private val searchQuery: String by lazy { mosaicArgs.mosaicQuery }
 
     private val mosaicTitle: String by lazy { mosaicArgs.mosaicTitle }
+
+    private val isFavorite: Boolean by lazy { mosaicArgs.isFavorite }
 
     private var viewBinding: FragmentMosaicBinding? = null
 
     private val mosaicViewModel: MosaicViewModel by lazy {
         MosaicViewModel()
     }
+
+    private val lexicaRepository: LexicaDataSource
+        get() = if (isFavorite) favoritesRepository else searchRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,8 +80,8 @@ class MosaicFragment : Fragment() {
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    searchRepository.fetchLexicaImages(
-                        searchQuery = mosaicQuery
+                    lexicaRepository.fetchLexicaImages(
+                        searchQuery = searchQuery
                     ).also { result ->
                         result.fold(
                             onSuccess = { images ->

@@ -5,6 +5,6 @@ import com.example.stablediffuser.network.entities.LexicaImage
 class FavoritesRepository : LexicaDataSource {
 
     override suspend fun fetchLexicaImages(searchQuery: String): Result<List<LexicaImage>> {
-        TODO("Not yet implemented")
+        return Result.success(emptyList())
     }
 }

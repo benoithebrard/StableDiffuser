@@ -82,6 +82,16 @@
         android:id="@+id/favorites_dest"
         android:name="com.example.stablediffuser.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/action_navigation_favorites_to_navigation_mosaic"
+            app:destination="@id/mosaic_dest">
+            <argument
+                android:name="isFavorite"
+                android:defaultValue="true" />
+        </action>
+
+    </fragment>
 
 </navigation>
