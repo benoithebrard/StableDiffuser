@@ -17,14 +17,14 @@
         android:clipToPadding="false"
         tools:context=".ui.art.ArtFragment">
 
-        <com.example.stablediffuser.utils.ZoomImageView
+        <com.github.chrisbanes.photoview.PhotoView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@color/black"
+            android:onClickListener="@{viewModel.onTogglePrompt}"
             android:scaleType="fitCenter"
             android:src="@{viewModel.imageUrl}"
-            app:onSingleTap="@{viewModel.onTogglePrompt}"
             app:thumbSrc="@{viewModel.thumbUrl}"
             tools:background="@color/teal_200"
             tools:src="@drawable/palette" />
