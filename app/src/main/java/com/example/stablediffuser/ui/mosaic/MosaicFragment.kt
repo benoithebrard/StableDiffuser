@@ -13,11 +13,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
 import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
-import com.example.stablediffuser.config.Configuration.lexicaRepository
+import com.example.stablediffuser.config.Configuration.searchRepository
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.databinding.SheetRetryLaterBinding
-import com.example.stablediffuser.utils.LexicaError
 import com.example.stablediffuser.network.entities.LexicaImage
+import com.example.stablediffuser.utils.LexicaError
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -73,7 +73,9 @@ class MosaicFragment : Fragment() {
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    lexicaRepository.searchForImages(mosaicQuery).also { result ->
+                    searchRepository.fetchLexicaImages(
+                        searchQuery = mosaicQuery
+                    ).also { result ->
                         result.fold(
                             onSuccess = { images ->
                                 images.toMosaicCellViewModels(

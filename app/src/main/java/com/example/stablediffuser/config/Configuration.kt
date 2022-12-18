@@ -2,7 +2,7 @@ package com.example.stablediffuser.config
 
 import android.content.Context
 import com.example.stablediffuser.network.MockingInterceptor
-import com.example.stablediffuser.network.repositories.LexicaRepository
+import com.example.stablediffuser.network.repositories.SearchRepository
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_1
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_2
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_3
@@ -99,8 +99,8 @@ object Configuration {
         // add more network interceptors here
     }
 
-    val lexicaRepository: LexicaRepository by lazy {
-        LexicaRepository(
+    val searchRepository: SearchRepository by lazy {
+        SearchRepository(
             baseUrl = LEXICA_BASE_URL,
             httpClientBuilder = httpClientBuilder
         )

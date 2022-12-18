@@ -19,8 +19,13 @@
     <fragment
         android:id="@+id/mosaic_dest"
         android:name="com.example.stablediffuser.ui.mosaic.MosaicFragment"
-        android:label="@string/title_favorites"
+        android:label="@string/title_mosaic"
         tools:layout="@layout/fragment_mosaic">
+
+        <argument
+            android:name="isFavorite"
+            android:defaultValue="false"
+            app:argType="boolean" />
 
         <argument
             android:name="mosaicQuery"
