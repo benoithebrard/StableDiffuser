@@ -9,7 +9,6 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.ActivityMainBinding
-import com.example.stablediffuser.utils.NavOptionsHelper.popToSearchNavOptions
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             NavigationUI.setupWithNavController(this, navController)
 
             setOnItemSelectedListener { item ->
+                // This is needed for proper tab selection
                 NavigationUI.onNavDestinationSelected(item, navController)
                 true
             }
@@ -46,8 +46,11 @@ class MainActivity : AppCompatActivity() {
             setOnItemReselectedListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.search_dest -> {
-                        // Search was reselected, pop all fragments
-                        navController.navigate(R.id.search_dest, null, popToSearchNavOptions)
+                        // Search tab was reselected, pop all fragments added to that stack
+                        navController.popBackStack(
+                            destinationId = R.id.search_dest,
+                            inclusive = false
+                        )
                     }
                 }
             }
