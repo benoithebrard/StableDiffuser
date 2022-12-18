@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     private val appBarConfiguration by lazy {
         AppBarConfiguration(
-            topLevelDestinationIds = setOf(R.id.search_dest, R.id.favorites_dest)
+            topLevelDestinationIds = setOf(R.id.search_dest, R.id.favorites_dest),
+            drawerLayout = viewBinding.root
         )
     }
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        with(viewBinding.bottomNavView) {
+        viewBinding.bottomNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
 
             setOnItemSelectedListener { item ->
@@ -55,9 +56,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        viewBinding.sideNavView.apply {
+            NavigationUI.setupWithNavController(this, navController)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return NavigationUI.navigateUp(
+            navController,
+            appBarConfiguration
+        ) || super.onSupportNavigateUp()
     }
 }
