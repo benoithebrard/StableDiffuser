@@ -1,5 +1,6 @@
 package com.example.stablediffuser
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -9,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.ActivityMainBinding
+import com.example.stablediffuser.utils.HorizontalDrawerListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private val appBarConfiguration by lazy {
         AppBarConfiguration(
-            topLevelDestinationIds = setOf(R.id.search_dest, R.id.favorites_dest)
+            topLevelDestinationIds = setOf(R.id.search_dest, R.id.favorites_dest),
+            drawerLayout = viewBinding.root
         )
     }
 
@@ -34,7 +37,18 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        with(viewBinding.bottomNavView) {
+        viewBinding.setupUI()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(
+            navController,
+            appBarConfiguration
+        ) || super.onSupportNavigateUp()
+    }
+
+    private fun ActivityMainBinding.setupUI() {
+        bottomNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
 
             setOnItemSelectedListener { item ->
@@ -55,9 +69,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        sideNavView.apply {
+            NavigationUI.setupWithNavController(this, navController)
+        }
+
+        root.apply {
+            addDrawerListener(HorizontalDrawerListener(viewBinding.contentContainer))
+            setScrimColor(Color.TRANSPARENT)
+        }
     }
 }
