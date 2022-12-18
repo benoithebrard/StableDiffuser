@@ -37,7 +37,18 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        viewBinding.bottomNavView.apply {
+        viewBinding.setupUI()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(
+            navController,
+            appBarConfiguration
+        ) || super.onSupportNavigateUp()
+    }
+
+    private fun ActivityMainBinding.setupUI() {
+        bottomNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
 
             setOnItemSelectedListener { item ->
@@ -59,20 +70,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewBinding.sideNavView.apply {
+        sideNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
         }
 
-        viewBinding.root.apply {
+        root.apply {
             addDrawerListener(HorizontalDrawerListener(viewBinding.contentContainer))
             setScrimColor(Color.TRANSPARENT)
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(
-            navController,
-            appBarConfiguration
-        ) || super.onSupportNavigateUp()
     }
 }
