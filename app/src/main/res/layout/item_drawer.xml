@@ -39,11 +39,47 @@
         android:textColorLink="@color/purple_200"
         android:textSize="14sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="20dp"
+        android:background="@color/medium_grey" />
+
+    <TextView
+        android:id="@+id/section_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal"
+        android:text="@string/nav_drawer_code_title"
+        android:textColor="@color/dark_grey"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/link_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:autoLink="web"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:text="@string/nav_drawer_code_url"
+        android:textColorLink="@color/purple_200"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="20dp"
+        android:background="@color/medium_grey" />
+
     <TextView
         android:id="@+id/section_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-medium"
         android:gravity="center_horizontal"
         android:text="@string/nav_drawer_personal_title"
@@ -54,6 +90,7 @@
         android:id="@+id/link_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:autoLink="web"
         android:fontFamily="sans-serif"

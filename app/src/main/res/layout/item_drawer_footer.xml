@@ -17,6 +17,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:paddingTop="10dp"
         android:text="@string/nav_drawer_app_version"
+        android:textColor="@color/dark_grey"
         android:textSize="12sp" />
 
 </LinearLayout>
