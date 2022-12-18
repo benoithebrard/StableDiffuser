@@ -17,4 +17,5 @@
     <string name="nav_drawer_title">About</string>
     <string name="nav_drawer_personal_title">Want to provide feedback, suggest improvements, or do business together:</string>
     <string name="nav_drawer_personal_url">https://www.linkedin.com/in/benoithebrard/</string>
+    <string name="nav_drawer_app_version">App version 1.0.0</string>
 </resources>
