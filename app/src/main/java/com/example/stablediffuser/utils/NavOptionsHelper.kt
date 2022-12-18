@@ -13,16 +13,4 @@ object NavOptionsHelper {
             popExit = R.anim.slide_out_right
         }
     }
-
-    val popToSearchNavOptions = navOptions {
-        anim {
-            enter = R.anim.fade_in
-            exit = R.anim.fade_out
-            popExit = R.anim.fade_out
-            popEnter = R.anim.fade_in
-        }
-        popUpTo(R.id.search_dest) {
-            inclusive = true
-        }
-    }
 }

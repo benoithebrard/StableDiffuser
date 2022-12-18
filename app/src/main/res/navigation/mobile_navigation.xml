@@ -77,6 +77,11 @@
         android:id="@+id/favorites_dest"
         android:name="com.example.stablediffuser.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/action_favorites_dest_to_art_dest"
+            app:destination="@id/art_dest" />
+    </fragment>
 
 </navigation>
