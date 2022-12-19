@@ -12,12 +12,12 @@
     <string name="recent_searches">Recent searches</string>
     <string name="clear">clear</string>
     <string name="no_search_query">No search query</string>
-    <string name="nav_drawer_lexica_title">All art comes from Lexica public API, you can try it out at:</string>
+    <string name="nav_drawer_lexica_title">All art shown in this app comes from Lexica, the Stable Diffusion search engine:</string>
     <string name="nav_drawer_lexica_url">http://www.lexica.art</string>
     <string name="nav_drawer_title">About</string>
-    <string name="nav_drawer_personal_title">If you want to provide feedback, suggest improvements or offer a job, contact me here:</string>
+    <string name="nav_drawer_personal_title">Want to give feedback, suggest new features, or have a collaboration? Contact info:</string>
     <string name="nav_drawer_personal_url">https://www.linkedin.com/in/benoithebrard/</string>
     <string name="nav_drawer_app_version">App version 1.0.0</string>
-    <string name="nav_drawer_code_title">The source code of the app is available on:</string>
+    <string name="nav_drawer_code_title">You can check out the source code of this app at:</string>
     <string name="nav_drawer_code_url">https://github.com/benoithebrard/StableDiffuser</string>
 </resources>

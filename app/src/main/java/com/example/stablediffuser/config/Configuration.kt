@@ -11,6 +11,7 @@ import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_5
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_6
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_7
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_8
+import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_9
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import java.net.URLEncoder
@@ -79,6 +80,12 @@ object Configuration {
                         url.contains(PROMPT_EXAMPLE_8.urlMatcher)
                     },
                     jsonFileName = "search_response8.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains(PROMPT_EXAMPLE_9.urlMatcher)
+                    },
+                    jsonFileName = "search_response9.json"
                 ),
                 MockingInterceptor.Mocking(
                     urlMatcher = { url ->

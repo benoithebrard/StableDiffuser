@@ -26,6 +26,9 @@ object PromptGenerator {
     const val PROMPT_EXAMPLE_8 =
         "Large openings frame views of the villa's positioning amidst a fir - tree woodland"
 
+    const val PROMPT_EXAMPLE_9 =
+        "Kurdish mountaineer hiking up a massive kurdish mountain, beautiful painting by henry justice ford, incredible detail, award winning art"
+
     private val predefinedQueries: Set<String> = setOf(
         PROMPT_EXAMPLE_1,
         PROMPT_EXAMPLE_2,
@@ -34,7 +37,8 @@ object PromptGenerator {
         PROMPT_EXAMPLE_5,
         PROMPT_EXAMPLE_6,
         PROMPT_EXAMPLE_7,
-        PROMPT_EXAMPLE_8
+        PROMPT_EXAMPLE_8,
+        PROMPT_EXAMPLE_9
     )
 
     private val remainingQueries: MutableSet<String> = predefinedQueries.toMutableSet()
