@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.stablediffuser.R
 import com.example.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
 import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
 import com.example.stablediffuser.config.Configuration.searchRepository
@@ -23,6 +24,7 @@ import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
+
 
 class MosaicFragment : Fragment() {
 
@@ -117,9 +119,7 @@ class MosaicFragment : Fragment() {
         retryMinutes: Int
     ) {
         val sheetView = SheetRetryLaterBinding.inflate(layoutInflater).also { binding ->
-            "You need to rest your thumbs! Please try again in $retryMinutes mn".also { retryText ->
-                binding.sheetTitle.text = retryText
-            }
+            binding.sheetTitle.text = getString(R.string.retry_later, retryMinutes)
         }.root
 
         BottomSheetDialog(requireContext()).also { dialog ->
