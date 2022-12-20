@@ -2,6 +2,7 @@ package com.example.stablediffuser.config
 
 import android.content.Context
 import com.example.stablediffuser.network.interceptors.MockingInterceptor
+import com.example.stablediffuser.network.repositories.QueryRepository
 import com.example.stablediffuser.network.repositories.SearchRepository
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_1
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_10
@@ -124,6 +125,15 @@ object Configuration {
         SearchRepository(
             baseUrl = LEXICA_BASE_URL,
             httpClientBuilder = httpClientBuilder
+        )
+    }
+
+    val queryRepository: QueryRepository by lazy {
+        QueryRepository(
+            sharedPref = provideAppContext().getSharedPreferences(
+                "StableDiffuser",
+                Context.MODE_PRIVATE
+            )
         )
     }
 

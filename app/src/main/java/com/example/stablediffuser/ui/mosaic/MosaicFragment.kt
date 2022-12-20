@@ -12,9 +12,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.R
+import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
 import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
-import com.example.stablediffuser.config.Configuration.searchRepository
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.databinding.SheetRetryLaterBinding
 import com.example.stablediffuser.network.lexica.LexicaError
@@ -75,7 +75,7 @@ class MosaicFragment : Fragment() {
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    searchRepository.searchForImages(mosaicQuery).also { result ->
+                    Configuration.searchRepository.searchForImages(mosaicQuery).also { result ->
                         result.fold(
                             onSuccess = { images ->
                                 images.toMosaicCellViewModels(

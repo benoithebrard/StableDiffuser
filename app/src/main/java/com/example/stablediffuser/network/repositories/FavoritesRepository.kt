@@ -22,4 +22,9 @@ class FavoritesRepository(
             favoriteImage.id == image.id
         }
     }
+
+    /*
+     lexicaJson.decodeFromString<>()
+        lexicaJson.encodeToString( LexicaImage.serializer(), LexicaImage())
+     */
 }
