@@ -29,6 +29,12 @@ object PromptGenerator {
     const val PROMPT_EXAMPLE_9 =
         "A beautiful and highly detailed matte painting of an elven temple in a magical fantasy garden in a lush forest in the mystical mountains, celtic knots, intricate details, epic scale, insanely complex, 8 k, sharp focus, hyperrealism, very realistic, by caspar friedrich, albert bierstadt, james gurney, brian froud"
 
+    const val PROMPT_EXAMPLE_10 =
+        "Curved futuristic room interior with spongy walls. there is a swimming pool on the floor"
+
+    const val PROMPT_EXAMPLE_11 =
+        "Allegory of the cave, platos cave, detailed, centered, digital painting, artstation, concept art, donato giancola, joseph christian leyendecker, wlop, boris vallejo, breathtaking, 8 k resolution, extremely detailed, beautiful, establishing shot, artistic, hyperrealistic, beautiful face, octane render, cinematic lighting, dramatic lighting, masterpiece"
+
     private val predefinedQueries: Set<String> = setOf(
         PROMPT_EXAMPLE_1,
         PROMPT_EXAMPLE_2,
@@ -38,7 +44,9 @@ object PromptGenerator {
         PROMPT_EXAMPLE_6,
         PROMPT_EXAMPLE_7,
         PROMPT_EXAMPLE_8,
-        PROMPT_EXAMPLE_9
+        PROMPT_EXAMPLE_9,
+        PROMPT_EXAMPLE_10,
+        PROMPT_EXAMPLE_11
     )
 
     private val remainingQueries: MutableSet<String> = predefinedQueries.toMutableSet()

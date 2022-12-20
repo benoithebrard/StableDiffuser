@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.stablediffuser.network.interceptors.MockingInterceptor
 import com.example.stablediffuser.network.repositories.SearchRepository
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_1
+import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_10
+import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_11
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_2
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_3
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_4
@@ -86,6 +88,18 @@ object Configuration {
                         url.contains(PROMPT_EXAMPLE_9.urlMatcher)
                     },
                     jsonFileName = "search_response9.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains(PROMPT_EXAMPLE_10.urlMatcher)
+                    },
+                    jsonFileName = "search_response10.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains(PROMPT_EXAMPLE_11.urlMatcher)
+                    },
+                    jsonFileName = "search_response11.json"
                 ),
                 MockingInterceptor.Mocking(
                     urlMatcher = { url ->
