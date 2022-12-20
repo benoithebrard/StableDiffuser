@@ -20,6 +20,8 @@ class ArtFragment : Fragment() {
 
     private val artArgs: ArtFragmentArgs by navArgs()
 
+    private val artId: String by lazy { artArgs.artId }
+
     private val artUrl: String by lazy { artArgs.artUrl }
 
     private val thumbUrl: String by lazy { artArgs.thumbUrl }
@@ -38,11 +40,14 @@ class ArtFragment : Fragment() {
 
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
-            imageUrl = artUrl,
-            thumbUrl = thumbUrl,
-            prompt = artTitle.toTitle(),
-            dimensions = artSize,
-            nsfw = artNsfw,
+            artData = ArtData(
+                id = artId,
+                url = artUrl,
+                thumbUrl = thumbUrl,
+                prompt = artTitle.toTitle(),
+                dimensions = artSize,
+                nsfw = artNsfw
+            ),
             clipboard = clipboard,
             scope = viewLifecycleOwner.lifecycleScope,
             onShowMosaic = {

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClickListener="@{viewModel.onSharePrompt}"
-            android:text="@{viewModel.prompt}"
+            android:text="@{viewModel.artData.prompt}"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{viewModel.dimensions}"
+            android:text="@{viewModel.artData.dimensions}"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/dimensions_icon"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dimensions_icon"
-            app:visible="@{viewModel.nsfw}" />
+            app:visible="@{viewModel.artData.nsfw}" />
 
         <TextView
             android:id="@+id/nsfw_text"
@@ -77,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/nsfw_icon"
             app:layout_constraintTop_toTopOf="@id/nsfw_icon"
-            app:visible="@{viewModel.nsfw}" />
+            app:visible="@{viewModel.artData.nsfw}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

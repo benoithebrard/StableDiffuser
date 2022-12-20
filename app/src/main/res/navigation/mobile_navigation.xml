@@ -44,6 +44,11 @@
         tools:layout="@layout/fragment_art">
 
         <argument
+            android:name="artId"
+            android:defaultValue="invalid"
+            app:argType="string" />
+
+        <argument
             android:name="artUrl"
             android:defaultValue="invalid"
             app:argType="string" />

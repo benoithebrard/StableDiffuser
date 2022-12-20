@@ -24,8 +24,8 @@
             android:background="@color/black"
             android:onClickListener="@{viewModel.onTogglePrompt}"
             android:scaleType="fitCenter"
-            android:src="@{viewModel.imageUrl}"
-            app:thumbSrc="@{viewModel.thumbUrl}"
+            android:src="@{viewModel.artData.url}"
+            app:thumbSrc="@{viewModel.artData.thumbUrl}"
             tools:background="@color/teal_200"
             tools:src="@drawable/palette" />
 
@@ -47,11 +47,13 @@
             android:layout_marginEnd="10dp"
             android:elevation="6dp"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:onClickListener="@{viewModel.onToggleFavorite}"
             android:padding="10dp"
-            android:src="@drawable/favorite_filled"
+            android:src="@drawable/favorite_selector"
             app:layout_constraintBottom_toBottomOf="@id/mosaic_button"
             app:layout_constraintEnd_toStartOf="@id/mosaic_button"
-            app:layout_constraintTop_toTopOf="@id/mosaic_button" />
+            app:layout_constraintTop_toTopOf="@id/mosaic_button"
+            app:selected="@{viewModel.isFavorite}" />
 
         <ImageView
             android:id="@+id/share_button"

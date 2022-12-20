@@ -5,11 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentFavoritesBinding
+import com.example.stablediffuser.network.repositories.FavoritesRepository
 
 class FavoritesFragment : Fragment() {
 
     private var viewBinding: FragmentFavoritesBinding? = null
+
+    private val favoritesRepository: FavoritesRepository by lazy {
+        Configuration.favoritesRepository
+    }
+
+    override fun onStart() {
+        super.onStart()
+        favoritesRepository.restore()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +35,11 @@ class FavoritesFragment : Fragment() {
         viewBinding?.apply {
             emptyText.text = "Coming soon.."
         }
+    }
+
+    override fun onStop() {
+        favoritesRepository.save()
+        super.onStop()
     }
 
     override fun onDestroyView() {

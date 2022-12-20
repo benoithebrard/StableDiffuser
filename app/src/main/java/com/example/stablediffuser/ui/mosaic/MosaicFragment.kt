@@ -18,7 +18,7 @@ import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.databinding.SheetRetryLaterBinding
 import com.example.stablediffuser.network.lexica.LexicaError
-import com.example.stablediffuser.network.lexica.LexicaImage
+import com.example.stablediffuser.ui.art.ArtData
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -75,7 +75,7 @@ class MosaicFragment : Fragment() {
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    Configuration.searchRepository.searchForImages(mosaicQuery).also { result ->
+                    Configuration.searchRepository.searchForQuery(mosaicQuery).also { result ->
                         result.fold(
                             onSuccess = { images ->
                                 images.toMosaicCellViewModels(
@@ -97,16 +97,15 @@ class MosaicFragment : Fragment() {
         }
     }
 
-    private fun showArt(image: LexicaImage) {
+    private fun showArt(artData: ArtData) {
         MosaicFragmentDirections
             .actionNavigationMosaicToNavigationArt().apply {
-                with(image) {
-                    artUrl = src
-                    thumbUrl = srcSmall
-                    artTitle = prompt
-                    artSize = "$width x $height"
-                    artNsfw = nsfw
-                }
+                artId = artData.id
+                artUrl = artData.url
+                thumbUrl = artData.thumbUrl
+                artTitle = artData.prompt
+                artSize = artData.dimensions
+                artNsfw = artData.nsfw
             }.also { action ->
                 findNavController().navigate(
                     action,
@@ -145,7 +144,7 @@ class MosaicFragment : Fragment() {
 
     private fun FragmentMosaicBinding.showLoading() = showState(null)
 
-    private fun FragmentMosaicBinding.showState(result: Result<List<LexicaImage>>? = null) {
+    private fun FragmentMosaicBinding.showState(result: Result<List<ArtData>>? = null) {
         loadingIndicator.isVisible = result == null
         errorIndicator.isVisible = result?.isFailure ?: false
         emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false

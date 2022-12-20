@@ -2,6 +2,7 @@ package com.example.stablediffuser.config
 
 import android.content.Context
 import com.example.stablediffuser.network.interceptors.MockingInterceptor
+import com.example.stablediffuser.network.repositories.FavoritesRepository
 import com.example.stablediffuser.network.repositories.QueryRepository
 import com.example.stablediffuser.network.repositories.SearchRepository
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_1
@@ -131,7 +132,16 @@ object Configuration {
     val queryRepository: QueryRepository by lazy {
         QueryRepository(
             sharedPref = provideAppContext().getSharedPreferences(
-                "StableDiffuser",
+                "StableDiffuser_Query",
+                Context.MODE_PRIVATE
+            )
+        )
+    }
+
+    val favoritesRepository: FavoritesRepository by lazy {
+        FavoritesRepository(
+            sharedPref = provideAppContext().getSharedPreferences(
+                "StableDiffuser_Favorites",
                 Context.MODE_PRIVATE
             )
         )
