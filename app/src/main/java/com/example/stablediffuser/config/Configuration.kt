@@ -22,7 +22,7 @@ private const val LEXICA_BASE_URL = "https://lexica.art/api/"
 
 private const val PROMPT_RETRY_LATER = "retry later"
 
-// TODO: use Hilt instead
+// TODO: inject dependencies using Hilt instead
 object Configuration {
 
     const val CHARSET_UTF_8 = "UTF-8"
