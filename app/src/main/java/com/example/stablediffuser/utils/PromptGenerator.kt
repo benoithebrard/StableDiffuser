@@ -27,7 +27,7 @@ object PromptGenerator {
         "Large openings frame views of the villa's positioning amidst a fir - tree woodland"
 
     const val PROMPT_EXAMPLE_9 =
-        "Kurdish mountaineer hiking up a massive kurdish mountain, beautiful painting by henry justice ford, incredible detail, award winning art"
+        "A beautiful and highly detailed matte painting of an elven temple in a magical fantasy garden in a lush forest in the mystical mountains, celtic knots, intricate details, epic scale, insanely complex, 8 k, sharp focus, hyperrealism, very realistic, by caspar friedrich, albert bierstadt, james gurney, brian froud"
 
     private val predefinedQueries: Set<String> = setOf(
         PROMPT_EXAMPLE_1,
