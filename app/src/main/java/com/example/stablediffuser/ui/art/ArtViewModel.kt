@@ -8,7 +8,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.network.repositories.FavoritesRepository
 import com.example.stablediffuser.utils.extensions.containsArt
 import kotlinx.coroutines.delay
@@ -20,13 +19,10 @@ private const val DELAY_MS_SHOW_PROMPT = 1000L
 data class ArtViewModel(
     val artData: ArtData,
     val clipboard: ClipboardManager,
+    val onShowMosaic: View.OnClickListener,
     val lifecycleOwner: LifecycleOwner,
-    val onShowMosaic: View.OnClickListener
+    val favoritesRepository: FavoritesRepository
 ) {
-    private val favoritesRepository: FavoritesRepository by lazy {
-        Configuration.favoritesRepository
-    }
-
     val showPrompt = ObservableBoolean()
 
     val onTogglePrompt = View.OnClickListener {

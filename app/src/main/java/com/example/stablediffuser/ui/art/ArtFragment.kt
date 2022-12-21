@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentArtBinding
+import com.example.stablediffuser.network.repositories.FavoritesRepository
 import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.example.stablediffuser.utils.extensions.toTitle
@@ -37,6 +39,10 @@ class ArtFragment : Fragment() {
         requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     }
 
+    private val favoritesRepository: FavoritesRepository by lazy {
+        Configuration.favoritesRepository
+    }
+
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
             artData = ArtData(
@@ -57,6 +63,7 @@ class ArtFragment : Fragment() {
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
             },
+            favoritesRepository = favoritesRepository,
             lifecycleOwner = viewLifecycleOwner
         )
     }

@@ -10,11 +10,16 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.ActivityMainBinding
+import com.example.stablediffuser.network.repositories.FavoritesRepository
 import com.example.stablediffuser.utils.HorizontalDrawerListener
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
+
+    private val favoritesRepository: FavoritesRepository by lazy {
+        Configuration.favoritesRepository
+    }
 
     private val navController: NavController by lazy {
         findNavController(R.id.nav_host_fragment_activity_main)
@@ -38,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         viewBinding.setupUI()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        favoritesRepository.restore()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -78,5 +88,10 @@ class MainActivity : AppCompatActivity() {
             addDrawerListener(HorizontalDrawerListener(viewBinding.contentContainer))
             setScrimColor(Color.TRANSPARENT)
         }
+    }
+
+    override fun onStop() {
+        favoritesRepository.save()
+        super.onStop()
     }
 }

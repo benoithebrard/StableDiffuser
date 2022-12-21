@@ -17,11 +17,6 @@ class FavoritesFragment : Fragment() {
         Configuration.favoritesRepository
     }
 
-    override fun onStart() {
-        super.onStart()
-        favoritesRepository.restore()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,11 +30,6 @@ class FavoritesFragment : Fragment() {
         viewBinding?.apply {
             emptyText.text = "Coming soon.."
         }
-    }
-
-    override fun onStop() {
-        favoritesRepository.save()
-        super.onStop()
     }
 
     override fun onDestroyView() {
