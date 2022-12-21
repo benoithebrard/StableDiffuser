@@ -97,21 +97,19 @@ class MosaicFragment : Fragment() {
         }
     }
 
-    private fun showArt(artData: ArtData) {
-        MosaicFragmentDirections
-            .actionNavigationMosaicToNavigationArt().apply {
-                artId = artData.id
-                artUrl = artData.url
-                thumbUrl = artData.thumbUrl
-                artTitle = artData.prompt
-                artSize = artData.dimensions
-                artNsfw = artData.nsfw
-            }.also { action ->
-                findNavController().navigate(
-                    action,
-                    defaultScreenNavOptions
-                )
-            }
+    private fun showArt(
+        artData: ArtData
+    ) {
+        MosaicFragmentDirections.actionNavigationMosaicToNavigationArt().apply {
+            artId = artData.id
+            artUrl = artData.url
+            thumbUrl = artData.thumbUrl
+            artTitle = artData.prompt
+            artSize = artData.dimensions
+            artNsfw = artData.nsfw
+        }.also { action ->
+            findNavController().navigate(action, defaultScreenNavOptions)
+        }
     }
 
     private fun showRetryLaterSheet(
