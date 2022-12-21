@@ -2,6 +2,7 @@ package com.example.stablediffuser.network.repositories
 
 import android.content.SharedPreferences
 import com.example.stablediffuser.ui.art.ArtData
+import com.example.stablediffuser.utils.extensions.containsArt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.serialization.json.Json
@@ -23,14 +24,14 @@ class FavoritesRepository(
     }
 
     fun removeFromFavorites(artData: ArtData) {
-        internalFavoritesFlow.value = internalFavoritesFlow.value.filter { favoriteArt ->
-            favoriteArt.id == artData.id
+        val startList = internalFavoritesFlow.value
+        val filteredList = startList.mapNotNull { favoriteArt ->
+            favoriteArt.takeUnless { it.id == artData.id }
         }
+        internalFavoritesFlow.value = filteredList
     }
 
-    fun isFavorite(artData: ArtData): Boolean = favoritesFlow.value.any { favoriteArt ->
-        favoriteArt.id == artData.id
-    }
+    fun isFavorite(artData: ArtData): Boolean = favoritesFlow.value.containsArt(artData)
 
     private val lexicaJson by lazy {
         Json {

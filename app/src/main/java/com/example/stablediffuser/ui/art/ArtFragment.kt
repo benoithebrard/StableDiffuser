@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.stablediffuser.databinding.FragmentArtBinding
@@ -49,7 +48,6 @@ class ArtFragment : Fragment() {
                 nsfw = artNsfw
             ),
             clipboard = clipboard,
-            scope = viewLifecycleOwner.lifecycleScope,
             onShowMosaic = {
                 ArtFragmentDirections
                     .actionNavigationArtToNavigationMosaic().apply {
@@ -58,7 +56,8 @@ class ArtFragment : Fragment() {
                     }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
-            }
+            },
+            lifecycleOwner = viewLifecycleOwner
         )
     }
 
