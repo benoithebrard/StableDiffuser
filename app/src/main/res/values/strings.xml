@@ -5,7 +5,7 @@
     <string name="title_art">Art</string>
     <string name="empty_title">Nothing to show</string>
     <string name="retry_title">Try again</string>
-    <string name="retry_later">You need to rest your thumbs! Please try again in %1$d mn</string>
+    <string name="retry_later">Time to rest your thumbs! You may try again in %1$d mn</string>
     <string name="show_more">Explore this style</string>
     <string name="more_of">Style of: %s</string>
     <string name="nsfw_text">Not safe for work</string>
