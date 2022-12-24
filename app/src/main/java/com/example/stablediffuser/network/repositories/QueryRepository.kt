@@ -12,48 +12,48 @@ private const val MAX_COUNT_QUERY = 5
 class QueryRepository(
     private val sharedPref: SharedPreferences
 ) {
-    private var orderedQueries: MutableList<String> = mutableListOf()
+    private var orderedPrompts: MutableList<String> = mutableListOf()
 
     fun add(query: String) {
-        if (!orderedQueries.contains(query)) {
-            orderedQueries.add(query)
-            if (orderedQueries.size > MAX_COUNT_QUERY) {
-                orderedQueries.removeAt(0)
+        if (!orderedPrompts.contains(query)) {
+            orderedPrompts.add(query)
+            if (orderedPrompts.size > MAX_COUNT_QUERY) {
+                orderedPrompts.removeAt(0)
             }
         }
     }
 
-    fun getAll(): List<String> = orderedQueries.reversed()
+    fun getAll(): List<String> = orderedPrompts.reversed()
 
     fun clearAll() {
-        orderedQueries.clear()
-        orderedQueries.add(PromptGenerator.randomQuery())
+        orderedPrompts.clear()
+        orderedPrompts.add(PromptGenerator.randomQuery())
     }
 
     fun save() {
         with(sharedPref.edit()) {
-            repeat((0 until orderedQueries.size).count()) { index ->
-                putString("${KEY_SHARED_PREF_QUERY}_$index", orderedQueries[index])
+            repeat((0 until orderedPrompts.size).count()) { index ->
+                putString("${KEY_SHARED_PREF_QUERY}_$index", orderedPrompts[index])
             }
-            putInt(KEY_SHARED_PREF_QUERY_COUNT, orderedQueries.size)
+            putInt(KEY_SHARED_PREF_QUERY_COUNT, orderedPrompts.size)
             apply()
         }
     }
 
     fun restore() {
-        orderedQueries.clear()
+        orderedPrompts.clear()
 
         with(sharedPref) {
             val queryCount = getInt(KEY_SHARED_PREF_QUERY_COUNT, 0)
             repeat((0 until queryCount).count()) { index ->
                 getString("${KEY_SHARED_PREF_QUERY}_$index", null)?.also { query ->
-                    orderedQueries.add(query)
+                    orderedPrompts.add(query)
                 }
             }
         }
 
-        if (orderedQueries.isEmpty()) {
-            orderedQueries.add(PromptGenerator.randomQuery())
+        if (orderedPrompts.isEmpty()) {
+            orderedPrompts.add(PromptGenerator.randomQuery())
         }
     }
 }

@@ -2,8 +2,12 @@ package com.example.stablediffuser.config
 
 import android.content.Context
 import com.example.stablediffuser.network.interceptors.MockingInterceptor
+import com.example.stablediffuser.network.repositories.FavoritesRepository
+import com.example.stablediffuser.network.repositories.QueryRepository
 import com.example.stablediffuser.network.repositories.SearchRepository
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_1
+import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_10
+import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_11
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_2
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_3
 import com.example.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_4
@@ -20,7 +24,9 @@ private const val LEXICA_BASE_URL = "https://lexica.art/api/"
 
 private const val PROMPT_RETRY_LATER = "retry later"
 
-// TODO: use Hilt instead
+private const val PROMPT_EMPTY_SEARCH = "empty search"
+
+// TODO: inject dependencies using Hilt instead
 object Configuration {
 
     const val CHARSET_UTF_8 = "UTF-8"
@@ -89,6 +95,24 @@ object Configuration {
                 ),
                 MockingInterceptor.Mocking(
                     urlMatcher = { url ->
+                        url.contains(PROMPT_EXAMPLE_10.urlMatcher)
+                    },
+                    jsonFileName = "search_response10.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains(PROMPT_EXAMPLE_11.urlMatcher)
+                    },
+                    jsonFileName = "search_response11.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains(PROMPT_EMPTY_SEARCH.urlMatcher)
+                    },
+                    jsonFileName = "search_response0.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
                         val result = url.contains(PROMPT_RETRY_LATER.urlMatcher)
                         result
                     },
@@ -110,6 +134,24 @@ object Configuration {
         SearchRepository(
             baseUrl = LEXICA_BASE_URL,
             httpClientBuilder = httpClientBuilder
+        )
+    }
+
+    val queryRepository: QueryRepository by lazy {
+        QueryRepository(
+            sharedPref = provideAppContext().getSharedPreferences(
+                "StableDiffuser_Query",
+                Context.MODE_PRIVATE
+            )
+        )
+    }
+
+    val favoritesRepository: FavoritesRepository by lazy {
+        FavoritesRepository(
+            sharedPref = provideAppContext().getSharedPreferences(
+                "StableDiffuser_Favorites",
+                Context.MODE_PRIVATE
+            )
         )
     }
 

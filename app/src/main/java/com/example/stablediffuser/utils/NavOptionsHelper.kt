@@ -5,7 +5,7 @@ import com.example.stablediffuser.R
 
 object NavOptionsHelper {
 
-    val defaultScreenNavOptions = navOptions {
+    val slidingNavOptions = navOptions {
         anim {
             enter = R.anim.slide_in_right
             exit = R.anim.slide_out_left
@@ -14,15 +14,12 @@ object NavOptionsHelper {
         }
     }
 
-    val popToSearchNavOptions = navOptions {
+    val fadingNavOptions = navOptions {
         anim {
             enter = R.anim.fade_in
             exit = R.anim.fade_out
             popExit = R.anim.fade_out
             popEnter = R.anim.fade_in
-        }
-        popUpTo(R.id.search_dest) {
-            inclusive = true
         }
     }
 }

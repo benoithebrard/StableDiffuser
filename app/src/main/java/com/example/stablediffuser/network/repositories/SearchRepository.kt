@@ -1,7 +1,8 @@
 package com.example.stablediffuser.network.repositories
 
-import com.example.stablediffuser.network.lexica.LexicaImage
 import com.example.stablediffuser.network.lexica.LexicaService
+import com.example.stablediffuser.ui.art.ArtData
+import com.example.stablediffuser.ui.art.toArtData
 import com.example.stablediffuser.utils.extensions.toResult
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -16,7 +17,7 @@ class SearchRepository(
     baseUrl: String,
     httpClientBuilder: OkHttpClient.Builder
 ) {
-    private val searchCache: WeakHashMap<String, List<LexicaImage>> = WeakHashMap()
+    private val artDataCache: WeakHashMap<String, List<ArtData>> = WeakHashMap()
 
     private val lexicaJson by lazy {
         Json {
@@ -37,19 +38,21 @@ class SearchRepository(
             .create(LexicaService::class.java)
     }
 
-    suspend fun searchForImages(
+    suspend fun searchForQuery(
         query: String
-    ): Result<List<LexicaImage>> = searchCache[query]?.let { images ->
-        // return images from cache
-        Result.success(images)
+    ): Result<List<ArtData>> = artDataCache[query]?.let { artData ->
+        // return artData from cache
+        Result.success(artData)
     } ?: try {
         // search for images
         lexicaService.searchForImages(query).toResult().map { searchResponse ->
-            searchResponse.images
+            searchResponse.images.map { image ->
+                image.toArtData()
+            }
         }.also { result ->
-            result.getOrNull()?.let { images ->
-                // store images in cache
-                searchCache[query] = images
+            result.getOrNull()?.let { artData ->
+                // store artData in cache
+                artDataCache[query] = artData
             }
         }
     } catch (e: IOException) {

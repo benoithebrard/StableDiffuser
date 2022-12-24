@@ -9,3 +9,10 @@ fun View.setIsVisible(isVisible: Boolean?) {
         visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }
+
+@BindingAdapter("app:selected")
+fun View.setIsSelected(isSelected: Boolean?) {
+    if (isSelected != null) {
+        this.isSelected = isSelected
+    }
+}

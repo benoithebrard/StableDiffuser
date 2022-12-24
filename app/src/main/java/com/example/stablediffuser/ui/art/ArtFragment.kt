@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.stablediffuser.R
+import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentArtBinding
-import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.network.repositories.FavoritesRepository
+import com.example.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.example.stablediffuser.utils.extensions.toTitle
 
@@ -19,6 +21,8 @@ import com.example.stablediffuser.utils.extensions.toTitle
 class ArtFragment : Fragment() {
 
     private val artArgs: ArtFragmentArgs by navArgs()
+
+    private val artId: String by lazy { artArgs.artId }
 
     private val artUrl: String by lazy { artArgs.artUrl }
 
@@ -36,24 +40,32 @@ class ArtFragment : Fragment() {
         requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     }
 
+    private val favoritesRepository: FavoritesRepository by lazy {
+        Configuration.favoritesRepository
+    }
+
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
-            imageUrl = artUrl,
-            thumbUrl = thumbUrl,
-            prompt = artTitle.toTitle(),
-            dimensions = artSize,
-            nsfw = artNsfw,
+            artData = ArtData(
+                id = artId,
+                url = artUrl,
+                thumbUrl = thumbUrl,
+                prompt = artTitle.toTitle(),
+                dimensions = artSize,
+                nsfw = artNsfw
+            ),
             clipboard = clipboard,
-            scope = viewLifecycleOwner.lifecycleScope,
             onShowMosaic = {
                 ArtFragmentDirections
                     .actionNavigationArtToNavigationMosaic().apply {
                         mosaicQuery = artUrl
-                        mosaicTitle = "More of: ${artTitle.toTitle()}"
+                        mosaicTitle = getString(R.string.more_of, artTitle.toTitle())
                     }.also { action ->
-                        findNavController().navigate(action, defaultScreenNavOptions)
+                        findNavController().navigate(action, slidingNavOptions)
                     }
-            }
+            },
+            favoritesRepository = favoritesRepository,
+            lifecycleOwner = viewLifecycleOwner
         )
     }
 

@@ -1,23 +1,26 @@
 <resources>
     <string name="app_name">StableDiffuser</string>
-    <string name="title_search">Search</string>
+    <string name="title_search">Art Search</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_art">Art</string>
-    <string name="empty_title">Nothing to show</string>
+    <string name="empty_title_mosaic">No image found</string>
+    <string name="empty_title_favorites">Add a new favorite</string>
     <string name="retry_title">Try again</string>
-    <string name="show_more">More of the same</string>
+    <string name="retry_later">Time to rest your thumbs! You may try again in %1$d mn</string>
+    <string name="show_more">Explore this style</string>
+    <string name="more_of">Style of: %s</string>
     <string name="nsfw_text">Not safe for work</string>
-    <string name="search_box_hint">What image you are looking for?</string>
+    <string name="search_box_hint">Describe the art you\'re looking for</string>
     <string name="search">Search</string>
     <string name="recent_searches">Recent searches</string>
     <string name="clear">clear</string>
     <string name="no_search_query">No search query</string>
-    <string name="nav_drawer_lexica_title">All art shown in this app comes from Lexica, the Stable Diffusion search engine:</string>
+    <string name="nav_drawer_lexica_title">All art comes from Lexica, the Stable Diffusion search engine:</string>
     <string name="nav_drawer_lexica_url">http://www.lexica.art</string>
     <string name="nav_drawer_title">About</string>
-    <string name="nav_drawer_personal_title">Want to give feedback, suggest new features, or have a collaboration? Contact info:</string>
+    <string name="nav_drawer_personal_title">Want to give feedback, suggest new features or offer a collaboration?</string>
     <string name="nav_drawer_personal_url">https://www.linkedin.com/in/benoithebrard/</string>
     <string name="nav_drawer_app_version">App version 1.0.0</string>
-    <string name="nav_drawer_code_title">You can check out the source code of this app at:</string>
+    <string name="nav_drawer_code_title">The app code is freely available at:</string>
     <string name="nav_drawer_code_url">https://github.com/benoithebrard/StableDiffuser</string>
 </resources>

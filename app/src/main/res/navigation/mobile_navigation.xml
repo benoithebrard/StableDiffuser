@@ -44,6 +44,11 @@
         tools:layout="@layout/fragment_art">
 
         <argument
+            android:name="artId"
+            android:defaultValue="invalid"
+            app:argType="string" />
+
+        <argument
             android:name="artUrl"
             android:defaultValue="invalid"
             app:argType="string" />
@@ -77,6 +82,14 @@
         android:id="@+id/favorites_dest"
         android:name="com.example.stablediffuser.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/action_favorites_dest_to_art_dest"
+            app:destination="@id/art_dest" />
+        <action
+            android:id="@+id/action_favorites_dest_to_search_dest"
+            app:destination="@id/search_dest" />
+    </fragment>
 
 </navigation>

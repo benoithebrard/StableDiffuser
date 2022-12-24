@@ -11,18 +11,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.stablediffuser.R
+import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
 import com.example.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
-import com.example.stablediffuser.config.Configuration.searchRepository
 import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.databinding.SheetRetryLaterBinding
 import com.example.stablediffuser.network.lexica.LexicaError
-import com.example.stablediffuser.network.lexica.LexicaImage
-import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.ui.art.ArtData
+import com.example.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
+
 
 class MosaicFragment : Fragment() {
 
@@ -68,12 +70,12 @@ class MosaicFragment : Fragment() {
     }
 
     private fun searchForImages() {
-        viewBinding?.showLoading()
+        viewBinding?.setupUI()
 
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    searchRepository.searchForImages(mosaicQuery).also { result ->
+                    Configuration.searchRepository.searchForQuery(mosaicQuery).also { result ->
                         result.fold(
                             onSuccess = { images ->
                                 images.toMosaicCellViewModels(
@@ -95,31 +97,22 @@ class MosaicFragment : Fragment() {
         }
     }
 
-    private fun showArt(image: LexicaImage) {
-        MosaicFragmentDirections
-            .actionNavigationMosaicToNavigationArt().apply {
-                with(image) {
-                    artUrl = src
-                    thumbUrl = srcSmall
-                    artTitle = prompt
-                    artSize = "$width x $height"
-                    artNsfw = nsfw
-                }
-            }.also { action ->
-                findNavController().navigate(
-                    action,
-                    defaultScreenNavOptions
-                )
-            }
+    private fun showArt(artData: ArtData) {
+        MosaicFragmentDirections.actionNavigationMosaicToNavigationArt().apply {
+            artId = artData.id
+            artUrl = artData.url
+            thumbUrl = artData.thumbUrl
+            artTitle = artData.prompt
+            artSize = artData.dimensions
+            artNsfw = artData.nsfw
+        }.also { action ->
+            findNavController().navigate(action, slidingNavOptions)
+        }
     }
 
-    private fun showRetryLaterSheet(
-        retryMinutes: Int
-    ) {
+    private fun showRetryLaterSheet(retryMinutes: Int) {
         val sheetView = SheetRetryLaterBinding.inflate(layoutInflater).also { binding ->
-            "Your thumbs need some rest! Please try again in $retryMinutes mn".also { retryText ->
-                binding.sheetTitle.text = retryText
-            }
+            binding.sheetTitle.text = getString(R.string.retry_later, retryMinutes)
         }.root
 
         BottomSheetDialog(requireContext()).also { dialog ->
@@ -128,6 +121,17 @@ class MosaicFragment : Fragment() {
             }
             dialog.setContentView(sheetView)
         }.show()
+    }
+
+    private fun FragmentMosaicBinding.setupUI() {
+        showState(null)
+    }
+
+    private fun FragmentMosaicBinding.showState(result: Result<List<ArtData>>? = null) {
+        loadingIndicator.isVisible = result == null
+        errorIndicator.isVisible = result?.isFailure ?: false
+        emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false
+        mosaicContent.isVisible = result?.getOrNull()?.isNotEmpty() ?: false
     }
 
     private fun LexicaError.Response.handleError() {
@@ -141,14 +145,5 @@ class MosaicFragment : Fragment() {
                 showRetryLaterSheet(retryMinutes)
             }
         }
-    }
-
-    private fun FragmentMosaicBinding.showLoading() = showState(null)
-
-    private fun FragmentMosaicBinding.showState(result: Result<List<LexicaImage>>? = null) {
-        loadingIndicator.isVisible = result == null
-        errorIndicator.isVisible = result?.isFailure ?: false
-        emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false
-        mosaicContent.isVisible = result?.getOrNull()?.isNotEmpty() ?: false
     }
 }

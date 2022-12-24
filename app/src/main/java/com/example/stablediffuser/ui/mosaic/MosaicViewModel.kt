@@ -3,7 +3,7 @@ package com.example.stablediffuser.ui.mosaic
 import androidx.recyclerview.widget.DiffUtil
 import com.example.stablediffuser.BR
 import com.example.stablediffuser.R
-import com.example.stablediffuser.network.lexica.LexicaImage
+import com.example.stablediffuser.ui.art.ArtData
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList
 
@@ -15,15 +15,14 @@ class MosaicViewModel {
                 oldItem: MosaicCellViewModel,
                 newItem: MosaicCellViewModel
             ): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.artData.id == newItem.artData.id
             }
 
             override fun areContentsTheSame(
                 oldItem: MosaicCellViewModel,
                 newItem: MosaicCellViewModel
             ): Boolean {
-                return oldItem.imageUrl == newItem.imageUrl &&
-                        oldItem.hasWarning == newItem.hasWarning
+                return oldItem.artData == newItem.artData
             }
         }
 
@@ -36,17 +35,13 @@ class MosaicViewModel {
     }
 }
 
-internal fun List<LexicaImage>.toMosaicCellViewModels(
-    onShowArt: (image: LexicaImage) -> Unit
-): List<MosaicCellViewModel> = map { image ->
-    with(image) {
-        MosaicCellViewModel(
-            id = id,
-            imageUrl = srcSmall,
-            hasWarning = nsfw,
-            onShowArt = {
-                onShowArt(image)
-            }
-        )
-    }
+internal fun List<ArtData>.toMosaicCellViewModels(
+    onShowArt: (artData: ArtData) -> Unit
+): List<MosaicCellViewModel> = map { artData ->
+    MosaicCellViewModel(
+        artData = artData,
+        onShowArt = {
+            onShowArt(artData)
+        }
+    )
 }
