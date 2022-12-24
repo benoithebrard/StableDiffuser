@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentFavoritesBinding
 import com.example.stablediffuser.network.repositories.FavoritesRepository
 import com.example.stablediffuser.ui.art.ArtData
+import com.example.stablediffuser.ui.mosaic.MosaicViewModel
 import com.example.stablediffuser.ui.mosaic.toMosaicCellViewModels
 import com.example.stablediffuser.utils.NavOptionsHelper
 import kotlinx.coroutines.flow.collectLatest
@@ -26,6 +28,10 @@ class FavoritesFragment : Fragment() {
         Configuration.favoritesRepository
     }
 
+    private val mosaicViewModel: MosaicViewModel by lazy {
+        MosaicViewModel()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,18 +42,32 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewBinding?.apply {
+            showState(null)
+            emptyIndicator.setOnClickListener {
+                val toto = 8
+            }
+        }
+
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     favoritesRepository.favoritesFlow.collectLatest { favoriteArts ->
-                        val viewModels = favoriteArts.toMosaicCellViewModels { artData ->
+                        favoriteArts.toMosaicCellViewModels { artData ->
                             showArt(artData)
+                        }.also { viewModels ->
+                            mosaicViewModel.showContent(viewModels)
                         }
-                        // TODO: show view models in grid layout
+                        viewBinding?.showState(favoriteArts)
                     }
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 
     private fun showArt(artData: ArtData) {
@@ -66,8 +86,9 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding = null
+    private fun FragmentFavoritesBinding.showState(favoriteArts: List<ArtData>? = null) {
+        loadingIndicator.isVisible = favoriteArts == null
+        emptyIndicator.isVisible = favoriteArts?.isEmpty() ?: false
+        mosaicContent.isVisible = favoriteArts?.isNotEmpty() ?: false
     }
 }

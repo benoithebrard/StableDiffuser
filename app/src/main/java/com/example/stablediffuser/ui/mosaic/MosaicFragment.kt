@@ -97,9 +97,7 @@ class MosaicFragment : Fragment() {
         }
     }
 
-    private fun showArt(
-        artData: ArtData
-    ) {
+    private fun showArt(artData: ArtData) {
         MosaicFragmentDirections.actionNavigationMosaicToNavigationArt().apply {
             artId = artData.id
             artUrl = artData.url
@@ -112,9 +110,7 @@ class MosaicFragment : Fragment() {
         }
     }
 
-    private fun showRetryLaterSheet(
-        retryMinutes: Int
-    ) {
+    private fun showRetryLaterSheet(retryMinutes: Int) {
         val sheetView = SheetRetryLaterBinding.inflate(layoutInflater).also { binding ->
             binding.sheetTitle.text = getString(R.string.retry_later, retryMinutes)
         }.root
@@ -125,6 +121,15 @@ class MosaicFragment : Fragment() {
             }
             dialog.setContentView(sheetView)
         }.show()
+    }
+
+    private fun FragmentMosaicBinding.showLoading() = showState(null)
+
+    private fun FragmentMosaicBinding.showState(result: Result<List<ArtData>>? = null) {
+        loadingIndicator.isVisible = result == null
+        errorIndicator.isVisible = result?.isFailure ?: false
+        emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false
+        mosaicContent.isVisible = result?.getOrNull()?.isNotEmpty() ?: false
     }
 
     private fun LexicaError.Response.handleError() {
@@ -138,14 +143,5 @@ class MosaicFragment : Fragment() {
                 showRetryLaterSheet(retryMinutes)
             }
         }
-    }
-
-    private fun FragmentMosaicBinding.showLoading() = showState(null)
-
-    private fun FragmentMosaicBinding.showState(result: Result<List<ArtData>>? = null) {
-        loadingIndicator.isVisible = result == null
-        errorIndicator.isVisible = result?.isFailure ?: false
-        emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false
-        mosaicContent.isVisible = result?.getOrNull()?.isNotEmpty() ?: false
     }
 }

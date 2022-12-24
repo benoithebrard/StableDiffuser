@@ -22,13 +22,33 @@
             android:layout_gravity="center"
             android:visibility="gone" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/empty_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/empty_title_mosaic"
-            android:visibility="gone" />
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/heart_plus" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:paddingTop="10dp"
+                android:text="@string/empty_title_favorites"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mosaic_content"
