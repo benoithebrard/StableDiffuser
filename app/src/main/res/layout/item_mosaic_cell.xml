@@ -39,7 +39,7 @@
             android:layout_height="30dp"
             android:layout_margin="5dp"
             android:elevation="10dp"
-            android:src="@drawable/warning"
+            android:src="@drawable/warning_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:visible="@{viewModel.artData.nsfw}" />

@@ -24,6 +24,8 @@ private const val LEXICA_BASE_URL = "https://lexica.art/api/"
 
 private const val PROMPT_RETRY_LATER = "retry later"
 
+private const val PROMPT_EMPTY_SEARCH = "empty search"
+
 // TODO: inject dependencies using Hilt instead
 object Configuration {
 
@@ -102,6 +104,12 @@ object Configuration {
                         url.contains(PROMPT_EXAMPLE_11.urlMatcher)
                     },
                     jsonFileName = "search_response11.json"
+                ),
+                MockingInterceptor.Mocking(
+                    urlMatcher = { url ->
+                        url.contains(PROMPT_EMPTY_SEARCH.urlMatcher)
+                    },
+                    jsonFileName = "search_response0.json"
                 ),
                 MockingInterceptor.Mocking(
                     urlMatcher = { url ->
