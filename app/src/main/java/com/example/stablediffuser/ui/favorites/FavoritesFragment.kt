@@ -36,7 +36,9 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentFavoritesBinding.inflate(inflater, container, false).also { binding ->
+    ): View = FragmentFavoritesBinding.inflate(inflater, container, false).apply {
+        viewModel = mosaicViewModel
+    }.also { binding ->
         viewBinding = binding
     }.root
 
