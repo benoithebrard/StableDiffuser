@@ -70,7 +70,7 @@ class MosaicFragment : Fragment() {
     }
 
     private fun searchForImages() {
-        viewBinding?.showLoading()
+        viewBinding?.setupUI()
 
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
@@ -123,7 +123,9 @@ class MosaicFragment : Fragment() {
         }.show()
     }
 
-    private fun FragmentMosaicBinding.showLoading() = showState(null)
+    private fun FragmentMosaicBinding.setupUI() {
+        showState(null)
+    }
 
     private fun FragmentMosaicBinding.showState(result: Result<List<ArtData>>? = null) {
         loadingIndicator.isVisible = result == null
