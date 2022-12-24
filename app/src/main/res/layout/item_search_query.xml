@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.stablediffuser.ui.search.SearchQueryViewModel" />
+            type="com.benoithebrard.stablediffuser.ui.search.SearchQueryViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

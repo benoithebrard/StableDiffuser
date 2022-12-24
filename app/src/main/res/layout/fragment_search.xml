@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.stablediffuser.ui.search.SearchViewModel" />
+            type="com.benoithebrard.stablediffuser.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"

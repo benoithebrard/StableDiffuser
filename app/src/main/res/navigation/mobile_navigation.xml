@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/search_dest"
-        android:name="com.example.stablediffuser.ui.search.SearchFragment"
+        android:name="com.benoithebrard.stablediffuser.ui.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search">
 
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/mosaic_dest"
-        android:name="com.example.stablediffuser.ui.mosaic.MosaicFragment"
+        android:name="com.benoithebrard.stablediffuser.ui.mosaic.MosaicFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_mosaic">
 
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/art_dest"
-        android:name="com.example.stablediffuser.ui.art.ArtFragment"
+        android:name="com.benoithebrard.stablediffuser.ui.art.ArtFragment"
         android:label="@string/title_art"
         tools:layout="@layout/fragment_art">
 
@@ -80,7 +80,7 @@
 
     <fragment
         android:id="@+id/favorites_dest"
-        android:name="com.example.stablediffuser.ui.favorites.FavoritesFragment"
+        android:name="com.benoithebrard.stablediffuser.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites">
 

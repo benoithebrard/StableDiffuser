@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.stablediffuser.ui.mosaic.MosaicCellViewModel" />
+            type="com.benoithebrard.stablediffuser.ui.mosaic.MosaicCellViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
