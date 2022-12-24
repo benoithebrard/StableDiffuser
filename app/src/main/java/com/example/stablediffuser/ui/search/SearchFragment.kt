@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.stablediffuser.R
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentSearchBinding
-import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 
 private const val MIN_COUNT_CHARACTERS_SEARCH = 3
 
@@ -107,7 +107,7 @@ class SearchFragment : Fragment() {
                 mosaicQuery = searchQuery
                 mosaicTitle = mosaicQuery
             }.also { action ->
-                findNavController().navigate(action, defaultScreenNavOptions)
+                findNavController().navigate(action, slidingNavOptions)
             }
         queryRepository.add(searchQuery)
     }

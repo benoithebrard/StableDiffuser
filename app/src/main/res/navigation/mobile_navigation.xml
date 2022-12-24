@@ -87,6 +87,9 @@
         <action
             android:id="@+id/action_favorites_dest_to_art_dest"
             app:destination="@id/art_dest" />
+        <action
+            android:id="@+id/action_favorites_dest_to_search_dest"
+            app:destination="@id/search_dest" />
     </fragment>
 
 </navigation>

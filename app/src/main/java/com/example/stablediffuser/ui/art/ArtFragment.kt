@@ -13,7 +13,7 @@ import com.example.stablediffuser.R
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentArtBinding
 import com.example.stablediffuser.network.repositories.FavoritesRepository
-import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.example.stablediffuser.utils.extensions.toTitle
 
@@ -61,7 +61,7 @@ class ArtFragment : Fragment() {
                         mosaicQuery = artUrl
                         mosaicTitle = getString(R.string.more_of, artTitle.toTitle())
                     }.also { action ->
-                        findNavController().navigate(action, defaultScreenNavOptions)
+                        findNavController().navigate(action, slidingNavOptions)
                     }
             },
             favoritesRepository = favoritesRepository,

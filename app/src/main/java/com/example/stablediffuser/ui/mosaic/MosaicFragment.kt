@@ -19,7 +19,7 @@ import com.example.stablediffuser.databinding.FragmentMosaicBinding
 import com.example.stablediffuser.databinding.SheetRetryLaterBinding
 import com.example.stablediffuser.network.lexica.LexicaError
 import com.example.stablediffuser.ui.art.ArtData
-import com.example.stablediffuser.utils.NavOptionsHelper.defaultScreenNavOptions
+import com.example.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import com.example.stablediffuser.utils.extensions.setToolbarTitle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -106,7 +106,7 @@ class MosaicFragment : Fragment() {
             artSize = artData.dimensions
             artNsfw = artData.nsfw
         }.also { action ->
-            findNavController().navigate(action, defaultScreenNavOptions)
+            findNavController().navigate(action, slidingNavOptions)
         }
     }
 

@@ -42,12 +42,7 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding?.apply {
-            showState(null)
-            emptyIndicator.setOnClickListener {
-                val toto = 8
-            }
-        }
+        viewBinding?.setupUI()
 
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
@@ -81,8 +76,20 @@ class FavoritesFragment : Fragment() {
         }.also { action ->
             findNavController().navigate(
                 action,
-                NavOptionsHelper.defaultScreenNavOptions
+                NavOptionsHelper.slidingNavOptions
             )
+        }
+    }
+
+    private fun FragmentFavoritesBinding.setupUI() {
+        showState(null)
+        emptyIndicator.setOnClickListener {
+            FavoritesFragmentDirections.actionFavoritesDestToSearchDest().also { action ->
+                findNavController().navigate(
+                    action,
+                    NavOptionsHelper.fadingNavOptions
+                )
+            }
         }
     }
 
