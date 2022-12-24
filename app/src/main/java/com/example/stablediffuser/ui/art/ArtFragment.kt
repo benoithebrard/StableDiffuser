@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.stablediffuser.R
 import com.example.stablediffuser.config.Configuration
 import com.example.stablediffuser.databinding.FragmentArtBinding
 import com.example.stablediffuser.network.repositories.FavoritesRepository
@@ -58,7 +59,7 @@ class ArtFragment : Fragment() {
                 ArtFragmentDirections
                     .actionNavigationArtToNavigationMosaic().apply {
                         mosaicQuery = artUrl
-                        mosaicTitle = "More of: ${artTitle.toTitle()}"
+                        mosaicTitle = getString(R.string.more_of, artTitle.toTitle())
                     }.also { action ->
                         findNavController().navigate(action, defaultScreenNavOptions)
                     }
