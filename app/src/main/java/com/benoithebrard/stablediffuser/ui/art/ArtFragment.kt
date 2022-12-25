@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.benoithebrard.stablediffuser.R
@@ -14,9 +15,13 @@ import com.benoithebrard.stablediffuser.config.Configuration
 import com.benoithebrard.stablediffuser.databinding.FragmentArtBinding
 import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
+import com.benoithebrard.stablediffuser.utils.extensions.containsArt
 import com.benoithebrard.stablediffuser.utils.extensions.setToolbarTitle
 import com.benoithebrard.stablediffuser.utils.extensions.toTitle
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 
+private const val DELAY_MS_SHOW_PROMPT = 1000L
 
 class ArtFragment : Fragment() {
 
@@ -44,16 +49,20 @@ class ArtFragment : Fragment() {
         Configuration.favoritesRepository
     }
 
+    private val artData: ArtData by lazy {
+        ArtData(
+            id = artId,
+            url = artUrl,
+            thumbUrl = thumbUrl,
+            prompt = artTitle.toTitle(),
+            dimensions = artSize,
+            nsfw = artNsfw
+        )
+    }
+
     private val artViewModel: ArtViewModel by lazy {
         ArtViewModel(
-            artData = ArtData(
-                id = artId,
-                url = artUrl,
-                thumbUrl = thumbUrl,
-                prompt = artTitle.toTitle(),
-                dimensions = artSize,
-                nsfw = artNsfw
-            ),
+            artData = artData,
             clipboard = clipboard,
             onShowMosaic = {
                 ArtFragmentDirections
@@ -64,8 +73,7 @@ class ArtFragment : Fragment() {
                         findNavController().navigate(action, slidingNavOptions)
                     }
             },
-            favoritesRepository = favoritesRepository,
-            lifecycleOwner = viewLifecycleOwner
+            favoritesRepository = favoritesRepository
         )
     }
 
@@ -82,6 +90,18 @@ class ArtFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setToolbarTitle(artTitle)
+
+        with(viewLifecycleOwner) {
+            lifecycleScope.launchWhenCreated {
+                delay(DELAY_MS_SHOW_PROMPT)
+                artViewModel.showPrompt.set(true)
+            }
+            lifecycleScope.launchWhenResumed {
+                favoritesRepository.favoritesFlow.collectLatest { favoriteArts ->
+                    artViewModel.showAsFavorite.set(favoriteArts.containsArt(artData))
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

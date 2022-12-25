@@ -4,20 +4,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.view.View
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
-import com.benoithebrard.stablediffuser.utils.extensions.containsArt
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
-
-private const val DELAY_MS_SHOW_PROMPT = 1000L
 
 data class ArtViewModel(
     val artData: ArtData,
     val clipboard: ClipboardManager,
     val onShowMosaic: View.OnClickListener,
-    val lifecycleOwner: LifecycleOwner,
     val favoritesRepository: FavoritesRepository
 ) {
     val showPrompt = ObservableBoolean()
@@ -45,20 +37,6 @@ data class ArtViewModel(
             favoritesRepository.removeFromFavorites(artData)
         } else {
             favoritesRepository.addToFavorites(artData)
-        }
-    }
-
-    init {
-        with(lifecycleOwner) {
-            lifecycleScope.launchWhenCreated {
-                delay(DELAY_MS_SHOW_PROMPT)
-                showPrompt.set(true)
-            }
-            lifecycleScope.launchWhenResumed {
-                favoritesRepository.favoritesFlow.collectLatest { favoriteArts ->
-                    showAsFavorite.set(favoriteArts.containsArt(artData))
-                }
-            }
         }
     }
 }
