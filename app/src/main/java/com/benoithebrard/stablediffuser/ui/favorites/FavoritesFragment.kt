@@ -17,6 +17,7 @@ import com.benoithebrard.stablediffuser.ui.art.ArtData
 import com.benoithebrard.stablediffuser.ui.mosaic.MosaicViewModel
 import com.benoithebrard.stablediffuser.ui.mosaic.toMosaicCellViewModels
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper
+import com.benoithebrard.stablediffuser.utils.extensions.setupAutoOrientationGrid
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -84,7 +85,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun FragmentFavoritesBinding.setupUI() {
-        showState(null)
+        favoritesContent.setupAutoOrientationGrid()
         emptyIndicator.setOnClickListener {
             FavoritesFragmentDirections.actionFavoritesDestToSearchDest().also { action ->
                 findNavController().navigate(
@@ -93,11 +94,12 @@ class FavoritesFragment : Fragment() {
                 )
             }
         }
+        showState(null)
     }
 
     private fun FragmentFavoritesBinding.showState(favoriteArts: List<ArtData>? = null) {
         loadingIndicator.isVisible = favoriteArts == null
         emptyIndicator.isVisible = favoriteArts?.isEmpty() ?: false
-        mosaicContent.isVisible = favoriteArts?.isNotEmpty() ?: false
+        favoritesContent.isVisible = favoriteArts?.isNotEmpty() ?: false
     }
 }

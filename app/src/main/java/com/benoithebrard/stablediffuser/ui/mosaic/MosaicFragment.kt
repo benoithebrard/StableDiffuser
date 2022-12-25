@@ -21,6 +21,7 @@ import com.benoithebrard.stablediffuser.network.lexica.LexicaError
 import com.benoithebrard.stablediffuser.ui.art.ArtData
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import com.benoithebrard.stablediffuser.utils.extensions.setToolbarTitle
+import com.benoithebrard.stablediffuser.utils.extensions.setupAutoOrientationGrid
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
@@ -124,6 +125,7 @@ class MosaicFragment : Fragment() {
     }
 
     private fun FragmentMosaicBinding.setupUI() {
+        resultContent.setupAutoOrientationGrid()
         showState(null)
     }
 
@@ -131,7 +133,7 @@ class MosaicFragment : Fragment() {
         loadingIndicator.isVisible = result == null
         errorIndicator.isVisible = result?.isFailure ?: false
         emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false
-        mosaicContent.isVisible = result?.getOrNull()?.isNotEmpty() ?: false
+        resultContent.isVisible = result?.getOrNull()?.isNotEmpty() ?: false
     }
 
     private fun LexicaError.Response.handleError() {
