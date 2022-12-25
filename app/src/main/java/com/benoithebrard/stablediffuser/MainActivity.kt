@@ -57,41 +57,45 @@ class MainActivity : AppCompatActivity() {
         ) || super.onSupportNavigateUp()
     }
 
+    override fun onStop() {
+        favoritesRepository.save()
+        super.onStop()
+    }
+
     private fun ActivityMainBinding.setupUI() {
+        setupBottomTab()
+        setupNavigationDrawer()
+    }
+
+    private fun ActivityMainBinding.setupBottomTab() {
         bottomNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
 
+            // Setup bottom tab selection
             setOnItemSelectedListener { item ->
-                // This is needed for proper tab selection
                 NavigationUI.onNavDestinationSelected(item, navController)
                 true
             }
 
+            // Setup bottom tab reselection to come back to root
             setOnItemReselectedListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.search_dest -> {
-                        // Search tab was reselected, pop all fragments added to that stack
-                        navController.popBackStack(
-                            destinationId = R.id.search_dest,
-                            inclusive = false
-                        )
-                    }
-                }
+                navController.popBackStack(
+                    destinationId = menuItem.itemId,
+                    inclusive = false
+                )
             }
         }
+    }
 
+    private fun ActivityMainBinding.setupNavigationDrawer() {
         sideNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
         }
 
+        // Setup navigation drawer
         root.apply {
-            addDrawerListener(HorizontalDrawerListener(viewBinding.contentContainer))
+            addDrawerListener(HorizontalDrawerListener(contentContainer))
             setScrimColor(Color.TRANSPARENT)
         }
-    }
-
-    override fun onStop() {
-        favoritesRepository.save()
-        super.onStop()
     }
 }
