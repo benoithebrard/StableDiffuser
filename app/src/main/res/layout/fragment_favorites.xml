@@ -37,13 +37,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/teal_700"
-                app:cardCornerRadius="100dp"
+                app:cardCornerRadius="50dp"
                 app:cardElevation="6dp"
-                app:contentPadding="20dp">
+                app:contentPadding="15dp">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:src="@drawable/heart_plus" />
 
