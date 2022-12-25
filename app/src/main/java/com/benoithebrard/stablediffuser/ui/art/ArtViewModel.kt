@@ -58,7 +58,7 @@ data class ArtViewModel(
                 showPrompt.set(true)
             }
             lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     favoritesRepository.favoritesFlow.collectLatest { favoriteArts ->
                         showAsFavorite.set(favoriteArts.containsArt(artData))
                     }
