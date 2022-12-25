@@ -54,15 +54,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone"
             tools:visibility="visible">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/refresh_results_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 app:cardBackgroundColor="@color/teal_700"
                 app:cardCornerRadius="50dp"
                 app:cardElevation="6dp"

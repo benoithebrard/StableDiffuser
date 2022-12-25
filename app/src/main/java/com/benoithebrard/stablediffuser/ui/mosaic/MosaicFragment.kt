@@ -53,14 +53,9 @@ class MosaicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(mosaicTitle)
 
-        viewBinding?.apply {
-            errorIndicator.setOnClickListener {
-                searchForImages()
-            }
-            showState()
-        }
+        setToolbarTitle(mosaicTitle)
+        viewBinding?.setupUI()
 
         searchForImages()
     }
@@ -71,7 +66,7 @@ class MosaicFragment : Fragment() {
     }
 
     private fun searchForImages() {
-        viewBinding?.setupUI()
+        viewBinding?.showState(null)
 
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
@@ -126,10 +121,13 @@ class MosaicFragment : Fragment() {
 
     private fun FragmentMosaicBinding.setupUI() {
         resultContent.setupAutoOrientationGrid()
+        refreshResultsButton.setOnClickListener {
+            searchForImages()
+        }
         showState(null)
     }
 
-    private fun FragmentMosaicBinding.showState(result: Result<List<ArtData>>? = null) {
+    private fun FragmentMosaicBinding.showState(result: Result<List<ArtData>>?) {
         loadingIndicator.isVisible = result == null
         errorIndicator.isVisible = result?.isFailure ?: false
         emptyIndicator.isVisible = result?.getOrNull()?.isEmpty() ?: false

@@ -86,7 +86,7 @@ class FavoritesFragment : Fragment() {
 
     private fun FragmentFavoritesBinding.setupUI() {
         favoritesContent.setupAutoOrientationGrid()
-        emptyIndicator.setOnClickListener {
+        addFavoriteButton.setOnClickListener {
             FavoritesFragmentDirections.actionFavoritesDestToSearchDest().also { action ->
                 findNavController().navigate(
                     action,
