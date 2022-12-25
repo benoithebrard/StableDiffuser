@@ -19,21 +19,21 @@ class FavoritesRepository(
     val favoritesFlow: StateFlow<List<ArtData>> = internalFavoritesFlow
 
     fun addToFavorites(artData: ArtData) {
-        internalFavoritesFlow.value = internalFavoritesFlow.value + artData
+        internalFavoritesFlow.value = listOf(artData) + internalFavoritesFlow.value
     }
 
     fun removeFromFavorites(artData: ArtData) {
-        val startList = internalFavoritesFlow.value
-        val filteredList = startList.mapNotNull { favoriteArt ->
+        val filteredFavorites = internalFavoritesFlow.value.mapNotNull { favoriteArt ->
             favoriteArt.takeUnless { it.id == artData.id }
         }
-        internalFavoritesFlow.value = filteredList
+        internalFavoritesFlow.value = filteredFavorites
     }
 
     fun isFavorite(artData: ArtData): Boolean = favoritesFlow.value.containsArt(artData)
 
     fun save() {
         val favoriteArts = internalFavoritesFlow.value
+
         with(sharedPref.edit()) {
             repeat((favoriteArts.indices).count()) { index ->
                 val artData: ArtData = favoriteArts[index]
@@ -50,7 +50,6 @@ class FavoritesRepository(
 
     fun restore() {
         internalFavoritesFlow.value = emptyList()
-
         val artsData = mutableListOf<ArtData>()
 
         with(sharedPref) {
