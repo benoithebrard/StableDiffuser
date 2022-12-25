@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".ui.mosaic.MosaicFragment">
+        android:background="@color/light_grey"
+        tools:context=".ui.favorites.FavoritesFragment">
 
         <ProgressBar
             android:id="@+id/loading_indicator"
