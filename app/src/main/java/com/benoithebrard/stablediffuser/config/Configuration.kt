@@ -1,10 +1,10 @@
 package com.benoithebrard.stablediffuser.config
 
 import android.content.Context
-import com.benoithebrard.stablediffuser.network.interceptors.MockingInterceptor
 import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
 import com.benoithebrard.stablediffuser.network.repositories.QueryRepository
 import com.benoithebrard.stablediffuser.network.repositories.SearchRepository
+import com.benoithebrard.stablediffuser.utils.MockingInterceptor
 import com.benoithebrard.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_1
 import com.benoithebrard.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_10
 import com.benoithebrard.stablediffuser.utils.PromptGenerator.PROMPT_EXAMPLE_11

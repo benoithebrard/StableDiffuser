@@ -3,10 +3,10 @@ package com.benoithebrard.stablediffuser.network.repositories
 import com.benoithebrard.stablediffuser.network.lexica.LexicaService
 import com.benoithebrard.stablediffuser.ui.art.ArtData
 import com.benoithebrard.stablediffuser.ui.art.toArtData
+import com.benoithebrard.stablediffuser.utils.LexicaJson
 import com.benoithebrard.stablediffuser.utils.extensions.toResult
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -19,20 +19,13 @@ class SearchRepository(
 ) {
     private val artDataCache: WeakHashMap<String, List<ArtData>> = WeakHashMap()
 
-    private val lexicaJson by lazy {
-        Json {
-            ignoreUnknownKeys = true
-            coerceInputValues = true
-        }
-    }
-
     @OptIn(ExperimentalSerializationApi::class)
     private val lexicaService: LexicaService by lazy {
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(httpClientBuilder.build())
             .addConverterFactory(
-                lexicaJson.asConverterFactory("application/json".toMediaType())
+                LexicaJson.json.asConverterFactory("application/json".toMediaType())
             )
             .build()
             .create(LexicaService::class.java)

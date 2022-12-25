@@ -2,13 +2,12 @@ package com.benoithebrard.stablediffuser.network.repositories
 
 import android.content.SharedPreferences
 import com.benoithebrard.stablediffuser.ui.art.ArtData
+import com.benoithebrard.stablediffuser.utils.LexicaJson
 import com.benoithebrard.stablediffuser.utils.extensions.containsArt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.serialization.json.Json
 
 private const val KEY_SHARED_PREF_FAVORITE = "stable_diffuser_favorite"
-
 private const val KEY_SHARED_PREF_FAVORITE_COUNT = "stable_diffuser_favorite_count"
 
 class FavoritesRepository(
@@ -33,19 +32,15 @@ class FavoritesRepository(
 
     fun isFavorite(artData: ArtData): Boolean = favoritesFlow.value.containsArt(artData)
 
-    private val lexicaJson by lazy {
-        Json {
-            ignoreUnknownKeys = true
-            coerceInputValues = true
-        }
-    }
-
     fun save() {
         val favoriteArts = internalFavoritesFlow.value
         with(sharedPref.edit()) {
             repeat((favoriteArts.indices).count()) { index ->
                 val artData: ArtData = favoriteArts[index]
-                val artJson = lexicaJson.encodeToString(ArtData.serializer(), artData)
+                val artJson = LexicaJson.json.encodeToString(
+                    serializer = ArtData.serializer(),
+                    value = artData
+                )
                 putString("${KEY_SHARED_PREF_FAVORITE}_$index", artJson)
             }
             putInt(KEY_SHARED_PREF_FAVORITE_COUNT, favoriteArts.size)
@@ -62,8 +57,10 @@ class FavoritesRepository(
             val queryCount = getInt(KEY_SHARED_PREF_FAVORITE_COUNT, 0)
             repeat((0 until queryCount).count()) { index ->
                 getString("${KEY_SHARED_PREF_FAVORITE}_$index", null)?.also { artJson ->
-                    val artData: ArtData =
-                        lexicaJson.decodeFromString(ArtData.serializer(), artJson)
+                    val artData: ArtData = LexicaJson.json.decodeFromString(
+                        deserializer = ArtData.serializer(),
+                        string = artJson
+                    )
                     artsData += artData
                 }
             }

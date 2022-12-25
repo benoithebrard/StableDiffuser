@@ -9,6 +9,7 @@ fun ImageView.setImageUrl(imageUrl: String?, thumbSrc: String?) {
     if (imageUrl != null) {
         val requestBuilder = Glide.with(this).load(imageUrl)
         if (thumbSrc != null) {
+            // Use low-res image as placeholder, while high-res image is loading
             requestBuilder.thumbnail(
                 Glide.with(this)
                     .load(thumbSrc)

@@ -1,4 +1,4 @@
-package com.benoithebrard.stablediffuser.network.interceptors
+package com.benoithebrard.stablediffuser.utils
 
 import com.benoithebrard.stablediffuser.config.Configuration.CHARSET_UTF_8
 import com.benoithebrard.stablediffuser.config.Configuration.HTTP_CODE_OK
