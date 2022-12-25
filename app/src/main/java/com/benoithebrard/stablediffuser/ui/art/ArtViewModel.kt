@@ -4,15 +4,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.view.View
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
 import com.benoithebrard.stablediffuser.utils.extensions.containsArt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 private const val DELAY_MS_SHOW_PROMPT = 1000L
 
@@ -57,11 +54,9 @@ data class ArtViewModel(
                 delay(DELAY_MS_SHOW_PROMPT)
                 showPrompt.set(true)
             }
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                    favoritesRepository.favoritesFlow.collectLatest { favoriteArts ->
-                        showAsFavorite.set(favoriteArts.containsArt(artData))
-                    }
+            lifecycleScope.launchWhenResumed {
+                favoritesRepository.favoritesFlow.collectLatest { favoriteArts ->
+                    showAsFavorite.set(favoriteArts.containsArt(artData))
                 }
             }
         }
