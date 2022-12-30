@@ -12,12 +12,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.benoithebrard.stablediffuser.R
-import com.benoithebrard.stablediffuser.config.Configuration
-import com.benoithebrard.stablediffuser.config.Configuration.HTTP_ERROR_TOO_MANY_REQUESTS
-import com.benoithebrard.stablediffuser.config.Configuration.HTTP_HEADER_RETRY_AFTER
 import com.benoithebrard.stablediffuser.databinding.FragmentMosaicBinding
 import com.benoithebrard.stablediffuser.databinding.SheetRetryLaterBinding
+import com.benoithebrard.stablediffuser.hilt.di.HTTP_ERROR_TOO_MANY_REQUESTS
+import com.benoithebrard.stablediffuser.hilt.di.HTTP_HEADER_RETRY_AFTER
 import com.benoithebrard.stablediffuser.network.lexica.LexicaError
+import com.benoithebrard.stablediffuser.network.repositories.SearchRepository
 import com.benoithebrard.stablediffuser.ui.art.ArtData
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import com.benoithebrard.stablediffuser.utils.extensions.setToolbarTitle
@@ -26,9 +26,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MosaicFragment : Fragment() {
+
+    @Inject
+    lateinit var searchRepository: SearchRepository
 
     private val mosaicArgs: MosaicFragmentArgs by navArgs()
 
@@ -72,7 +76,7 @@ class MosaicFragment : Fragment() {
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    Configuration.searchRepository.searchForQuery(mosaicQuery).also { result ->
+                    searchRepository.searchForQuery(mosaicQuery).also { result ->
                         result.fold(
                             onSuccess = { images ->
                                 images.toMosaicCellViewModels(

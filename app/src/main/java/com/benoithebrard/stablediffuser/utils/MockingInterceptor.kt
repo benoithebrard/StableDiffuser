@@ -1,18 +1,19 @@
 package com.benoithebrard.stablediffuser.utils
 
-import com.benoithebrard.stablediffuser.config.Configuration.CHARSET_UTF_8
-import com.benoithebrard.stablediffuser.config.Configuration.HTTP_CODE_OK
-import com.benoithebrard.stablediffuser.config.Configuration.provideAppContext
+import android.content.Context
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.IOException
 import java.nio.charset.Charset
 
+private const val CHARSET_UTF_8 = "UTF-8"
+private const val HTTP_CODE_OK = 200
 private const val MOCKED_HTTP_DELAY_MS = 500L
 private const val APPLICATION_JSON = "application/json"
 
 class MockingInterceptor(
+    private val appContext: Context,
     private val mockings: List<Mocking>
 ) : Interceptor {
 
@@ -83,7 +84,7 @@ class MockingInterceptor(
     private fun readFile(
         fileName: String
     ): String? = try {
-        provideAppContext().assets.open(fileName).let { inputStream ->
+        appContext.assets.open(fileName).let { inputStream ->
             val size = inputStream.available()
             val bytes = ByteArray(size)
             inputStream.read(bytes)

@@ -12,8 +12,11 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SearchRepository(
+@Singleton
+class SearchRepository @Inject constructor(
     baseUrl: String,
     httpClientBuilder: OkHttpClient.Builder
 ) {
