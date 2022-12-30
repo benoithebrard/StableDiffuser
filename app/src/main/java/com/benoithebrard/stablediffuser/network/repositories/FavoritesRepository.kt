@@ -6,11 +6,14 @@ import com.benoithebrard.stablediffuser.utils.LexicaJson
 import com.benoithebrard.stablediffuser.utils.extensions.containsArt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val KEY_SHARED_PREF_FAVORITE = "stable_diffuser_favorite"
 private const val KEY_SHARED_PREF_FAVORITE_COUNT = "stable_diffuser_favorite_count"
 
-class FavoritesRepository(
+@Singleton
+class FavoritesRepository @Inject constructor(
     private val sharedPref: SharedPreferences
 ) {
     private val internalFavoritesFlow: MutableStateFlow<List<ArtData>> =

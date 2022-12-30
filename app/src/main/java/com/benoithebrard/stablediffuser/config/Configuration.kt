@@ -1,7 +1,6 @@
 package com.benoithebrard.stablediffuser.config
 
 import android.content.Context
-import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
 import com.benoithebrard.stablediffuser.network.repositories.QueryRepository
 import com.benoithebrard.stablediffuser.network.repositories.SearchRepository
 import com.benoithebrard.stablediffuser.utils.MockingInterceptor
@@ -26,7 +25,6 @@ private const val PROMPT_RETRY_LATER = "retry later"
 
 private const val PROMPT_EMPTY_SEARCH = "empty search"
 
-// TODO: inject dependencies using Hilt instead
 object Configuration {
 
     const val CHARSET_UTF_8 = "UTF-8"
@@ -141,15 +139,6 @@ object Configuration {
         QueryRepository(
             sharedPref = provideAppContext().getSharedPreferences(
                 "StableDiffuser_Query",
-                Context.MODE_PRIVATE
-            )
-        )
-    }
-
-    val favoritesRepository: FavoritesRepository by lazy {
-        FavoritesRepository(
-            sharedPref = provideAppContext().getSharedPreferences(
-                "StableDiffuser_Favorites",
                 Context.MODE_PRIVATE
             )
         )

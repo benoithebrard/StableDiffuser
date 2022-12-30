@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.benoithebrard.stablediffuser.config.Configuration
 import com.benoithebrard.stablediffuser.databinding.FragmentFavoritesBinding
 import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
 import com.benoithebrard.stablediffuser.ui.art.ArtData
@@ -18,16 +17,18 @@ import com.benoithebrard.stablediffuser.ui.mosaic.MosaicViewModel
 import com.benoithebrard.stablediffuser.ui.mosaic.toMosaicCellViewModels
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper
 import com.benoithebrard.stablediffuser.utils.extensions.setupAutoOrientationGrid
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class FavoritesFragment : Fragment() {
 
     private var viewBinding: FragmentFavoritesBinding? = null
 
-    private val favoritesRepository: FavoritesRepository by lazy {
-        Configuration.favoritesRepository
-    }
+    @Inject
+    lateinit var favoritesRepository: FavoritesRepository
 
     private val mosaicViewModel: MosaicViewModel by lazy {
         MosaicViewModel()

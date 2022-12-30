@@ -12,14 +12,16 @@ import com.benoithebrard.stablediffuser.config.Configuration
 import com.benoithebrard.stablediffuser.databinding.ActivityMainBinding
 import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
 import com.benoithebrard.stablediffuser.utils.HorizontalDrawerListener
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
 
-    private val favoritesRepository: FavoritesRepository by lazy {
-        Configuration.favoritesRepository
-    }
+    @Inject
+    lateinit var favoritesRepository: FavoritesRepository
 
     private val navController: NavController by lazy {
         findNavController(R.id.nav_host_fragment_activity_main)

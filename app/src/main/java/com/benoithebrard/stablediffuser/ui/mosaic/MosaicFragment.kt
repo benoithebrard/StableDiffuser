@@ -24,9 +24,10 @@ import com.benoithebrard.stablediffuser.utils.extensions.setToolbarTitle
 import com.benoithebrard.stablediffuser.utils.extensions.setupAutoOrientationGrid
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class MosaicFragment : Fragment() {
 
     private val mosaicArgs: MosaicFragmentArgs by navArgs()

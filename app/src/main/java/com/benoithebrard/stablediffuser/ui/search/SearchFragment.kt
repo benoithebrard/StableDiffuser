@@ -14,9 +14,11 @@ import com.benoithebrard.stablediffuser.R
 import com.benoithebrard.stablediffuser.config.Configuration
 import com.benoithebrard.stablediffuser.databinding.FragmentSearchBinding
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val MIN_COUNT_CHARACTERS_SEARCH = 3
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private var viewBinding: FragmentSearchBinding? = null
