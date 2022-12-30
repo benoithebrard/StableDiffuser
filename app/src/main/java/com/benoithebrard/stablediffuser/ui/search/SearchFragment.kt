@@ -11,10 +11,11 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.benoithebrard.stablediffuser.R
-import com.benoithebrard.stablediffuser.config.Configuration
 import com.benoithebrard.stablediffuser.databinding.FragmentSearchBinding
+import com.benoithebrard.stablediffuser.network.repositories.QueryRepository
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 private const val MIN_COUNT_CHARACTERS_SEARCH = 3
 
@@ -23,9 +24,8 @@ class SearchFragment : Fragment() {
 
     private var viewBinding: FragmentSearchBinding? = null
 
-    private val queryRepository by lazy {
-        Configuration.queryRepository
-    }
+    @Inject
+    lateinit var queryRepository: QueryRepository
 
     private val searchViewModel: SearchViewModel by lazy {
         SearchViewModel(

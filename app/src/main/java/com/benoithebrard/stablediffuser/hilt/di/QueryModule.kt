@@ -1,7 +1,7 @@
 package com.benoithebrard.stablediffuser.hilt.di
 
 import android.content.SharedPreferences
-import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
+import com.benoithebrard.stablediffuser.network.repositories.QueryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,13 +10,13 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object FavoritesModule {
+object QueryModule {
 
     @Singleton
     @Provides
-    fun provideFavoritesRepository(
-        @FavoritesPreferences sharedPref: SharedPreferences
-    ): FavoritesRepository {
-        return FavoritesRepository(sharedPref)
+    fun provideQueryRepository(
+        @QueryPreferences sharedPref: SharedPreferences
+    ): QueryRepository {
+        return QueryRepository(sharedPref)
     }
 }
