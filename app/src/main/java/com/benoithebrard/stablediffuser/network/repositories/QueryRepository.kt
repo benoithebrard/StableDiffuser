@@ -2,6 +2,8 @@ package com.benoithebrard.stablediffuser.network.repositories
 
 import android.content.SharedPreferences
 import com.benoithebrard.stablediffuser.utils.PromptGenerator
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val KEY_SHARED_PREF_QUERY = "stable_diffuser_query"
 
@@ -9,7 +11,8 @@ private const val KEY_SHARED_PREF_QUERY_COUNT = "stable_diffuser_query_count"
 
 private const val MAX_COUNT_QUERY = 5
 
-class QueryRepository(
+@Singleton
+class QueryRepository @Inject constructor(
     private val sharedPref: SharedPreferences
 ) {
     private var orderedPrompts: MutableList<String> = mutableListOf()

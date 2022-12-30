@@ -11,18 +11,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.benoithebrard.stablediffuser.R
-import com.benoithebrard.stablediffuser.config.Configuration
 import com.benoithebrard.stablediffuser.databinding.FragmentArtBinding
 import com.benoithebrard.stablediffuser.network.repositories.FavoritesRepository
 import com.benoithebrard.stablediffuser.utils.NavOptionsHelper.slidingNavOptions
 import com.benoithebrard.stablediffuser.utils.extensions.containsArt
 import com.benoithebrard.stablediffuser.utils.extensions.setToolbarTitle
 import com.benoithebrard.stablediffuser.utils.extensions.toTitle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 private const val DELAY_MS_SHOW_PROMPT = 1000L
 
+@AndroidEntryPoint
 class ArtFragment : Fragment() {
 
     private val artArgs: ArtFragmentArgs by navArgs()
@@ -45,9 +47,8 @@ class ArtFragment : Fragment() {
         requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     }
 
-    private val favoritesRepository: FavoritesRepository by lazy {
-        Configuration.favoritesRepository
-    }
+    @Inject
+    lateinit var favoritesRepository: FavoritesRepository
 
     private val artData: ArtData by lazy {
         ArtData(
