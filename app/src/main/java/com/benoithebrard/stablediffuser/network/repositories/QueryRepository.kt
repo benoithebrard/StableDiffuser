@@ -9,7 +9,7 @@ private const val KEY_SHARED_PREF_QUERY = "stable_diffuser_query"
 
 private const val KEY_SHARED_PREF_QUERY_COUNT = "stable_diffuser_query_count"
 
-private const val MAX_COUNT_QUERY = 5
+private const val MAX_COUNT_QUERY = 10
 
 @Singleton
 class QueryRepository @Inject constructor(
