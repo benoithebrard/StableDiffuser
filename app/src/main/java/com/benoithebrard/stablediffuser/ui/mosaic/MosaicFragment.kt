@@ -104,8 +104,9 @@ class MosaicFragment : Fragment() {
             artUrl = artData.url
             thumbUrl = artData.thumbUrl
             artTitle = artData.prompt
-            artSize = artData.dimensions
+            artDimensions = artData.dimensions
             artNsfw = artData.nsfw
+            artHd = artData.hd
         }.also { action ->
             findNavController().navigate(action, slidingNavOptions)
         }

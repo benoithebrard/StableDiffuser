@@ -35,14 +35,25 @@
 
         <ImageView
             android:id="@+id/warning_indicator"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_margin="5dp"
             android:elevation="10dp"
             android:src="@drawable/warning_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:visible="@{viewModel.artData.nsfw}" />
+
+        <ImageView
+            android:id="@+id/hd_indicator"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="5dp"
+            android:elevation="10dp"
+            android:src="@drawable/hd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:visible="@{viewModel.artData.hd}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

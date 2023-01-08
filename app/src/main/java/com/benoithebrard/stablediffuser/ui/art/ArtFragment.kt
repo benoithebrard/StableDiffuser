@@ -37,9 +37,11 @@ class ArtFragment : Fragment() {
 
     private val artTitle: String by lazy { artArgs.artTitle }
 
-    private val artSize: String by lazy { artArgs.artSize }
+    private val artDimensions: String by lazy { artArgs.artDimensions }
 
     private val artNsfw: Boolean by lazy { artArgs.artNsfw }
+
+    private val artHd: Boolean by lazy { artArgs.artHd }
 
     private var viewBinding: FragmentArtBinding? = null
 
@@ -56,8 +58,9 @@ class ArtFragment : Fragment() {
             url = artUrl,
             thumbUrl = thumbUrl,
             prompt = artTitle.toTitle(),
-            dimensions = artSize,
-            nsfw = artNsfw
+            dimensions = artDimensions,
+            nsfw = artNsfw,
+            hd = artHd
         )
     }
 

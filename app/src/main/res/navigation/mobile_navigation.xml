@@ -64,12 +64,17 @@
             app:argType="string" />
 
         <argument
-            android:name="artSize"
+            android:name="artDimensions"
             android:defaultValue="invalid"
             app:argType="string" />
 
         <argument
             android:name="artNsfw"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+        <argument
+            android:name="artHd"
             android:defaultValue="false"
             app:argType="boolean" />
 
