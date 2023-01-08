@@ -38,6 +38,7 @@ class FavoritesRepository @Inject constructor(
         val favoriteArts = internalFavoritesFlow.value
 
         with(sharedPref.edit()) {
+            clear()
             repeat((favoriteArts.indices).count()) { index ->
                 val artData: ArtData = favoriteArts[index]
                 val artJson = LexicaJson.json.encodeToString(
