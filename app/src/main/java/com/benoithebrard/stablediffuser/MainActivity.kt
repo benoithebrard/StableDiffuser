@@ -88,6 +88,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ActivityMainBinding.setupNavigationDrawer() {
+        drawerFooterDescription.text =
+            "Version ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+
         sideNavView.apply {
             NavigationUI.setupWithNavController(this, navController)
         }
